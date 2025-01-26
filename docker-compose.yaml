@@ -1,0 +1,192 @@
+name: yir
+  
+volumes:
+  redpanda-0: 
+  minio-s3:
+  postgres:
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:alpine
+    env_file:
+      - .env.example
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./init-scripts/sql:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    restart: always
+    profiles:
+      - deps
+      - app
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      retries: 5
+
+  minio:
+    container_name: minio-s3
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_SERVER_URL: http://localhost:9000
+      MINIO_ACCESS_KEY: NZjt6KmuHQRU7IitYUiW   
+      MINIO_SECRET_KEY: ql9DoBMKyqMxQm8j5LQuKwnn68KFsGqn5jGbL7uL    
+    volumes:
+      - minio-s3:/data
+      - ./init-mc.sh:/docker-entrypoint-init.d/init-mc.sh:ro
+    command: server --address 0.0.0.0:9000 --console-address 0.0.0.0:9001 /data
+    profiles:
+      - deps
+      - app
+    restart: always
+
+  ##################
+  # Redpanda Brokers #
+  ##################
+  redpanda-0:
+    command:
+      - redpanda
+      - start
+      - --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:19092
+      # Address the broker advertises to clients that connect to the Kafka API.
+      # Use the internal addresses to connect to the Redpanda brokers'
+      # from inside the same Docker network.
+      # Use the external addresses to connect to the Redpanda brokers'
+      # from outside the Docker network.
+      - --advertise-kafka-addr internal://redpanda-0:9092,external://localhost:19092
+      - --pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:18082
+      # Address the broker advertises to clients that connect to the HTTP Proxy.
+      - --advertise-pandaproxy-addr internal://redpanda-0:8082,external://localhost:18082
+      - --schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:18081
+      # Redpanda brokers use the RPC API to communicate with each other internally.
+      - --rpc-addr redpanda-0:33145
+      - --advertise-rpc-addr redpanda-0:33145
+      # Mode dev-container uses well-known configuration properties for development in containers.
+      - --mode dev-container
+      # Tells Seastar (the framework Redpanda uses under the hood) to use 1 core on the system.
+      - --smp 1
+      - --default-log-level=info
+    image: docker.redpanda.com/redpandadata/redpanda:v24.3.1
+    container_name: redpanda-0
+    volumes:
+      - redpanda-0:/var/lib/redpanda/data
+      - ./init-panda.sh:/docker-entrypoint-init.d/init.sh:ro
+    ports:
+      - 18081:18081
+      - 18082:18082
+      - 19092:19092
+      - 19644:9644
+    profiles:
+      - deps
+      - app
+  ####################
+  # Redpanda Console #
+  ####################
+  console:
+    container_name: redpanda-console
+    image: docker.redpanda.com/redpandadata/console:v2.8.0
+    entrypoint: /bin/sh
+    command: -c 'echo "$$CONSOLE_CONFIG_FILE" > /tmp/config.yml; /app/console -config.filepath=${CONFIG_FILEPATH:-/tmp/config.yml}'
+    volumes:
+      - ./config:/tmp/config/
+    environment:
+      CONFIG_FILEPATH: ${CONFIG_FILEPATH:-/tmp/config.yml}
+      CONSOLE_CONFIG_FILE: |
+        kafka:
+          brokers: ["redpanda-0:9092"]
+          schemaRegistry:
+            enabled: true
+            urls: ["http://redpanda-0:8081"]
+        redpanda:
+          adminApi:
+            enabled: true
+            urls: ["http://redpanda-0:9644"]
+    ports:
+      - 8081:8080
+    depends_on:
+      - redpanda-0
+    profiles:
+      - deps
+      - app
+
+  ml_service:
+    container_name: ml_service
+    build: 
+      context: ./ml_service/
+      dockerfile: Dockerfile
+    depends_on:
+      - redpanda-0
+    profiles:
+      - app
+    env_file:
+      - ./ml_service/.env-docker
+
+  auth_service:
+    container_name: auth_service
+    build:
+      context: ./auth/
+      dockerfile: Dockerfile
+    env_file:
+      - ./auth/.env-docker
+    ports:
+      - 50050:50055
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - app
+
+  med_service:
+    container_name: med_service
+    build:
+      context: ./med/
+      dockerfile: Dockerfile
+    env_file:
+      - ./med/.env-docker
+    ports:
+      - 50051:50055
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - app
+
+  uzi_service:
+    container_name: uzi_service
+    build:
+      context: ./uzi/
+      dockerfile: Dockerfile
+    env_file:
+      - ./uzi/.env-docker
+    ports:
+      - 50052:50055
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    profiles:
+      - app
+    
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway/
+      dockerfile: Dockerfile
+    env_file:
+      - ./gateway/.env-docker
+    ports:
+      - 8080:8080
+    depends_on:
+      - redpanda-0
+      - uzi_service
+      - med_service
+      - auth_service
+    profiles:
+      - app

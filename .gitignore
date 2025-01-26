@@ -1,0 +1,23 @@
+# ide
+.vscode
+.idea
+
+# libs
+vendor.protogen/*
+!vendor.protogen/*.md
+
+# bin
+bin
+
+# py
+*venv
+*__pycache__
+
+# ml
+*.pkl
+*.pth
+
+# private
+*.key
+*.pem
+*.env
