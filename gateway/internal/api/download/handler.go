@@ -23,17 +23,17 @@ func New(
 	}
 }
 
-// GetUzi Получение узи
+// GetUzi Получение мрт
 //
-//	@Summary		Получение узи
-//	@Description	Получение узи
+//	@Summary		Получение мрт
+//	@Description	Получение мрт
 //	@Tags			download
 //	@Produce		json
 //	@Param			token	header		string	true	"access_token"
-//	@Param			uzi_id	path		string	true	"id узи"
-//	@Success		200		{file}		File	"Изображение УЗИ"
+//	@Param			mri_id	path		string	true	"id мрт"
+//	@Success		200		{file}		File	"Изображение МРТ"
 //	@Failure		500		{string}	string	"Internal Server Error"
-//	@Router			/download/uzi/{id} [get]
+//	@Router			/download/mri/{id} [get]
 func (h *Handler) GetUzi(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -53,22 +53,22 @@ func (h *Handler) GetUzi(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetImage Получение image uzi
+// GetImage Получение image mri
 //
-//	@Summary		Получение image uzi
-//	@Description	Получение image uzi
+//	@Summary		Получение image mri
+//	@Description	Получение image mri
 //	@Tags			download
 //	@Produce		json
 //	@Param			token		header		string	true	"access_token"
-//	@Param			uzi_id		path		string	true	"id узи"
+//	@Param			mri_id		path		string	true	"id мрт"
 //	@Param			image_id	path		string	true	"id image"
 //	@Success		200			{file}		File	"Изображение кадра Узи"
 //	@Failure		500			{string}	string	"Internal Server Error"
-//	@Router			/download/uzi/{uzi_id}/image/{image_id} [get]
+//	@Router			/download/mri/{mri_id}/image/{image_id} [get]
 func (h *Handler) GetImage(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
-	uziID := mux.Vars(r)["uzi_id"]
+	uziID := mux.Vars(r)["mri_id"]
 	imageID := mux.Vars(r)["image_id"]
 
 	file, err := h.dao.NewFileRepo().GetFile(

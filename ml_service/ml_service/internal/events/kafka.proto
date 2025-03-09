@@ -1,16 +1,16 @@
 syntax = "proto3";
 
-package yir.uzi.kafka;
+package yir.mri.kafka;
 
-option go_package = "yir/uzi/api/broker;broker";
+option go_package = "yir/mri/api/broker;broker";
 
-message UziProcessed {
+message MriProcessed {
   message Node {
       string id = 100;
-      string uzi_id = 200;
-      double tirads_23 = 400;
-      double tirads_4 = 500;
-      double tirads_5 = 600;
+      string mri_id = 200;
+      double knosp_012 = 400;
+      double knosp_3 = 500;
+      double knosp_4 = 600;
   }
 
   message Segment {
@@ -18,16 +18,16 @@ message UziProcessed {
       string node_id = 200;
       string image_id = 300;
       string contor = 400;
-      double tirads_23 = 500;
-      double tirads_4 = 600;
-      double tirads_5 = 700;
+      double knosp_012 = 500;
+      double knosp_3 = 600;
+      double knosp_4 = 700;
   }
 
   repeated Node nodes = 100;
   repeated Segment segments = 200;
 }
 
-message uziSplitted {
-  string uzi_id = 100;
+message mriSplitted {
+  string mri_id = 100;
   repeated string pages_id = 200;
 }

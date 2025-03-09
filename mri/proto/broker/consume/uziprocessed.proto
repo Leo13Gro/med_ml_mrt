@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = "internal/generated/broker/consume/uziprocessed";
+
+message MriProcessed {
+    message Node {
+        string id = 100;
+        string mri_id = 200;
+        double knosp_012 = 400;
+        double knosp_3 = 500;
+        double knosp_4 = 600;
+    }
+
+    message Segment {
+        string id = 100;
+        string node_id = 200;
+        string image_id = 300;
+        string contor = 400;
+        double knosp_012 = 500;
+        double knosp_3 = 600;
+        double knosp_4 = 700;
+    }
+
+    repeated Node nodes = 100;
+    repeated Segment segments = 200;
+}

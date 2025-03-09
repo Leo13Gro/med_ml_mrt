@@ -19,19 +19,19 @@ class EventsYo:
         }
 
         consumer = Consumer(consumer_config)
-        consumer.subscribe(["uzisplitted"])
+        consumer.subscribe(["mrisplitted"])
         while True:
             msg = consumer.poll(timeout=1.0)
             # continue
             if msg is None:
                 continue  # Если сообщения нет, то пропускаем итерацию
 
-            uzi_splitted_event = pb.uziSplitted()
+            uzi_splitted_event = pb.mriSplitted()
             uzi_splitted_event.ParseFromString(msg.value())
 
-            print("UZI ID: ", uzi_splitted_event.uzi_id)
+            print("UZI ID: ", uzi_splitted_event.mri_id)
 
             self.uzi.segmentClassificateSave(
-                uzi_splitted_event.uzi_id, uzi_splitted_event.pages_id
+                uzi_splitted_event.mri_id, uzi_splitted_event.pages_id
             )
             consumer.commit(msg)

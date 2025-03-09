@@ -4,7 +4,7 @@ version: '3'
 vars:
   VENDOR_PROTOGEN: '../vendor.protogen'
 
-dotenv: [".env"]
+dotenv: [".env.example"]
 
 tasks:
   codegen:
@@ -14,7 +14,7 @@ tasks:
       proto_files: 
         sh: find proto -type f -name "*.proto" | xargs echo
 
-    cmds: 
+    cmds:
       - for: {var: proto_files}
         cmd: >
             protoc

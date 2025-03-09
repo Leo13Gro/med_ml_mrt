@@ -215,11 +215,11 @@ definitions:
         type: boolean
       id:
         type: string
-      tirads4:
+      knosp3:
         type: number
-      tirads5:
+      knosp4:
         type: number
-      tirads23:
+      knosp012:
         type: number
     type: object
   internal_api_uzi.Segment:
@@ -230,14 +230,14 @@ definitions:
         type: string
       image_id:
         type: string
+      knosp3:
+        type: number
+      knosp4:
+        type: number
+      knosp012:
+        type: number
       node_id:
         type: string
-      tirads4:
-        type: number
-      tirads5:
-        type: number
-      tirads23:
-        type: number
     type: object
   internal_api_uzi.Uzi:
     properties:
@@ -434,11 +434,11 @@ definitions:
     type: object
   uzi.PatchNodeIn:
     properties:
-      tirads4:
+      knosp3:
         type: number
-      tirads5:
+      knosp4:
         type: number
-      tirads23:
+      knosp012:
         type: number
     type: object
   uzi.PatchNodeOut:
@@ -447,20 +447,20 @@ definitions:
         type: boolean
       id:
         type: string
-      tirads4:
+      knosp3:
         type: number
-      tirads5:
+      knosp4:
         type: number
-      tirads23:
+      knosp012:
         type: number
     type: object
   uzi.PatchSegmentIn:
     properties:
-      tirads4:
+      knosp3:
         type: number
-      tirads5:
+      knosp4:
         type: number
-      tirads23:
+      knosp012:
         type: number
     type: object
   uzi.PatchSegmentOut:
@@ -471,14 +471,14 @@ definitions:
         type: string
       image_id:
         type: string
+      knosp3:
+        type: number
+      knosp4:
+        type: number
+      knosp012:
+        type: number
       node_id:
         type: string
-      tirads4:
-        type: number
-      tirads5:
-        type: number
-      tirads23:
-        type: number
     type: object
   uzi.PatchUziIn:
     properties:
@@ -504,6 +504,14 @@ definitions:
     type: object
   uzi.PostNodeIn:
     properties:
+      knosp3:
+        type: number
+      knosp4:
+        type: number
+      knosp012:
+        type: number
+      mri_id:
+        type: string
       segments:
         items:
           properties:
@@ -511,22 +519,14 @@ definitions:
               type: string
             image_id:
               type: string
-            tirads4:
+            knosp3:
               type: number
-            tirads5:
+            knosp4:
               type: number
-            tirads23:
+            knosp012:
               type: number
           type: object
         type: array
-      tirads4:
-        type: number
-      tirads5:
-        type: number
-      tirads23:
-        type: number
-      uzi_id:
-        type: string
     type: object
   uzi.PostNodeOut:
     properties:
@@ -539,14 +539,14 @@ definitions:
         type: string
       image_id:
         type: string
+      knosp3:
+        type: number
+      knosp4:
+        type: number
+      knosp012:
+        type: number
       node_id:
         type: string
-      tirads4:
-        type: number
-      tirads5:
-        type: number
-      tirads23:
-        type: number
     type: object
   uzi.PostSegmentOut:
     properties:
@@ -631,46 +631,46 @@ paths:
       summary: Зарегистрирует пользователя (врача)
       tags:
       - auth
-  /download/uzi/{id}:
+  /download/mri/{id}:
     get:
-      description: Получение узи
+      description: Получение мрт
       parameters:
       - description: access_token
         in: header
         name: token
         required: true
         type: string
-      - description: id узи
+      - description: id мрт
         in: path
-        name: uzi_id
+        name: mri_id
         required: true
         type: string
       produces:
       - application/json
       responses:
         "200":
-          description: Изображение УЗИ
+          description: Изображение МРТ
           schema:
             type: file
         "500":
           description: Internal Server Error
           schema:
             type: string
-      summary: Получение узи
+      summary: Получение мрт
       tags:
       - download
-  /download/uzi/{uzi_id}/image/{image_id}:
+  /download/mri/{mri_id}/image/{image_id}:
     get:
-      description: Получение image uzi
+      description: Получение image mri
       parameters:
       - description: access_token
         in: header
         name: token
         required: true
         type: string
-      - description: id узи
+      - description: id мрт
         in: path
-        name: uzi_id
+        name: mri_id
         required: true
         type: string
       - description: id image
@@ -689,7 +689,7 @@ paths:
           description: Internal Server Error
           schema:
             type: string
-      summary: Получение image uzi
+      summary: Получение image mri
       tags:
       - download
   /med/card:
@@ -946,9 +946,9 @@ paths:
       summary: обновляет поля пациента
       tags:
       - med
-  /uzi/devices:
+  /mri/devices:
     get:
-      description: получит список uzi апппапапратов
+      description: получит список mri аппаратов
       parameters:
       - description: access_token
         in: header
@@ -959,26 +959,26 @@ paths:
       - application/json
       responses:
         "200":
-          description: uzi аппараты
+          description: mri аппараты
           schema:
             $ref: '#/definitions/uzi.GetUziDeviceOut'
         "500":
           description: Internal Server Error
           schema:
             type: string
-      summary: получит список uzi апппапапратов
+      summary: получит список mri аппаратов
       tags:
-      - uzi
-  /uzi/echographics/{id}:
+      - mri
+  /mri/echographics/{id}:
     get:
-      description: получает эхографику uzi
+      description: получает эхографику mri
       parameters:
       - description: access_token
         in: header
         name: token
         required: true
         type: string
-      - description: uzi_id
+      - description: mri_id
         in: path
         name: id
         required: true
@@ -994,9 +994,9 @@ paths:
           description: Internal Server Error
           schema:
             type: string
-      summary: получает эхографику uzi
+      summary: получает эхографику mri
       tags:
-      - uzi
+      - mri
     patch:
       description: Обновляет эхографику
       parameters:
@@ -1005,7 +1005,7 @@ paths:
         name: token
         required: true
         type: string
-      - description: uzi_id
+      - description: mri_id
         in: path
         name: id
         required: true
@@ -1029,8 +1029,8 @@ paths:
             type: string
       summary: Обновляет эхографику
       tags:
-      - uzi
-  /uzi/images/{id}/nodes-segments:
+      - mri
+  /mri/images/{id}/nodes-segments:
     get:
       description: получит ноды и сегменты на указанном изображении
       parameters:
@@ -1057,182 +1057,8 @@ paths:
             type: string
       summary: получит ноды и сегменты на указанном изображении
       tags:
-      - uzi
-  /uzi/nodes:
-    post:
-      description: добавить узел с сегментами
-      parameters:
-      - description: access_token
-        in: header
-        name: token
-        required: true
-        type: string
-      - description: узел с сегментами
-        in: body
-        name: node
-        required: true
-        schema:
-          $ref: '#/definitions/uzi.PostNodeIn'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: id узла
-          schema:
-            $ref: '#/definitions/uzi.PostNodeOut'
-        "500":
-          description: Internal Server Error
-          schema:
-            type: string
-      summary: добавить узел с сегментами
-      tags:
-      - uzi
-  /uzi/nodes/{id}:
-    delete:
-      description: удалит узел
-      parameters:
-      - description: access_token
-        in: header
-        name: token
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: molodec
-          schema:
-            type: string
-        "500":
-          description: Internal Server Error
-          schema:
-            type: string
-      summary: удалит узел
-      tags:
-      - uzi
-    patch:
-      description: обновит узел
-      parameters:
-      - description: узел с сегментами
-        in: body
-        name: node
-        required: true
-        schema:
-          $ref: '#/definitions/uzi.PatchNodeIn'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: обновленный узел
-          schema:
-            $ref: '#/definitions/uzi.PatchNodeOut'
-        "500":
-          description: Internal Server Error
-          schema:
-            type: string
-      summary: обновит узел
-      tags:
-      - uzi
-  /uzi/patient/{id}/uzis:
-    get:
-      description: Получить узи пациента
-      parameters:
-      - description: access_token
-        in: header
-        name: token
-        required: true
-        type: string
-      - description: patient_id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/uzi.GetPatientUziOut'
-        "500":
-          description: Internal Server Error
-          schema:
-            type: string
-      summary: Получить узи пациента
-      tags:
-      - uzi
-  /uzi/segments:
-    post:
-      description: добавит новый сегмент к указанному узлу
-      parameters:
-      - description: сегмент
-        in: body
-        name: node
-        required: true
-        schema:
-          $ref: '#/definitions/uzi.PostSegmentIn'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: id узла
-          schema:
-            $ref: '#/definitions/uzi.PostSegmentOut'
-        "500":
-          description: Internal Server Error
-          schema:
-            type: string
-      summary: добавит новый сегмент к указанному узлу
-      tags:
-      - uzi
-  /uzi/segments/{id}:
-    delete:
-      description: удалит сегмент, ЕСЛИ У УЗЛА НЕ ОСТАНЕТСЯ СЕГМЕНТОВ, ОН ТОЖЕ БУДЕТ
-        УДАЛЕН
-      parameters:
-      - description: access_token
-        in: header
-        name: token
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: molodec
-          schema:
-            type: string
-        "500":
-          description: Internal Server Error
-          schema:
-            type: string
-      summary: удалит сегмент
-      tags:
-      - uzi
-    patch:
-      description: обновит сегмент
-      parameters:
-      - description: узел с сегментами
-        in: body
-        name: node
-        required: true
-        schema:
-          $ref: '#/definitions/uzi.PatchSegmentIn'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: обновленный узел
-          schema:
-            $ref: '#/definitions/uzi.PatchSegmentOut'
-        "500":
-          description: Internal Server Error
-          schema:
-            type: string
-      summary: обновит сегмент
-      tags:
-      - uzi
-  /uzi/uzis:
+      - mri
+  /mri/mris:
     post:
       description: Загружает узи на обработку
       parameters:
@@ -1241,7 +1067,7 @@ paths:
         name: token
         required: true
         type: string
-      - description: uzi file. (обязательно с .tiff/.png)
+      - description: mri file. (обязательно с .tiff/.png)
         in: formData
         name: file
         required: true
@@ -1274,17 +1100,17 @@ paths:
             type: string
       summary: Загружает узи на обработку
       tags:
-      - uzi
-  /uzi/uzis/{id}:
+      - mri
+  /mri/mris/{id}:
     get:
-      description: получает uiz
+      description: получает mri
       parameters:
       - description: access_token
         in: header
         name: token
         required: true
         type: string
-      - description: uzi_id
+      - description: mri_id
         in: path
         name: id
         required: true
@@ -1293,16 +1119,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: uzi
+          description: mri
           schema:
             $ref: '#/definitions/internal_api_uzi.GetUziOut'
         "500":
           description: Internal Server Error
           schema:
             type: string
-      summary: получает uiz
+      summary: получает mri
       tags:
-      - uzi
+      - mri
     patch:
       description: Обновляет узи
       parameters:
@@ -1311,7 +1137,7 @@ paths:
         name: token
         required: true
         type: string
-      - description: uzi_id
+      - description: mri_id
         in: path
         name: id
         required: true
@@ -1326,7 +1152,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: uzi
+          description: mri
           schema:
             $ref: '#/definitions/uzi.PatchUziOut'
         "500":
@@ -1335,17 +1161,17 @@ paths:
             type: string
       summary: Обновляет узи
       tags:
-      - uzi
-  /uzi/uzis/{id}/images:
+      - mri
+  /mri/mris/{id}/images:
     get:
-      description: получает списк id кадров uzi
+      description: получает списк id кадров mri
       parameters:
       - description: access_token
         in: header
         name: token
         required: true
         type: string
-      - description: uzi_id
+      - description: mri_id
         in: path
         name: id
         required: true
@@ -1361,10 +1187,10 @@ paths:
           description: Internal Server Error
           schema:
             type: string
-      summary: получает списк id кадров uzi
+      summary: получает списк id кадров mri
       tags:
-      - uzi
-  /uzi/uzis/{id}/nodes:
+      - mri
+  /mri/mris/{id}/nodes:
     get:
       description: получить все узлы узи
       parameters:
@@ -1373,7 +1199,7 @@ paths:
         name: token
         required: true
         type: string
-      - description: uzi_id
+      - description: mri_id
         in: path
         name: id
         required: true
@@ -1391,5 +1217,179 @@ paths:
             type: string
       summary: получить все узлы узи
       tags:
-      - uzi
+      - mri
+  /mri/nodes:
+    post:
+      description: добавить узел с сегментами
+      parameters:
+      - description: access_token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: узел с сегментами
+        in: body
+        name: node
+        required: true
+        schema:
+          $ref: '#/definitions/uzi.PostNodeIn'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: id узла
+          schema:
+            $ref: '#/definitions/uzi.PostNodeOut'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: добавить узел с сегментами
+      tags:
+      - mri
+  /mri/nodes/{id}:
+    delete:
+      description: удалит узел
+      parameters:
+      - description: access_token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: molodec
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: удалит узел
+      tags:
+      - mri
+    patch:
+      description: обновит узел
+      parameters:
+      - description: узел с сегментами
+        in: body
+        name: node
+        required: true
+        schema:
+          $ref: '#/definitions/uzi.PatchNodeIn'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: обновленный узел
+          schema:
+            $ref: '#/definitions/uzi.PatchNodeOut'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: обновит узел
+      tags:
+      - mri
+  /mri/patient/{id}/mris:
+    get:
+      description: Получить узи пациента
+      parameters:
+      - description: access_token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: patient_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/uzi.GetPatientUziOut'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Получить узи пациента
+      tags:
+      - mri
+  /mri/segments:
+    post:
+      description: добавит новый сегмент к указанному узлу
+      parameters:
+      - description: сегмент
+        in: body
+        name: node
+        required: true
+        schema:
+          $ref: '#/definitions/uzi.PostSegmentIn'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: id узла
+          schema:
+            $ref: '#/definitions/uzi.PostSegmentOut'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: добавит новый сегмент к указанному узлу
+      tags:
+      - mri
+  /mri/segments/{id}:
+    delete:
+      description: удалит сегмент, ЕСЛИ У УЗЛА НЕ ОСТАНЕТСЯ СЕГМЕНТОВ, ОН ТОЖЕ БУДЕТ
+        УДАЛЕН
+      parameters:
+      - description: access_token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: molodec
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: удалит сегмент
+      tags:
+      - mri
+    patch:
+      description: обновит сегмент
+      parameters:
+      - description: узел с сегментами
+        in: body
+        name: node
+        required: true
+        schema:
+          $ref: '#/definitions/uzi.PatchSegmentIn'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: обновленный узел
+          schema:
+            $ref: '#/definitions/uzi.PatchSegmentOut'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: обновит сегмент
+      tags:
+      - mri
 swagger: "2.0"

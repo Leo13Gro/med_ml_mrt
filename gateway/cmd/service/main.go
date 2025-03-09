@@ -74,7 +74,7 @@ func run() (exitCode int) {
 		return failExitCode
 	}
 
-	dao := repository.NewRepository(client, "uzi")
+	dao := repository.NewRepository(client, "mri")
 
 	// TODO: обернуть в интерфейсы продьюсера/консьюмера
 
@@ -148,8 +148,8 @@ func run() (exitCode int) {
 	downloadRouter := apiRouter.PathPrefix("/download").Subrouter()
 	downloadRouter.Use(mdlwrs.Log, mdlwrs.Jwt)
 
-	downloadRouter.HandleFunc("/uzi/{id}", downloadHandler.GetUzi).Methods("GET")
-	downloadRouter.HandleFunc("/uzi/{uzi_id}/image/{image_id}", downloadHandler.GetImage).Methods("GET")
+	downloadRouter.HandleFunc("/mri/{id}", downloadHandler.GetUzi).Methods("GET")
+	downloadRouter.HandleFunc("/mri/{mri_id}/image/{image_id}", downloadHandler.GetImage).Methods("GET")
 
 	authRouter := apiRouter.PathPrefix("/auth").Subrouter()
 	authRouter.Use(mdlwrs.Log)
@@ -165,7 +165,7 @@ func run() (exitCode int) {
 	medRouter.HandleFunc("/card/{id}", medHandler.GetCard).Methods("GET")
 	medRouter.HandleFunc("/card", medHandler.PostCard).Methods("POST")
 
-	medRouter.HandleFunc("/patient/{id}/uzis", medHandler.GetDoctorPatients).Methods("GET")
+	medRouter.HandleFunc("/patient/{id}/mris", medHandler.GetDoctorPatients).Methods("GET")
 	medRouter.HandleFunc("/patient/{id}", medHandler.UpdatePatient).Methods("PATCH")
 	medRouter.HandleFunc("/patient/{id}", medHandler.GetPatient).Methods("GET")
 	medRouter.HandleFunc("/patient", medHandler.PostPatient).Methods("POST")
@@ -174,7 +174,7 @@ func run() (exitCode int) {
 	medRouter.HandleFunc("/doctors/patient", medHandler.GetDoctorPatients).Methods("GET")
 	medRouter.HandleFunc("/doctors", medHandler.GetDoctor).Methods("GET")
 
-	uziRouter := apiRouter.PathPrefix("/uzi").Subrouter()
+	uziRouter := apiRouter.PathPrefix("/mri").Subrouter()
 	uziRouter.Use(mdlwrs.Log, mdlwrs.Jwt)
 
 	uziRouter.HandleFunc("/echographics/{id}", uziHandler.PatchEchographics).Methods("PATCH")
@@ -190,12 +190,12 @@ func run() (exitCode int) {
 
 	uziRouter.HandleFunc("/images/{id}/nodes-segments", uziHandler.GetUziNodeSegments).Methods("GET")
 
-	uziRouter.HandleFunc("/patient/{id}/uzis", uziHandler.GetPatientUzi).Methods("GET")
-	uziRouter.HandleFunc("/uzis/{id}/images", uziHandler.GetUziImages).Methods("GET")
-	uziRouter.HandleFunc("/uzis/{id}/nodes", uziHandler.GetAllNodes).Methods("GET")
-	uziRouter.HandleFunc("/uzis/{id}", uziHandler.GetUzi).Methods("GET")
-	uziRouter.HandleFunc("/uzis/{id}", uziHandler.PatchUzi).Methods("PATCH")
-	uziRouter.HandleFunc("/uzis", uziHandler.PostUzi).Methods("POST")
+	uziRouter.HandleFunc("/patient/{id}/mris", uziHandler.GetPatientUzi).Methods("GET")
+	uziRouter.HandleFunc("/mris/{id}/images", uziHandler.GetUziImages).Methods("GET")
+	uziRouter.HandleFunc("/mris/{id}/nodes", uziHandler.GetAllNodes).Methods("GET")
+	uziRouter.HandleFunc("/mris/{id}", uziHandler.GetUzi).Methods("GET")
+	uziRouter.HandleFunc("/mris/{id}", uziHandler.PatchUzi).Methods("PATCH")
+	uziRouter.HandleFunc("/mris", uziHandler.PostUzi).Methods("POST")
 
 	uziRouter.HandleFunc("/devices", uziHandler.GetUziDevices).Methods("GET")
 

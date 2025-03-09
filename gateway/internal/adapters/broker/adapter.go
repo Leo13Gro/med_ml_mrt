@@ -11,11 +11,11 @@ import (
 )
 
 const (
-	uziuploadTopic = "uziupload"
+	mriuploadTopic = "mriupload"
 )
 
 type BrokerAdapter interface {
-	SendUziUpload(msg *pb.UziUpload) error
+	SendMriUpload(msg *pb.MriUpload) error
 }
 
 // TODO: переписать библу/хотя бы в интерфейс обернуть продьюсера
@@ -31,11 +31,11 @@ type adapter struct {
 	producer brokerlib.Producer
 }
 
-func (a *adapter) SendUziUpload(msg *pb.UziUpload) error {
+func (a *adapter) SendMriUpload(msg *pb.MriUpload) error {
 	// TODO: когда будем делать партицированние пробрасывать сюда ключи
 	payload, err := proto.Marshal(msg)
 	if err != nil {
 		return fmt.Errorf("marshal uziupload event: %w", err)
 	}
-	return a.producer.Send(uziuploadTopic, "52", payload)
+	return a.producer.Send(mriuploadTopic, "52", payload)
 }

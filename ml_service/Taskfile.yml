@@ -2,9 +2,9 @@ version: '3'
 
 vars:
   proto_libs_path: '{{.proto_libs | default "../vendor.protogen"}}'
-  proto_target: '{{.proto_target | default "api/ml_api.proto"}}'
-  proto_out: '{{.proto_out | default "api"}}'
-  swagger_out: '{{.swagger_out | default "api"}}'
+  proto_target: '{{.proto_target | default "ml_service/api/ml_api.proto"}}'
+  proto_out: '{{.proto_out | default "ml_service/api"}}'
+  swagger_out: '{{.swagger_out | default "ml_service/api"}}'
 
 tasks:
   generate:

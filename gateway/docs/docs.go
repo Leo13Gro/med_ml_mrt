@@ -124,16 +124,16 @@ const docTemplate = `{
                 }
             }
         },
-        "/download/uzi/{id}": {
+        "/download/mri/{id}": {
             "get": {
-                "description": "Получение узи",
+                "description": "Получение мрт",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "download"
                 ],
-                "summary": "Получение узи",
+                "summary": "Получение мрт",
                 "parameters": [
                     {
                         "type": "string",
@@ -144,15 +144,15 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "id узи",
-                        "name": "uzi_id",
+                        "description": "id мрт",
+                        "name": "mri_id",
                         "in": "path",
                         "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Изображение УЗИ",
+                        "description": "Изображение МРТ",
                         "schema": {
                             "type": "file"
                         }
@@ -166,16 +166,16 @@ const docTemplate = `{
                 }
             }
         },
-        "/download/uzi/{uzi_id}/image/{image_id}": {
+        "/download/mri/{mri_id}/image/{image_id}": {
             "get": {
-                "description": "Получение image uzi",
+                "description": "Получение image mri",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "download"
                 ],
-                "summary": "Получение image uzi",
+                "summary": "Получение image mri",
                 "parameters": [
                     {
                         "type": "string",
@@ -186,8 +186,8 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "id узи",
-                        "name": "uzi_id",
+                        "description": "id мрт",
+                        "name": "mri_id",
                         "in": "path",
                         "required": true
                     },
@@ -597,16 +597,16 @@ const docTemplate = `{
                 }
             }
         },
-        "/uzi/devices": {
+        "/mri/devices": {
             "get": {
-                "description": "получит список uzi апппапапратов",
+                "description": "получит список mri аппаратов",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "uzi"
+                    "mri"
                 ],
-                "summary": "получит список uzi апппапапратов",
+                "summary": "получит список mri аппаратов",
                 "parameters": [
                     {
                         "type": "string",
@@ -618,7 +618,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "uzi аппараты",
+                        "description": "mri аппараты",
                         "schema": {
                             "$ref": "#/definitions/uzi.GetUziDeviceOut"
                         }
@@ -632,16 +632,16 @@ const docTemplate = `{
                 }
             }
         },
-        "/uzi/echographics/{id}": {
+        "/mri/echographics/{id}": {
             "get": {
-                "description": "получает эхографику uzi",
+                "description": "получает эхографику mri",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "uzi"
+                    "mri"
                 ],
-                "summary": "получает эхографику uzi",
+                "summary": "получает эхографику mri",
                 "parameters": [
                     {
                         "type": "string",
@@ -652,7 +652,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "uzi_id",
+                        "description": "mri_id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -679,7 +679,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "uzi"
+                    "mri"
                 ],
                 "summary": "Обновляет эхографику",
                 "parameters": [
@@ -692,7 +692,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "uzi_id",
+                        "description": "mri_id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -723,14 +723,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/uzi/images/{id}/nodes-segments": {
+        "/mri/images/{id}/nodes-segments": {
             "get": {
                 "description": "получит ноды и сегменты на указанном изображении",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "uzi"
+                    "mri"
                 ],
                 "summary": "получит ноды и сегменты на указанном изображении",
                 "parameters": [
@@ -765,277 +765,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/uzi/nodes": {
-            "post": {
-                "description": "добавить узел с сегментами",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "uzi"
-                ],
-                "summary": "добавить узел с сегментами",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "access_token",
-                        "name": "token",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "узел с сегментами",
-                        "name": "node",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/uzi.PostNodeIn"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "id узла",
-                        "schema": {
-                            "$ref": "#/definitions/uzi.PostNodeOut"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/uzi/nodes/{id}": {
-            "delete": {
-                "description": "удалит узел",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "uzi"
-                ],
-                "summary": "удалит узел",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "access_token",
-                        "name": "token",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "molodec",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "patch": {
-                "description": "обновит узел",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "uzi"
-                ],
-                "summary": "обновит узел",
-                "parameters": [
-                    {
-                        "description": "узел с сегментами",
-                        "name": "node",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/uzi.PatchNodeIn"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "обновленный узел",
-                        "schema": {
-                            "$ref": "#/definitions/uzi.PatchNodeOut"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/uzi/patient/{id}/uzis": {
-            "get": {
-                "description": "Получить узи пациента",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "uzi"
-                ],
-                "summary": "Получить узи пациента",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "access_token",
-                        "name": "token",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "patient_id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/uzi.GetPatientUziOut"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/uzi/segments": {
-            "post": {
-                "description": "добавит новый сегмент к указанному узлу",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "uzi"
-                ],
-                "summary": "добавит новый сегмент к указанному узлу",
-                "parameters": [
-                    {
-                        "description": "сегмент",
-                        "name": "node",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/uzi.PostSegmentIn"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "id узла",
-                        "schema": {
-                            "$ref": "#/definitions/uzi.PostSegmentOut"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/uzi/segments/{id}": {
-            "delete": {
-                "description": "удалит сегмент, ЕСЛИ У УЗЛА НЕ ОСТАНЕТСЯ СЕГМЕНТОВ, ОН ТОЖЕ БУДЕТ УДАЛЕН",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "uzi"
-                ],
-                "summary": "удалит сегмент",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "access_token",
-                        "name": "token",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "molodec",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "patch": {
-                "description": "обновит сегмент",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "uzi"
-                ],
-                "summary": "обновит сегмент",
-                "parameters": [
-                    {
-                        "description": "узел с сегментами",
-                        "name": "node",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/uzi.PatchSegmentIn"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "обновленный узел",
-                        "schema": {
-                            "$ref": "#/definitions/uzi.PatchSegmentOut"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/uzi/uzis": {
+        "/mri/mris": {
             "post": {
                 "description": "Загружает узи на обработку",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "uzi"
+                    "mri"
                 ],
                 "summary": "Загружает узи на обработку",
                 "parameters": [
@@ -1048,7 +785,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "file",
-                        "description": "uzi file. (обязательно с .tiff/.png)",
+                        "description": "mri file. (обязательно с .tiff/.png)",
                         "name": "file",
                         "in": "formData",
                         "required": true
@@ -1091,16 +828,16 @@ const docTemplate = `{
                 }
             }
         },
-        "/uzi/uzis/{id}": {
+        "/mri/mris/{id}": {
             "get": {
-                "description": "получает uiz",
+                "description": "получает mri",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "uzi"
+                    "mri"
                 ],
-                "summary": "получает uiz",
+                "summary": "получает mri",
                 "parameters": [
                     {
                         "type": "string",
@@ -1111,7 +848,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "uzi_id",
+                        "description": "mri_id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1119,7 +856,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "uzi",
+                        "description": "mri",
                         "schema": {
                             "$ref": "#/definitions/internal_api_uzi.GetUziOut"
                         }
@@ -1138,7 +875,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "uzi"
+                    "mri"
                 ],
                 "summary": "Обновляет узи",
                 "parameters": [
@@ -1151,7 +888,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "uzi_id",
+                        "description": "mri_id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1168,7 +905,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "uzi",
+                        "description": "mri",
                         "schema": {
                             "$ref": "#/definitions/uzi.PatchUziOut"
                         }
@@ -1182,16 +919,16 @@ const docTemplate = `{
                 }
             }
         },
-        "/uzi/uzis/{id}/images": {
+        "/mri/mris/{id}/images": {
             "get": {
-                "description": "получает списк id кадров uzi",
+                "description": "получает списк id кадров mri",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "uzi"
+                    "mri"
                 ],
-                "summary": "получает списк id кадров uzi",
+                "summary": "получает списк id кадров mri",
                 "parameters": [
                     {
                         "type": "string",
@@ -1202,7 +939,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "uzi_id",
+                        "description": "mri_id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1224,14 +961,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/uzi/uzis/{id}/nodes": {
+        "/mri/mris/{id}/nodes": {
             "get": {
                 "description": "получить все узлы узи",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "uzi"
+                    "mri"
                 ],
                 "summary": "получить все узлы узи",
                 "parameters": [
@@ -1244,7 +981,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "uzi_id",
+                        "description": "mri_id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1255,6 +992,269 @@ const docTemplate = `{
                         "description": "id узла",
                         "schema": {
                             "$ref": "#/definitions/internal_api_uzi.GetAllNodesOut"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/mri/nodes": {
+            "post": {
+                "description": "добавить узел с сегментами",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mri"
+                ],
+                "summary": "добавить узел с сегментами",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "access_token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "узел с сегментами",
+                        "name": "node",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/uzi.PostNodeIn"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "id узла",
+                        "schema": {
+                            "$ref": "#/definitions/uzi.PostNodeOut"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/mri/nodes/{id}": {
+            "delete": {
+                "description": "удалит узел",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mri"
+                ],
+                "summary": "удалит узел",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "access_token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "molodec",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "обновит узел",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mri"
+                ],
+                "summary": "обновит узел",
+                "parameters": [
+                    {
+                        "description": "узел с сегментами",
+                        "name": "node",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/uzi.PatchNodeIn"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "обновленный узел",
+                        "schema": {
+                            "$ref": "#/definitions/uzi.PatchNodeOut"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/mri/patient/{id}/mris": {
+            "get": {
+                "description": "Получить узи пациента",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mri"
+                ],
+                "summary": "Получить узи пациента",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "access_token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "patient_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/uzi.GetPatientUziOut"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/mri/segments": {
+            "post": {
+                "description": "добавит новый сегмент к указанному узлу",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mri"
+                ],
+                "summary": "добавит новый сегмент к указанному узлу",
+                "parameters": [
+                    {
+                        "description": "сегмент",
+                        "name": "node",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/uzi.PostSegmentIn"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "id узла",
+                        "schema": {
+                            "$ref": "#/definitions/uzi.PostSegmentOut"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/mri/segments/{id}": {
+            "delete": {
+                "description": "удалит сегмент, ЕСЛИ У УЗЛА НЕ ОСТАНЕТСЯ СЕГМЕНТОВ, ОН ТОЖЕ БУДЕТ УДАЛЕН",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mri"
+                ],
+                "summary": "удалит сегмент",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "access_token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "molodec",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "обновит сегмент",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "mri"
+                ],
+                "summary": "обновит сегмент",
+                "parameters": [
+                    {
+                        "description": "узел с сегментами",
+                        "name": "node",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/uzi.PatchSegmentIn"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "обновленный узел",
+                        "schema": {
+                            "$ref": "#/definitions/uzi.PatchSegmentOut"
                         }
                     },
                     "500": {
@@ -1601,13 +1601,13 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
-                "tirads23": {
+                "knosp012": {
                     "type": "number"
                 },
-                "tirads4": {
+                "knosp3": {
                     "type": "number"
                 },
-                "tirads5": {
+                "knosp4": {
                     "type": "number"
                 }
             }
@@ -1624,17 +1624,17 @@ const docTemplate = `{
                 "image_id": {
                     "type": "string"
                 },
+                "knosp012": {
+                    "type": "number"
+                },
+                "knosp3": {
+                    "type": "number"
+                },
+                "knosp4": {
+                    "type": "number"
+                },
                 "node_id": {
                     "type": "string"
-                },
-                "tirads23": {
-                    "type": "number"
-                },
-                "tirads4": {
-                    "type": "number"
-                },
-                "tirads5": {
-                    "type": "number"
                 }
             }
         },
@@ -1936,13 +1936,13 @@ const docTemplate = `{
         "uzi.PatchNodeIn": {
             "type": "object",
             "properties": {
-                "tirads23": {
+                "knosp012": {
                     "type": "number"
                 },
-                "tirads4": {
+                "knosp3": {
                     "type": "number"
                 },
-                "tirads5": {
+                "knosp4": {
                     "type": "number"
                 }
             }
@@ -1956,13 +1956,13 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
-                "tirads23": {
+                "knosp012": {
                     "type": "number"
                 },
-                "tirads4": {
+                "knosp3": {
                     "type": "number"
                 },
-                "tirads5": {
+                "knosp4": {
                     "type": "number"
                 }
             }
@@ -1970,13 +1970,13 @@ const docTemplate = `{
         "uzi.PatchSegmentIn": {
             "type": "object",
             "properties": {
-                "tirads23": {
+                "knosp012": {
                     "type": "number"
                 },
-                "tirads4": {
+                "knosp3": {
                     "type": "number"
                 },
-                "tirads5": {
+                "knosp4": {
                     "type": "number"
                 }
             }
@@ -1993,17 +1993,17 @@ const docTemplate = `{
                 "image_id": {
                     "type": "string"
                 },
+                "knosp012": {
+                    "type": "number"
+                },
+                "knosp3": {
+                    "type": "number"
+                },
+                "knosp4": {
+                    "type": "number"
+                },
                 "node_id": {
                     "type": "string"
-                },
-                "tirads23": {
-                    "type": "number"
-                },
-                "tirads4": {
-                    "type": "number"
-                },
-                "tirads5": {
-                    "type": "number"
                 }
             }
         },
@@ -2044,6 +2044,18 @@ const docTemplate = `{
         "uzi.PostNodeIn": {
             "type": "object",
             "properties": {
+                "knosp012": {
+                    "type": "number"
+                },
+                "knosp3": {
+                    "type": "number"
+                },
+                "knosp4": {
+                    "type": "number"
+                },
+                "mri_id": {
+                    "type": "string"
+                },
                 "segments": {
                     "type": "array",
                     "items": {
@@ -2055,29 +2067,17 @@ const docTemplate = `{
                             "image_id": {
                                 "type": "string"
                             },
-                            "tirads23": {
+                            "knosp012": {
                                 "type": "number"
                             },
-                            "tirads4": {
+                            "knosp3": {
                                 "type": "number"
                             },
-                            "tirads5": {
+                            "knosp4": {
                                 "type": "number"
                             }
                         }
                     }
-                },
-                "tirads23": {
-                    "type": "number"
-                },
-                "tirads4": {
-                    "type": "number"
-                },
-                "tirads5": {
-                    "type": "number"
-                },
-                "uzi_id": {
-                    "type": "string"
                 }
             }
         },
@@ -2098,17 +2098,17 @@ const docTemplate = `{
                 "image_id": {
                     "type": "string"
                 },
+                "knosp012": {
+                    "type": "number"
+                },
+                "knosp3": {
+                    "type": "number"
+                },
+                "knosp4": {
+                    "type": "number"
+                },
                 "node_id": {
                     "type": "string"
-                },
-                "tirads23": {
-                    "type": "number"
-                },
-                "tirads4": {
-                    "type": "number"
-                },
-                "tirads5": {
-                    "type": "number"
                 }
             }
         },

@@ -3,7 +3,7 @@ version: "3"
 vars:
   VENDOR_PROTOGEN: "../vendor.protogen"
 
-dotenv: [".env"]
+dotenv: [".env.example"]
 
 tasks:
   bin-deps:

@@ -45,9 +45,9 @@ type Image struct {
 type Node struct {
 	Id       uuid.UUID `json:"id"`
 	Ai       bool      `json:"ai"`
-	Tirads23 float64   `json:"tirads23"`
-	Tirads4  float64   `json:"tirads4"`
-	Tirads5  float64   `json:"tirads5"`
+	Knosp012 float64   `json:"knosp012"`
+	Knosp3   float64   `json:"knosp3"`
+	Knosp4   float64   `json:"knosp4"`
 }
 
 type Segment struct {
@@ -55,9 +55,9 @@ type Segment struct {
 	ImageID  uuid.UUID `json:"image_id"`
 	NodeID   uuid.UUID `json:"node_id"`
 	Contor   string    `json:"contor"`
-	Tirads23 float64   `json:"tirads23"`
-	Tirads4  float64   `json:"tirads4"`
-	Tirads5  float64   `json:"tirads5"`
+	Knosp012 float64   `json:"knosp012"`
+	Knosp3   float64   `json:"knosp3"`
+	Knosp4   float64   `json:"knosp4"`
 }
 
 type Device struct {
@@ -140,15 +140,15 @@ type PostNodeIn struct {
 	Segments []struct {
 		ImageID  uuid.UUID `json:"image_id"`
 		Contor   string    `json:"contor"`
-		Tirads23 float64   `json:"tirads23"`
-		Tirads4  float64   `json:"tirads4"`
-		Tirads5  float64   `json:"tirads5"`
+		Knosp012 float64   `json:"knosp012"`
+		Knosp3   float64   `json:"knosp3"`
+		Knosp4   float64   `json:"knosp4"`
 	} `json:"segments"`
 
-	UziID    uuid.UUID `json:"uzi_id"`
-	Tirads23 float64   `json:"tirads23"`
-	Tirads4  float64   `json:"tirads4"`
-	Tirads5  float64   `json:"tirads5"`
+	MriID    uuid.UUID `json:"mri_id"`
+	Knosp012 float64   `json:"knosp012"`
+	Knosp3   float64   `json:"knosp3"`
+	Knosp4   float64   `json:"knosp4"`
 }
 
 type GetAllNodesIn struct{}
@@ -167,9 +167,9 @@ type (
 )
 
 type PatchNodeIn struct {
-	Tirads23 *float64 `json:"tirads23"`
-	Tirads4  *float64 `json:"tirads4"`
-	Tirads5  *float64 `json:"tirads5"`
+	Knosp012 *float64 `json:"knosp012"`
+	Knosp3   *float64 `json:"knosp3"`
+	Knosp4   *float64 `json:"knosp4"`
 }
 
 type PatchNodeOut struct {
@@ -180,9 +180,9 @@ type PostSegmentIn struct {
 	ImageID  uuid.UUID `json:"image_id"`
 	NodeID   uuid.UUID `json:"node_id"`
 	Contor   string    `json:"contor"`
-	Tirads23 float64   `json:"tirads23"`
-	Tirads4  float64   `json:"tirads4"`
-	Tirads5  float64   `json:"tirads5"`
+	Knosp012 float64   `json:"knosp012"`
+	Knosp3   float64   `json:"knosp3"`
+	Knosp4   float64   `json:"knosp4"`
 }
 
 type PostSegmentOut struct {
@@ -195,9 +195,9 @@ type (
 )
 
 type PatchSegmentIn struct {
-	Tirads23 *float64 `json:"tirads23"`
-	Tirads4  *float64 `json:"tirads4"`
-	Tirads5  *float64 `json:"tirads5"`
+	Knosp012 *float64 `json:"knosp012"`
+	Knosp3   *float64 `json:"knosp3"`
+	Knosp4   *float64 `json:"knosp4"`
 }
 
 type PatchSegmentOut struct {

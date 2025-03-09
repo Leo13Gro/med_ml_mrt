@@ -20,7 +20,7 @@ service MLAPI {
 }
 
 message SegmentAndClassificationRequest {
-  string uzi_id = 1;
+  string mri_id = 1;
   // string uzi_id = 1 [
   //   (buf.validate.field).string.uuid = true,
   //   (buf.validate.field).required = true
