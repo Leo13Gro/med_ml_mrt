@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option go_package = "internal/generated/broker/produce/uzicomplited";
+
+import "google/protobuf/timestamp.proto";
+
+message MriComplited {
+    string mri_id = 100;
+    google.protobuf.Timestamp date = 200;
+}

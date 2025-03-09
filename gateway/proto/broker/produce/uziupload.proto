@@ -2,6 +2,6 @@ syntax = "proto3";
 
 option go_package = "internal/generated/broker/produce/uziupload";
 
-message UziUpload {
-  string uzi_id = 100;
+message MriUpload {
+  string mri_id = 100;
 }

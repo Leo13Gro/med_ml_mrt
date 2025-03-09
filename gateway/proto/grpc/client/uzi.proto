@@ -119,7 +119,7 @@ message Image {
   int64 page = 200;
 };
 
-message GetUziImagesIn { string uzi_id = 100; }
+message GetUziImagesIn { string mri_id = 100; }
 
 message GetUziImagesOut { repeated Image images = 100; }
 
@@ -130,18 +130,18 @@ message Segment {
   string node_id = 200;
   string image_id = 300;
   string contor = 400;
-  double tirads_23 = 500;
-  double tirads_4 = 600;
-  double tirads_5 = 700;
+  double knosp_012 = 500;
+  double knosp_3 = 600;
+  double knosp_4 = 700;
 }
 
 message CreateSegmentIn {
   string node_id = 100;
   string image_id = 200;
   string contor = 300;
-  double tirads_23 = 400;
-  double tirads_4 = 500;
-  double tirads_5 = 600;
+  double knosp_012 = 400;
+  double knosp_3 = 500;
+  double knosp_4 = 600;
 }
 
 message CreateSegmentOut { string id = 100; }
@@ -150,9 +150,9 @@ message DeleteSegmentIn { string id = 100; }
 
 message UpdateSegmentIn {
   string id = 100;
-  optional double tirads_23 = 200;
-  optional double tirads_4 = 300;
-  optional double tirads_5 = 400;
+  optional double knosp_012 = 200;
+  optional double knosp_3 = 300;
+  optional double knosp_4 = 400;
 }
 
 message UpdateSegmentOut { Segment segment = 100; }
@@ -162,30 +162,30 @@ message UpdateSegmentOut { Segment segment = 100; }
 message Node {
   string id = 100;
   bool ai = 200;
-  double tirads_23 = 400;
-  double tirads_4 = 500;
-  double tirads_5 = 600;
+  double knosp_012 = 400;
+  double knosp_3 = 500;
+  double knosp_4 = 600;
 }
 
 message CreateNodeIn {
   message NestedSegment {
     string image_id = 300;
     string contor = 400;
-    double tirads_23 = 500;
-    double tirads_4 = 600;
-    double tirads_5 = 700;
+    double knosp_012 = 500;
+    double knosp_3 = 600;
+    double knosp_4 = 700;
   }
 // TODO: потом это прокинуть везде, пока только в создании
-  string uzi_id = 100;
+  string mri_id = 100;
   repeated NestedSegment segments = 200;
-  double tirads_23 = 300;
-  double tirads_4 = 400;
-  double tirads_5 = 500;
+  double knosp_012 = 300;
+  double knosp_3 = 400;
+  double knosp_4 = 500;
 }
 
 message CreateNodeOut { string id = 100; }
 
-message GetAllNodesIn{ string uzi_id = 100; };
+message GetAllNodesIn{ string mri_id = 100; };
 
 message GetAllNodesOut{
   repeated Node nodes = 100;
@@ -195,9 +195,9 @@ message DeleteNodeIn { string id = 100; }
 
 message UpdateNodeIn {
   string id = 100;
-  optional double tirads_23 = 200;
-  optional double tirads_4 = 300;
-  optional double tirads_5 = 400;
+  optional double knosp_012 = 200;
+  optional double knosp_3 = 300;
+  optional double knosp_4 = 400;
 }
 
 message UpdateNodeOut { Node node = 100; }

@@ -39,16 +39,16 @@ func New(
 //
 //	@Summary		Загружает узи на обработку
 //	@Description	Загружает узи на обработку
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token		header		string	true	"access_token"
-//	@Param			file		formData	file	true	"uzi file. (обязательно с .tiff/.png)"
+//	@Param			file		formData	file	true	"mri file. (обязательно с .tiff/.png)"
 //	@Param			projection	formData	string	true	"проекция узи"
 //	@Param			patient_id	formData	string	true	"id пациента"
 //	@Param			device_id	formData	string	true	"id узи апапапапарата"
 //	@Success		200			{string}	string	"molodec"
 //	@Failure		500			{string}	string	"Internal Server Error"
-//	@Router			/uzi/uzis [post]
+//	@Router			/mri/mris [post]
 func (h *Handler) PostUzi(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -88,7 +88,7 @@ func (h *Handler) PostUzi(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// TODO: нужна тотальная сага тут
-	if err := h.adapter.BrokerAdapter.SendUziUpload(&uziuploadpb.UziUpload{UziId: uziResp.Id}); err != nil {
+	if err := h.adapter.BrokerAdapter.SendMriUpload(&uziuploadpb.MriUpload{MriId: uziResp.Id}); err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
 	}
@@ -105,14 +105,14 @@ func (h *Handler) PostUzi(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary		Обновляет узи
 //	@Description	Обновляет узи
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string		true	"access_token"
-//	@Param			id		path		string		true	"uzi_id"
+//	@Param			id		path		string		true	"mri_id"
 //	@Param			body	body		PatchUziIn	true	"обновляемые значения"
-//	@Success		200		{object}	PatchUziOut	"uzi"
+//	@Success		200		{object}	PatchUziOut	"mri"
 //	@Failure		500		{string}	string		"Internal Server Error"
-//	@Router			/uzi/uzis/{id} [patch]
+//	@Router			/mri/mris/{id} [patch]
 func (h *Handler) PatchUzi(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -144,14 +144,14 @@ func (h *Handler) PatchUzi(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary		Обновляет эхографику
 //	@Description	Обновляет эхографику
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string					true	"access_token"
-//	@Param			id		path		string					true	"uzi_id"
+//	@Param			id		path		string					true	"mri_id"
 //	@Param			body	body		PatchEchographicsIn		true	"обновляемые значения"
 //	@Success		200		{object}	PatchEchographicsOut	"echographic"
 //	@Failure		500		{string}	string					"Internal Server Error"
-//	@Router			/uzi/echographics/{id} [patch]
+//	@Router			/mri/echographics/{id} [patch]
 func (h *Handler) PatchEchographics(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -196,17 +196,17 @@ func (h *Handler) PatchEchographics(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetUzi получает uzi
+// GetUzi получает mri
 //
-//	@Summary		получает uiz
-//	@Description	получает uiz
-//	@Tags			uzi
+//	@Summary		получает mri
+//	@Description	получает mri
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string		true	"access_token"
-//	@Param			id		path		string		true	"uzi_id"
-//	@Success		200		{object}	GetUziOut	"uzi"
+//	@Param			id		path		string		true	"mri_id"
+//	@Success		200		{object}	GetUziOut	"mri"
 //	@Failure		500		{string}	string		"Internal Server Error"
-//	@Router			/uzi/uzis/{id} [get]
+//	@Router			/mri/mris/{id} [get]
 func (h *Handler) GetUzi(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -229,13 +229,13 @@ func (h *Handler) GetUzi(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary		Получить узи пациента
 //	@Description	Получить узи пациента
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string	true	"access_token"
 //	@Param			id		path		string	true	"patient_id"
 //	@Success		200		{object}	GetPatientUziOut
 //	@Failure		500		{string}	string	"Internal Server Error"
-//	@Router			/uzi/patient/{id}/uzis [get]
+//	@Router			/mri/patient/{id}/mris [get]
 func (h *Handler) GetPatientUzi(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -257,17 +257,17 @@ func (h *Handler) GetPatientUzi(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
 }
 
-// GetEchographics получает uzi
+// GetEchographics получает mri
 //
-//	@Summary		получает эхографику uzi
-//	@Description	получает эхографику uzi
-//	@Tags			uzi
+//	@Summary		получает эхографику mri
+//	@Description	получает эхографику mri
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string				true	"access_token"
-//	@Param			id		path		string				true	"uzi_id"
+//	@Param			id		path		string				true	"mri_id"
 //	@Success		200		{object}	GetEchographicsOut	"echographics"
 //	@Failure		500		{string}	string				"Internal Server Error"
-//	@Router			/uzi/echographics/{id} [get]
+//	@Router			/mri/echographics/{id} [get]
 func (h *Handler) GetEchographics(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -286,23 +286,23 @@ func (h *Handler) GetEchographics(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetUziImages получает id картинок uzi
+// GetUziImages получает id картинок mri
 //
-//	@Summary		получает списк id кадров uzi
-//	@Description	получает списк id кадров uzi
-//	@Tags			uzi
+//	@Summary		получает списк id кадров mri
+//	@Description	получает списк id кадров mri
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string			true	"access_token"
-//	@Param			id		path		string			true	"uzi_id"
+//	@Param			id		path		string			true	"mri_id"
 //	@Success		200		{object}	GetUziImagesOut	"images"
 //	@Failure		500		{string}	string			"Internal Server Error"
-//	@Router			/uzi/uzis/{id}/images [get]
+//	@Router			/mri/mris/{id}/images [get]
 func (h *Handler) GetUziImages(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	id := mux.Vars(r)["id"]
 
-	resp, err := h.adapter.UziAdapter.GetUziImages(ctx, &uzipb.GetUziImagesIn{UziId: id})
+	resp, err := h.adapter.UziAdapter.GetUziImages(ctx, &uzipb.GetUziImagesIn{MriId: id})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
@@ -318,13 +318,13 @@ func (h *Handler) GetUziImages(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary		получит ноды и сегменты на указанном изображении
 //	@Description	получит ноды и сегменты на указанном изображении
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string					true	"access_token"
 //	@Param			id		path		string					true	"image_id"
 //	@Success		200		{object}	GetUziNodeSegmentsOut	"nodes&&segments"
 //	@Failure		500		{string}	string					"Internal Server Error"
-//	@Router			/uzi/images/{id}/nodes-segments [get]
+//	@Router			/mri/images/{id}/nodes-segments [get]
 func (h *Handler) GetUziNodeSegments(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -345,16 +345,16 @@ func (h *Handler) GetUziNodeSegments(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetUziDevice получит список uzi апппапапратов
+// GetUziDevice получит список mri аппаратов
 //
-//	@Summary		получит список uzi апппапапратов
-//	@Description	получит список uzi апппапапратов
-//	@Tags			uzi
+//	@Summary		получит список mri аппаратов
+//	@Description	получит список mri аппаратов
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string			true	"access_token"
-//	@Success		200		{object}	GetUziDeviceOut	"uzi аппараты"
+//	@Success		200		{object}	GetUziDeviceOut	"mri аппараты"
 //	@Failure		500		{string}	string			"Internal Server Error"
-//	@Router			/uzi/devices [get]
+//	@Router			/mri/devices [get]
 func (h *Handler) GetUziDevices(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -374,13 +374,13 @@ func (h *Handler) GetUziDevices(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary		добавить узел с сегментами
 //	@Description	добавить узел с сегментами
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string		true	"access_token"
 //	@Param			node	body		PostNodeIn	true	"узел с сегментами"
 //	@Success		200		{object}	PostNodeOut	"id узла"
 //	@Failure		500		{string}	string		"Internal Server Error"
-//	@Router			/uzi/nodes [post]
+//	@Router			/mri/nodes [post]
 func (h *Handler) PostNodes(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -395,18 +395,18 @@ func (h *Handler) PostNodes(w http.ResponseWriter, r *http.Request) {
 		segments = append(segments, &uzipb.CreateNodeIn_NestedSegment{
 			ImageId:   v.ImageID.String(),
 			Contor:    v.Contor,
-			Tirads_23: v.Tirads23,
-			Tirads_4:  v.Tirads4,
-			Tirads_5:  v.Tirads5,
+			Knosp_012: v.Knosp012,
+			Knosp_3:   v.Knosp3,
+			Knosp_4:   v.Knosp4,
 		})
 	}
 
 	resp, err := h.adapter.UziAdapter.CreateNode(ctx, &uzipb.CreateNodeIn{
-		UziId:     req.UziID.String(),
+		MriId:     req.MriID.String(),
 		Segments:  segments,
-		Tirads_23: req.Tirads23,
-		Tirads_4:  req.Tirads4,
-		Tirads_5:  req.Tirads5,
+		Knosp_012: req.Knosp012,
+		Knosp_3:   req.Knosp3,
+		Knosp_4:   req.Knosp4,
 	})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
@@ -423,13 +423,13 @@ func (h *Handler) PostNodes(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary		получить все узлы узи
 //	@Description	получить все узлы узи
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string		true	"access_token"
-//	@Param			id		path		string					true	"uzi_id"
+//	@Param			id		path		string					true	"mri_id"
 //	@Success		200		{object}	GetAllNodesOut	"id узла"
 //	@Failure		500		{string}	string		"Internal Server Error"
-//	@Router			/uzi/uzis/{id}/nodes [get]
+//	@Router			/mri/mris/{id}/nodes [get]
 func (h *Handler) GetAllNodes(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -437,7 +437,7 @@ func (h *Handler) GetAllNodes(w http.ResponseWriter, r *http.Request) {
 
 	// TODO: в ответе пустые поля будут опущены, убрать теги omitempty.
 	resp, err := h.adapter.UziAdapter.GetAllNodes(ctx, &uzipb.GetAllNodesIn{
-		UziId: id,
+		MriId: id,
 	})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
@@ -454,12 +454,12 @@ func (h *Handler) GetAllNodes(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary		удалит узел
 //	@Description	удалит узел
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string	true	"access_token"
 //	@Success		200		{string}	string	"molodec"
 //	@Failure		500		{string}	string	"Internal Server Error"
-//	@Router			/uzi/nodes/{id} [delete]
+//	@Router			/mri/nodes/{id} [delete]
 func (h *Handler) DeleteNode(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -481,12 +481,12 @@ func (h *Handler) DeleteNode(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary		обновит узел
 //	@Description	обновит узел
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			node	body		PatchNodeIn		true	"узел с сегментами"
 //	@Success		200		{object}	PatchNodeOut	"обновленный узел"
 //	@Failure		500		{string}	string			"Internal Server Error"
-//	@Router			/uzi/nodes/{id} [patch]
+//	@Router			/mri/nodes/{id} [patch]
 func (h *Handler) PatchNode(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -500,9 +500,9 @@ func (h *Handler) PatchNode(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := h.adapter.UziAdapter.UpdateNode(ctx, &uzipb.UpdateNodeIn{
 		Id:        id,
-		Tirads_23: req.Tirads23,
-		Tirads_4:  req.Tirads4,
-		Tirads_5:  req.Tirads5,
+		Knosp_012: req.Knosp012,
+		Knosp_3:   req.Knosp3,
+		Knosp_4:   req.Knosp4,
 	})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
@@ -520,12 +520,12 @@ func (h *Handler) PatchNode(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary		добавит новый сегмент к указанному узлу
 //	@Description	добавит новый сегмент к указанному узлу
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			node	body		PostSegmentIn	true	"сегмент"
 //	@Success		200		{object}	PostSegmentOut	"id узла"
 //	@Failure		500		{string}	string			"Internal Server Error"
-//	@Router			/uzi/segments [post]
+//	@Router			/mri/segments [post]
 func (h *Handler) PostSegment(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -539,9 +539,9 @@ func (h *Handler) PostSegment(w http.ResponseWriter, r *http.Request) {
 		ImageId:   req.ImageID.String(),
 		NodeId:    req.NodeID.String(),
 		Contor:    req.Contor,
-		Tirads_23: req.Tirads23,
-		Tirads_4:  req.Tirads4,
-		Tirads_5:  req.Tirads5,
+		Knosp_012: req.Knosp012,
+		Knosp_3:   req.Knosp3,
+		Knosp_4:   req.Knosp4,
 	})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
@@ -558,12 +558,12 @@ func (h *Handler) PostSegment(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary		удалит сегмент
 //	@Description	удалит сегмент, ЕСЛИ У УЗЛА НЕ ОСТАНЕТСЯ СЕГМЕНТОВ, ОН ТОЖЕ БУДЕТ УДАЛЕН
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string	true	"access_token"
 //	@Success		200		{string}	string	"molodec"
 //	@Failure		500		{string}	string	"Internal Server Error"
-//	@Router			/uzi/segments/{id} [delete]
+//	@Router			/mri/segments/{id} [delete]
 func (h *Handler) DeleteSegment(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -585,12 +585,12 @@ func (h *Handler) DeleteSegment(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary		обновит сегмент
 //	@Description	обновит сегмент
-//	@Tags			uzi
+//	@Tags			mri
 //	@Produce		json
 //	@Param			node	body		PatchSegmentIn	true	"узел с сегментами"
 //	@Success		200		{object}	PatchSegmentOut	"обновленный узел"
 //	@Failure		500		{string}	string			"Internal Server Error"
-//	@Router			/uzi/segments/{id} [patch]
+//	@Router			/mri/segments/{id} [patch]
 func (h *Handler) PatchSegment(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
@@ -604,9 +604,9 @@ func (h *Handler) PatchSegment(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := h.adapter.UziAdapter.UpdateSegment(ctx, &uzipb.UpdateSegmentIn{
 		Id:        id,
-		Tirads_23: req.Tirads23,
-		Tirads_4:  req.Tirads4,
-		Tirads_5:  req.Tirads5,
+		Knosp_012: req.Knosp012,
+		Knosp_3:   req.Knosp3,
+		Knosp_4:   req.Knosp4,
 	})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)

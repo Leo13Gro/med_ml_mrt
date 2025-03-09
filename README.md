@@ -18,7 +18,7 @@ __РУЧКИ В SWAGGER БЕЗ ПРИПИСКИ API__
 * 50051 - grpc med service
 * 50052 - grpc uzi service
 
-_psql db: authdb, meddb, uzidb_. Создаются при инициализации docker volume. Миграции накатываются при запуске контейнера. __ПОРТ 5433__
+_psql db: authdb, meddb, mridb_. Создаются при инициализации docker volume. Миграции накатываются при запуске контейнера. __ПОРТ 5433__
 
 __КАК ЗАПУСТИТЬ?__
 
@@ -39,13 +39,13 @@ __КАК ЗАПУСТИТЬ?__
     + localhost:8081    
     + вкладка topics
     + создаем 3 топика:
-        - uziupload
-        - uzisplitted
-        - uziprocessed
+        - mriupload
+        - mrisplitted
+        - mriprocessed
 5) docker compose --profile app up -d
 
 6) __ОПЦИОНАЛЬНО__ (Для тех, кто занимается узи): каждое узи должно быть привязанно к uzi_device, нужно добавить это в бд шоб работало
-    * pgAdmin/DataGrip/Расширение vscode для баз данных, заходите в uzidb, таблица `device` добавляете что угодно, этот id потом юзаете при post /uzi/uzis, этот device_id
+    * pgAdmin/DataGrip/Расширение vscode для баз данных, заходите в mridb, таблица `device` добавляете что угодно, этот id потом юзаете при post /uzi/uzis, этот device_id
 
     Например, `INSERT INTO device VALUES (1, 1)`
 

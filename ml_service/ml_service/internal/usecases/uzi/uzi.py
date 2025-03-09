@@ -30,10 +30,10 @@ class uziUseCase:
         indv, tracked = self.efficientModel.predict(rois)
         return indv, tracked
 
-    def segmentClassificateSave(self, uzi_id, pages_id):
+    def segmentClassificateSave(self, mri_id, pages_id):
         print("Going to S3...")
         print(pages_id)
-        data = self.store.load(uzi_id + "/" + uzi_id)
+        data = self.store.load(mri_id + "/" + mri_id)
 
         masks, rois = self.segmentUzi(data)
         indv, tracked = self.classificateUzi(rois)
@@ -50,12 +50,12 @@ class uziUseCase:
 
             formation_uuid = str(uuid.uuid4())
 
-            nodes[k] = pb_event.UziProcessed.Node(
+            nodes[k] = pb_event.MriProcessed.Node(
                 id=formation_uuid,
-                uzi_id=uzi_id,
-                tirads_23=tracked[k][0],
-                tirads_4=tracked[k][1],
-                tirads_5=tracked[k][2],
+                mri_id=mri_id,
+                knosp_012=tracked[k][0],
+                knosp_3=tracked[k][1],
+                knosp_4=tracked[k][2],
             )
             formation_ids[k] = formation_uuid
 
@@ -86,7 +86,7 @@ class uziUseCase:
                 contours, _ = cv2.findContours(
                     mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
                 )
-                print("КОЛИЧЕСТВО КОНТУТУРОВ: ", len(contours))
+                print("КОЛИЧЕСТВО КОНТУРОВ: ", len(contours))
                 contour = contours[0].squeeze()
 
                 contour_points = [
@@ -97,26 +97,26 @@ class uziUseCase:
                 segment_id = str(uuid.uuid4())
                 segment_ids.append(segment_id)
 
-                segment = pb_event.UziProcessed.Segment(
+                segment = pb_event.MriProcessed.Segment(
                     id=segment_id,
                     node_id=formation_id,
                     image_id=pages_id[i],
                     contor=contour,
-                    tirads_23=indv[i][j][0],
-                    tirads_4=indv[i][j][1],
-                    tirads_5=indv[i][j][2],
+                    knosp_012=indv[i][j][0],
+                    knosp_3=indv[i][j][1],
+                    knosp_4=indv[i][j][2],
                 )
 
                 segments.append(segment)
 
-        msg_event = pb_event.UziProcessed(nodes=list(nodes.values()), segments=segments)
+        msg_event = pb_event.MriProcessed(nodes=list(nodes.values()), segments=segments)
 
         content = msg_event.SerializeToString()
 
         producer_config = {"bootstrap.servers": settings.kafka_host + ":" + str(settings.kafka_port)}
         producer = Producer(producer_config)
 
-        producer.produce("uziprocessed", content)
+        producer.produce("mriprocessed", content)
         producer.flush()
 
 
