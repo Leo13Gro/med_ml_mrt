@@ -21,12 +21,12 @@ class uziUseCase:
         self.efficientModel = efficientModel
         self.store = store
 
-    def segmentUzi(self, data):
+    def segment(self, data):
         parsed = image_parser.read_image(data)
 
         return self.segmentationModel.predict(parsed)
 
-    def classificateUzi(self, rois):
+    def classificate(self, rois):
         indv, tracked = self.efficientModel.predict(rois)
         return indv, tracked
 
@@ -34,19 +34,20 @@ class uziUseCase:
         print("Going to S3...")
         print(pages_id)
         data = self.store.load(mri_id + "/" + mri_id)
+#         data = self.store.load("1/1.tif")
 
-        masks, rois = self.segmentUzi(data)
-        indv, tracked = self.classificateUzi(rois)
-        print(type(tracked))
+        masks, rois = self.segment(data)
+        indv, tracked = self.classificate(rois)
         # indv - probs по segments
         # tracked - probs по formations
         # tirads=probs
 
         nodes = dict()
+        test_nodes = dict()
         # k - это formation_id из модели
         formation_ids = {}
         for k in tracked:
-            print(k)
+            print("k:", k)
 
             formation_uuid = str(uuid.uuid4())
 
@@ -58,6 +59,13 @@ class uziUseCase:
                 knosp_4=tracked[k][2],
             )
             formation_ids[k] = formation_uuid
+
+            test_nodes[k] = {
+                "knosp_012": tracked[k][0],
+                "knosp_3": tracked[k][1],
+                "knosp_4": tracked[k][2]
+            }
+            print("test_nodes:", test_nodes[k])
 
         # Это мы запихнули в словарик dct[formation] = probs
         # print_lengths_return_ndarray_list(tracked)

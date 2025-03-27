@@ -297,6 +297,10 @@ class SegmentationModel(ModelABC):
                         mask_c1_array = (torch.squeeze(mask_c1)).data.cpu().numpy()
                         mask_c1_array = (mask_c1_array > 0.5)
                         mask_c1_array = mask_c1_array.astype(np.float32)
+
+                        # Визуализация mask_c1_array
+                        # self.visualize_single_prediction(img_array, mask_c1_array, title=f"Mask {index + 1}")
+
                         # current_nodules = self.get_connect_components(mask_c1_array.astype(np.int))
                         current_nodules = self.get_connect_components(mask_c1_array.astype(int))
                         nodules.append(current_nodules)
@@ -304,7 +308,7 @@ class SegmentationModel(ModelABC):
         if tif_length == 1:
             selected_nodules = nodules
         elif tif_length > 1:
-            selected_nodules = self.track_nodules(nodules, selected_nodules, iou_threshold=0.2, occurrence_threshold=tif_length/5)
+            selected_nodules = self.track_nodules(nodules, selected_nodules, iou_threshold=0.2, occurrence_threshold=tif_length/10)
 
         for nodules, features in zip(selected_nodules, images_features):
             img_array = features
@@ -357,6 +361,33 @@ class SegmentationModel(ModelABC):
             final_mask = (final_mask > 0.5).numpy()
             final_mask = np.where(final_mask > 0, 255, 0).astype(np.uint8)
             result_masks.append(final_mask)
-        print('Done!')
+        print('Segmentation done!')
 
         return result_masks, rois
+
+    def visualize_single_prediction(self, image, mask, title="Prediction"):
+        """
+        Визуализирует одно изображение и его предсказанную маску.
+
+        Параметры:
+            image (np.array): Исходное изображение.
+            mask (np.array): Предсказанная маска.
+            title (str): Заголовок для графика.
+        """
+        plt.figure(figsize=(10, 5))
+
+        # Исходное изображение
+        plt.subplot(1, 2, 1)
+        plt.imshow(image, cmap='gray')
+        plt.title("Input Image")
+        plt.axis("off")
+
+        # Предсказанная маска
+        plt.subplot(1, 2, 2)
+        plt.imshow(mask, cmap='gray')
+        plt.title(title)
+        plt.axis("off")
+
+        plt.tight_layout()
+        plt.show()
+        plt.savefig(title + "_output.png")
