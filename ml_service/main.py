@@ -9,7 +9,7 @@ import ml_service.internal.events.events as kafkaevents
 import ml_service.internal.ml_model.classification_efficientnet as cla
 import ml_service.internal.ml_model.segmentation as seg
 import ml_service.internal.s3.s3 as mys3
-import ml_service.internal.usecases.uzi.uzi as usecaseuzi
+import ml_service.internal.usecases.mri.mri as usecasemri
 from ml_service.config.default import get_settings
 
 
@@ -30,7 +30,7 @@ def run_server():
     segmdl = seg.SegmentationModel(model_type=settings.segmentation_model_type)
     claml = cla.EfficientNetModel(model_type=settings.classification_model_type)
 
-    usecase = usecaseuzi.uziUseCase(segmdl, claml, s3)
+    usecase = usecasemri.mriUseCase(segmdl, claml, s3)
 
     controller = ctrl.MlController(usecase)
     kafka = kafkaevents.EventsYo(usecase)

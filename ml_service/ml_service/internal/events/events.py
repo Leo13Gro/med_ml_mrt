@@ -6,8 +6,8 @@ settings = get_settings()
 
 
 class EventsYo:
-    def __init__(self, uzi):
-        self.uzi = uzi
+    def __init__(self, mri):
+        self.mri = mri
 
     def run(self):
         consumer_config = {
@@ -26,12 +26,12 @@ class EventsYo:
             if msg is None:
                 continue  # Если сообщения нет, то пропускаем итерацию
 
-            uzi_splitted_event = pb.mriSplitted()
-            uzi_splitted_event.ParseFromString(msg.value())
+            mri_splitted_event = pb.mriSplitted()
+            mri_splitted_event.ParseFromString(msg.value())
 
-            print("UZI ID: ", uzi_splitted_event.mri_id)
+            print("MRI ID: ", mri_splitted_event.mri_id)
 
-            self.uzi.segmentClassificateSave(
-                uzi_splitted_event.mri_id, uzi_splitted_event.pages_id
+            self.mri.segmentClassificateSave(
+                mri_splitted_event.mri_id, mri_splitted_event.pages_id
             )
             consumer.commit(msg)

@@ -51,7 +51,7 @@ class EfficientNetModel(ModelABC):
                 len(rois) - кол-во изображений
                 len(rois[i]) - количество узлов на i-ой картинке
                 [ <-- массив для изображений
-                    [ <-- массив для изображения
+                    [ <-- массив для узлов на изображении
                         [scaled_pic_of_roi, roi_uniq_idx, segment_binary_masks] <-- увеличенное изображения узла + уникальный индекс + бинарная маска узла
                     ]
                 ]
@@ -85,15 +85,17 @@ class EfficientNetModel(ModelABC):
 
         individual_probs = []
 
-        for r in rois:
+        for r in rois: # идём циклом по изображениям
             probs_for_image = []
-            for nd in r:
+            for nd in r: # идём циклом по узлам на изображении
                 roi_tensor = self.preprocessing(nd[0])
                 with torch.no_grad():
-                    logits = self._model(roi_tensor)
-                    new_probs = F.softmax(logits, dim=1)
+                    logits = self._model(roi_tensor) # получение логарифмических значений
+                    new_probs = F.softmax(logits, dim=1) # преобразование в вероятности
                     new_probs = new_probs.cpu().numpy()[0]
+                    print("curr_new_probs:", new_probs)
                     probs_for_image.append(new_probs)
+                    # суммирование вероятностей узла (если изображений несколько)
                     if len(rois) > 1:
                         if nd[1] in tracked_nodules_logits:
                             tracked_nodules_logits[nd[1]] += logits
@@ -103,6 +105,7 @@ class EfficientNetModel(ModelABC):
                             tracked_nodules_counts[nd[1]] = 1
             individual_probs.append(probs_for_image)
 
+        # усреднение вероятности узла (если изображений несколько)
         if len(rois) > 1:
             for nodule in tracked_nodules_logits:
                 tracked_nodules_logits[nodule] = tracked_nodules_logits[nodule] / tracked_nodules_counts[nodule]
@@ -110,6 +113,13 @@ class EfficientNetModel(ModelABC):
 
         if len(rois) == 1:
             print(individual_probs)
-        print('Done!')
+        print('Classification done!')
+        print("Number of tracked nodules:", len(tracked_nodules_probs))
+        print("Tracked nodules probability:", tracked_nodules_probs)
+        # print("test", tracked_nodules_probs[1])
+
+        print("Number of all nodules:", len(individual_probs))
+        for nodules_prob in individual_probs:
+            print("Nodules probability:", nodules_prob)
 
         return individual_probs, tracked_nodules_probs

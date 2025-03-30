@@ -1,19 +1,19 @@
 import ml_service.api.ml_api_pb2_grpc as pb_grpc
-import ml_service.internal.usecases.uzi.uzi as uziusecase
+import ml_service.internal.usecases.mri.mri as mriusecase
 from google.protobuf.empty_pb2 import Empty
 
 
 class MlController(pb_grpc.MLAPIServicer):
-    def __init__(self, uzi_usecase: uziusecase.uziUseCase):
+    def __init__(self, mri_usecase: mriusecase.mriUseCase):
         super().__init__()
-        self.uzi_usecase = uzi_usecase
+        self.mri_usecase = mri_usecase
 
     def SegmentAndClassification(self, request, context):
         print("запрос на сегментацию и классификацию")
-        uzi_id = request.uzi_id
+        mri_id = request.mri_id
 
         try:
-            self.uzi_usecase.segmentAndClassificateByID(uzi_id)
+            self.mri_usecase.segmentAndClassificateByID(mri_id)
             return Empty()
         except Exception as e:
             context.set_details(f"Error processing request: {str(e)}")

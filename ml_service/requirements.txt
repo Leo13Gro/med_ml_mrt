@@ -1,5 +1,5 @@
 minio==7.2.10
-grpcio==1.68.1
+grpcio==1.71.0
 grpcio-tools==1.67.0
 google-api==0.1.12
 googleapis-common-protos==1.65.0

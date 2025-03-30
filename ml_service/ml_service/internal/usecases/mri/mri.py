@@ -15,7 +15,7 @@ res_for_recursive = []
 settings = get_settings()
 
 
-class uziUseCase:
+class mriUseCase:
     def __init__(self, segmentModel: ModelABC, efficientModel: ModelABC, store: S3):
         self.segmentationModel = segmentModel
         self.efficientModel = efficientModel
@@ -34,7 +34,7 @@ class uziUseCase:
         print("Going to S3...")
         print(pages_id)
         data = self.store.load(mri_id + "/" + mri_id)
-#         data = self.store.load("1/1.tif")
+#         data = self.store.load("1/1.tif") - для тестов
 
         masks, rois = self.segment(data)
         indv, tracked = self.classificate(rois)
