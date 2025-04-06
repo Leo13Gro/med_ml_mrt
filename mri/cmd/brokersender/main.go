@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/WantBeASleep/goooool/brokerlib"
 
-	pb "uzi/internal/generated/broker/produce/uzisplitted"
+	pb "mri/internal/generated/broker/produce/mrisplitted"
 
 	"google.golang.org/protobuf/proto"
 )
@@ -59,5 +59,5 @@ func main() {
 	if err != nil {
 		panic("marshal")
 	}
-	b.Send("uzisplitted", "", p)
+	b.Send("mrisplitted", "", p)
 }

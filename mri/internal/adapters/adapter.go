@@ -1,7 +1,7 @@
 package adapters
 
 import (
-	"uzi/internal/adapters/broker"
+	"mri/internal/adapters/broker"
 )
 
 type Adapter struct {

@@ -24,3 +24,8 @@ bin
 *.key
 *.pem
 *.env
+
+
+# test
+m
+pkg

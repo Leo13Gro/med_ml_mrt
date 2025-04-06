@@ -4,26 +4,26 @@ import (
 	"gateway/internal/adapters/broker"
 	"gateway/internal/adapters/grpc/auth"
 	"gateway/internal/adapters/grpc/med"
-	"gateway/internal/adapters/grpc/uzi"
+	"gateway/internal/adapters/grpc/mri"
 )
 
 type Adapter struct {
 	AuthAdapter   auth.AuthAdapter
 	MedAdapter    med.MedAdapter
-	UziAdapter    uzi.UziAdapter
+	MriAdapter    mri.MriAdapter
 	BrokerAdapter broker.BrokerAdapter
 }
 
 func New(
 	AuthAdapter auth.AuthAdapter,
 	MedAdapter med.MedAdapter,
-	UziAdapter uzi.UziAdapter,
+	MriAdapter mri.MriAdapter,
 	BrokerAdapter broker.BrokerAdapter,
 ) Adapter {
 	return Adapter{
 		AuthAdapter:   AuthAdapter,
 		MedAdapter:    MedAdapter,
-		UziAdapter:    UziAdapter,
+		MriAdapter:    MriAdapter,
 		BrokerAdapter: BrokerAdapter,
 	}
 }

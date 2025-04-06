@@ -1,8 +1,8 @@
 package device
 
 import (
-	"uzi/internal/domain"
-	pb "uzi/internal/generated/grpc/service"
+	"mri/internal/domain"
+	pb "mri/internal/generated/grpc/service"
 )
 
 func domainDeviceToPbDevice(d *domain.Device) *pb.Device {

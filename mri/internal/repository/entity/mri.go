@@ -3,12 +3,12 @@ package entity
 import (
 	"time"
 
-	"uzi/internal/domain"
+	"mri/internal/domain"
 
 	"github.com/google/uuid"
 )
 
-type Uzi struct {
+type Mri struct {
 	Id         uuid.UUID `db:"id"`
 	Projection string    `db:"projection"`
 	Checked    bool      `db:"checked"`
@@ -17,8 +17,8 @@ type Uzi struct {
 	CreateAt   time.Time `db:"create_at"`
 }
 
-func (Uzi) FromDomain(d domain.Uzi) Uzi {
-	return Uzi{
+func (Mri) FromDomain(d domain.Mri) Mri {
+	return Mri{
 		Id:         d.Id,
 		Projection: d.Projection,
 		Checked:    d.Checked,
@@ -28,8 +28,8 @@ func (Uzi) FromDomain(d domain.Uzi) Uzi {
 	}
 }
 
-func (d Uzi) ToDomain() domain.Uzi {
-	return domain.Uzi{
+func (d Mri) ToDomain() domain.Mri {
+	return domain.Mri{
 		Id:         d.Id,
 		Projection: d.Projection,
 		Checked:    d.Checked,

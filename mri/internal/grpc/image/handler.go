@@ -3,12 +3,12 @@ package image
 import (
 	"context"
 
-	pb "uzi/internal/generated/grpc/service"
-	"uzi/internal/services/image"
+	pb "mri/internal/generated/grpc/service"
+	"mri/internal/services/image"
 
 	// TODO: вынести в отдельный пакет маппреы
-	nodemapper "uzi/internal/grpc/node"
-	segmentmapper "uzi/internal/grpc/segment"
+	nodemapper "mri/internal/grpc/node"
+	segmentmapper "mri/internal/grpc/segment"
 
 	"github.com/google/uuid"
 	"google.golang.org/grpc/codes"
@@ -16,7 +16,7 @@ import (
 )
 
 type ImageHandler interface {
-	GetUziImages(ctx context.Context, in *pb.GetUziImagesIn) (*pb.GetUziImagesOut, error)
+	GetMriImages(ctx context.Context, in *pb.GetMriImagesIn) (*pb.GetMriImagesOut, error)
 	GetImageSegmentsWithNodes(ctx context.Context, in *pb.GetImageSegmentsWithNodesIn) (*pb.GetImageSegmentsWithNodesOut, error)
 }
 
@@ -32,13 +32,13 @@ func New(
 	}
 }
 
-func (h *handler) GetUziImages(ctx context.Context, in *pb.GetUziImagesIn) (*pb.GetUziImagesOut, error) {
-	images, err := h.imageSrv.GetUziImages(ctx, uuid.MustParse(in.MriId))
+func (h *handler) GetMriImages(ctx context.Context, in *pb.GetMriImagesIn) (*pb.GetMriImagesOut, error) {
+	images, err := h.imageSrv.GetMriImages(ctx, uuid.MustParse(in.MriId))
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "Что то пошло не так: %s", err.Error())
 	}
 
-	out := pb.GetUziImagesOut{}
+	out := pb.GetMriImagesOut{}
 	for _, v := range images {
 		out.Images = append(out.Images, &pb.Image{
 			Id:   v.Id.String(),

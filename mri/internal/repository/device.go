@@ -3,7 +3,7 @@ package repository
 import (
 	"github.com/WantBeASleep/goooool/daolib"
 
-	"uzi/internal/repository/entity"
+	"mri/internal/repository/entity"
 )
 
 const deviceTable = "device"

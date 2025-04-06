@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "internal/generated/broker/produce/uzicomplete";
+option go_package = "internal/generated/broker/produce/mricomplete";
 
 message MriComplete {
     string mri_id = 100;

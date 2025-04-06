@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "internal/generated/broker/consume/uziprocessed";
+option go_package = "internal/generated/broker/consume/mriprocessed";
 
 message MriProcessed {
     message Node {

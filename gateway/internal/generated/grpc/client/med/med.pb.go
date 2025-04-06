@@ -353,7 +353,7 @@ type Patient struct {
 	Policy        string                 `protobuf:"bytes,400,opt,name=policy,proto3" json:"policy,omitempty"`
 	Active        bool                   `protobuf:"varint,500,opt,name=active,proto3" json:"active,omitempty"`
 	Malignancy    bool                   `protobuf:"varint,600,opt,name=malignancy,proto3" json:"malignancy,omitempty"`
-	LastUziDate   *timestamp.Timestamp   `protobuf:"bytes,700,opt,name=last_uzi_date,json=lastUziDate,proto3,oneof" json:"last_uzi_date,omitempty"`
+	LastMriDate   *timestamp.Timestamp   `protobuf:"bytes,700,opt,name=last_mri_date,json=lastMriDate,proto3,oneof" json:"last_mri_date,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -430,9 +430,9 @@ func (x *Patient) GetMalignancy() bool {
 	return false
 }
 
-func (x *Patient) GetLastUziDate() *timestamp.Timestamp {
+func (x *Patient) GetLastMriDate() *timestamp.Timestamp {
 	if x != nil {
-		return x.LastUziDate
+		return x.LastMriDate
 	}
 	return nil
 }
@@ -740,7 +740,7 @@ type UpdatePatientIn struct {
 	Id            string                 `protobuf:"bytes,200,opt,name=id,proto3" json:"id,omitempty"`
 	Active        *bool                  `protobuf:"varint,300,opt,name=active,proto3,oneof" json:"active,omitempty"`
 	Malignancy    *bool                  `protobuf:"varint,400,opt,name=malignancy,proto3,oneof" json:"malignancy,omitempty"`
-	LastUziDate   *timestamp.Timestamp   `protobuf:"bytes,500,opt,name=last_uzi_date,json=lastUziDate,proto3,oneof" json:"last_uzi_date,omitempty"`
+	LastMriDate   *timestamp.Timestamp   `protobuf:"bytes,500,opt,name=last_mri_date,json=lastMriDate,proto3,oneof" json:"last_mri_date,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -803,9 +803,9 @@ func (x *UpdatePatientIn) GetMalignancy() bool {
 	return false
 }
 
-func (x *UpdatePatientIn) GetLastUziDate() *timestamp.Timestamp {
+func (x *UpdatePatientIn) GetLastMriDate() *timestamp.Timestamp {
 	if x != nil {
-		return x.LastUziDate
+		return x.LastMriDate
 	}
 	return nil
 }

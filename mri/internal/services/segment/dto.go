@@ -1,6 +1,6 @@
 package segment
 
-import "uzi/internal/domain"
+import "mri/internal/domain"
 
 // TODO: починить баг при запросе со всеми полями nil
 type UpdateSegment struct {

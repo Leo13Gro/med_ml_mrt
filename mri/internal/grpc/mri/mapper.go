@@ -1,18 +1,18 @@
-package uzi
+package mri
 
 import (
 	"time"
 
-	"uzi/internal/domain"
-	pb "uzi/internal/generated/grpc/service"
+	"mri/internal/domain"
+	pb "mri/internal/generated/grpc/service"
 )
 
-func domainUziToPbUzi(d *domain.Uzi) *pb.Uzi {
+func domainMriToPbMri(d *domain.Mri) *pb.Mri {
 	if d == nil {
 		return nil
 	}
 
-	return &pb.Uzi{
+	return &pb.Mri{
 		Id:         d.Id.String(),
 		Projection: d.Projection,
 		Checked:    d.Checked,

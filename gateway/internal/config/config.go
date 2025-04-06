@@ -26,7 +26,7 @@ type JWT struct {
 type Adapters struct {
 	AuthUrl string `env:"ADAPTERS_AUTHURL" env-required:"true"`
 	MedUrl  string `env:"ADAPTERS_MEDURL" env-required:"true"`
-	UziUrl  string `env:"ADAPTERS_UZIURL" env-required:"true"`
+	MriUrl  string `env:"ADAPTERS_MRIURL" env-required:"true"`
 }
 
 type S3 struct {

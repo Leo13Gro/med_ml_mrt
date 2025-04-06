@@ -13,30 +13,30 @@ import (
 
 	pkgconfig "github.com/WantBeASleep/goooool/config"
 
-	"uzi/internal/config"
+	"mri/internal/config"
 
-	"uzi/internal/repository"
+	"mri/internal/repository"
 
-	devicesrv "uzi/internal/services/device"
-	imagesrv "uzi/internal/services/image"
-	nodesrv "uzi/internal/services/node"
-	segmentsrv "uzi/internal/services/segment"
-	uzisrv "uzi/internal/services/uzi"
+	devicesrv "mri/internal/services/device"
+	imagesrv "mri/internal/services/image"
+	mrisrv "mri/internal/services/mri"
+	nodesrv "mri/internal/services/node"
+	segmentsrv "mri/internal/services/segment"
 
-	pb "uzi/internal/generated/grpc/service"
-	grpchandler "uzi/internal/grpc"
+	pb "mri/internal/generated/grpc/service"
+	grpchandler "mri/internal/grpc"
 
-	devicehandler "uzi/internal/grpc/device"
-	imagehandler "uzi/internal/grpc/image"
-	nodehandler "uzi/internal/grpc/node"
-	segmenthandler "uzi/internal/grpc/segment"
-	uzihandler "uzi/internal/grpc/uzi"
+	devicehandler "mri/internal/grpc/device"
+	imagehandler "mri/internal/grpc/image"
+	mrihandler "mri/internal/grpc/mri"
+	nodehandler "mri/internal/grpc/node"
+	segmenthandler "mri/internal/grpc/segment"
 
-	uziprocessedsubscriber "uzi/internal/subs/uziprocessed"
-	uziuploadsubscriber "uzi/internal/subs/uziupload"
+	mriprocessedsubscriber "mri/internal/subs/mriprocessed"
+	mriuploadsubscriber "mri/internal/subs/mriupload"
 
-	adapters "uzi/internal/adapters"
-	brokeradapter "uzi/internal/adapters/broker"
+	adapters "mri/internal/adapters"
+	brokeradapter "mri/internal/adapters/broker"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -92,21 +92,21 @@ func run() (exitCode int) {
 	adapter := adapters.New(brokeradapter.New(producer))
 
 	deviceSrv := devicesrv.New(dao)
-	uziSrv := uzisrv.New(dao)
+	mriSrv := mrisrv.New(dao)
 	imageSrv := imagesrv.New(dao, adapter)
 	nodeSrv := nodesrv.New(dao)
 	serviceSrv := segmentsrv.New(dao)
 
 	// grpc
 	deviceHandler := devicehandler.New(deviceSrv)
-	uziHandler := uzihandler.New(uziSrv)
+	mriHandler := mrihandler.New(mriSrv)
 	imageHandler := imagehandler.New(imageSrv)
 	nodeHandler := nodehandler.New(nodeSrv)
 	serviceHandler := segmenthandler.New(serviceSrv)
 
 	handler := grpchandler.New(
 		deviceHandler,
-		uziHandler,
+		mriHandler,
 		imageHandler,
 		nodeHandler,
 		serviceHandler,
@@ -118,29 +118,29 @@ func run() (exitCode int) {
 			grpclib.ServerCallLoggerInterceptor,
 		),
 	)
-	pb.RegisterUziSrvServer(server, handler)
+	pb.RegisterMriSrvServer(server, handler)
 
 	// broker
-	uziuploadSubscriber := uziuploadsubscriber.New(imageSrv)
-	uziprocessedSubscriber := uziprocessedsubscriber.New(nodeSrv)
+	mriuploadSubscriber := mriuploadsubscriber.New(imageSrv)
+	mriprocessedSubscriber := mriprocessedsubscriber.New(nodeSrv)
 
-	uziuploadHandler, err := brokerlib.GetSubscriberHandler(
-		uziuploadSubscriber,
+	mriuploadHandler, err := brokerlib.GetSubscriberHandler(
+		mriuploadSubscriber,
 		cfg.Broker.Addrs,
 		nil,
 	)
 	if err != nil {
-		slog.Error("create uzipload sub", "err", err)
+		slog.Error("create mripload sub", "err", err)
 		return failExitCode
 	}
 
-	uziprocessedHandler, err := brokerlib.GetSubscriberHandler(
-		uziprocessedSubscriber,
+	mriprocessedHandler, err := brokerlib.GetSubscriberHandler(
+		mriprocessedSubscriber,
 		cfg.Broker.Addrs,
 		nil,
 	)
 	if err != nil {
-		slog.Error("create uziprocesse sub", "err", err)
+		slog.Error("create mriprocesse sub", "err", err)
 		return failExitCode
 	}
 
@@ -162,13 +162,13 @@ func run() (exitCode int) {
 	}()
 	go func() {
 		// пока без DI
-		if err := uziuploadHandler.Start(context.Background()); err != nil {
-			slog.Error("start uziupload handler", "err", err)
+		if err := mriuploadHandler.Start(context.Background()); err != nil {
+			slog.Error("start mriupload handler", "err", err)
 		}
 	}()
 	go func() {
-		if err := uziprocessedHandler.Start(context.Background()); err != nil {
-			slog.Error("start uziprocessedHandler handler", "err", err)
+		if err := mriprocessedHandler.Start(context.Background()); err != nil {
+			slog.Error("start mriprocessedHandler handler", "err", err)
 		}
 	}()
 

@@ -3,7 +3,7 @@ package repository
 import (
 	"github.com/WantBeASleep/goooool/daolib"
 
-	"uzi/internal/repository/entity"
+	"mri/internal/repository/entity"
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/google/uuid"
@@ -11,23 +11,23 @@ import (
 
 const mriTable = "mri"
 
-type UziQuery interface {
-	InsertUzi(uzi entity.Uzi) error
+type MriQuery interface {
+	InsertMri(mri entity.Mri) error
 	CheckExist(id uuid.UUID) (bool, error)
-	GetUziByPK(id uuid.UUID) (entity.Uzi, error)
-	GetUzisByPatientID(patientID uuid.UUID) ([]entity.Uzi, error)
-	UpdateUzi(uzi entity.Uzi) (int64, error)
+	GetMriByPK(id uuid.UUID) (entity.Mri, error)
+	GetMrisByPatientID(patientID uuid.UUID) ([]entity.Mri, error)
+	UpdateMri(mri entity.Mri) (int64, error)
 }
 
-type uziQuery struct {
+type mriQuery struct {
 	*daolib.BaseQuery
 }
 
-func (q *uziQuery) SetBaseQuery(baseQuery *daolib.BaseQuery) {
+func (q *mriQuery) SetBaseQuery(baseQuery *daolib.BaseQuery) {
 	q.BaseQuery = baseQuery
 }
 
-func (q *uziQuery) InsertUzi(uzi entity.Uzi) error {
+func (q *mriQuery) InsertMri(mri entity.Mri) error {
 	query := q.QueryBuilder().
 		Insert(mriTable).
 		Columns(
@@ -39,12 +39,12 @@ func (q *uziQuery) InsertUzi(uzi entity.Uzi) error {
 			"create_at",
 		).
 		Values(
-			uzi.Id,
-			uzi.Projection,
-			uzi.Checked,
-			uzi.PatientID,
-			uzi.DeviceID,
-			uzi.CreateAt,
+			mri.Id,
+			mri.Projection,
+			mri.Checked,
+			mri.PatientID,
+			mri.DeviceID,
+			mri.CreateAt,
 		)
 
 	_, err := q.Runner().Execx(q.Context(), query)
@@ -55,7 +55,7 @@ func (q *uziQuery) InsertUzi(uzi entity.Uzi) error {
 	return nil
 }
 
-func (q *uziQuery) GetUziByPK(id uuid.UUID) (entity.Uzi, error) {
+func (q *mriQuery) GetMriByPK(id uuid.UUID) (entity.Mri, error) {
 	query := q.QueryBuilder().
 		Select(
 			"id",
@@ -70,15 +70,15 @@ func (q *uziQuery) GetUziByPK(id uuid.UUID) (entity.Uzi, error) {
 			"id": id,
 		})
 
-	var uzi entity.Uzi
-	if err := q.Runner().Getx(q.Context(), &uzi, query); err != nil {
-		return entity.Uzi{}, err
+	var mri entity.Mri
+	if err := q.Runner().Getx(q.Context(), &mri, query); err != nil {
+		return entity.Mri{}, err
 	}
 
-	return uzi, nil
+	return mri, nil
 }
 
-func (q *uziQuery) GetUzisByPatientID(patientID uuid.UUID) ([]entity.Uzi, error) {
+func (q *mriQuery) GetMrisByPatientID(patientID uuid.UUID) ([]entity.Mri, error) {
 	query := q.QueryBuilder().
 		Select(
 			"id",
@@ -93,15 +93,15 @@ func (q *uziQuery) GetUzisByPatientID(patientID uuid.UUID) ([]entity.Uzi, error)
 			"patient_id": patientID,
 		})
 
-	var uzi []entity.Uzi
-	if err := q.Runner().Selectx(q.Context(), &uzi, query); err != nil {
+	var mri []entity.Mri
+	if err := q.Runner().Selectx(q.Context(), &mri, query); err != nil {
 		return nil, err
 	}
 
-	return uzi, nil
+	return mri, nil
 }
 
-func (q *uziQuery) CheckExist(id uuid.UUID) (bool, error) {
+func (q *mriQuery) CheckExist(id uuid.UUID) (bool, error) {
 	query := q.QueryBuilder().
 		Select(
 			"id",
@@ -126,15 +126,15 @@ func (q *uziQuery) CheckExist(id uuid.UUID) (bool, error) {
 	return exists, nil
 }
 
-func (q *uziQuery) UpdateUzi(uzi entity.Uzi) (int64, error) {
+func (q *mriQuery) UpdateMri(mri entity.Mri) (int64, error) {
 	query := q.QueryBuilder().
 		Update(mriTable).
 		SetMap(sq.Eq{
-			"projection": uzi.Projection,
-			"checked":    uzi.Checked,
+			"projection": mri.Projection,
+			"checked":    mri.Checked,
 		}).
 		Where(sq.Eq{
-			"id": uzi.Id,
+			"id": mri.Id,
 		})
 
 	rows, err := q.Runner().Execx(q.Context(), query)

@@ -1,15 +1,15 @@
-package uzi
+package mri
 
 import (
-	"uzi/internal/domain"
+	"mri/internal/domain"
 )
 
-type UpdateUzi struct {
+type UpdateMri struct {
 	Projection *string
 	Checked    *bool
 }
 
-func (u UpdateUzi) Update(d *domain.Uzi) {
+func (u UpdateMri) Update(d *domain.Mri) {
 	if u.Projection != nil {
 		d.Projection = *u.Projection
 	}

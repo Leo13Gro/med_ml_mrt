@@ -5,7 +5,7 @@ import (
 
 	"github.com/WantBeASleep/goooool/gtclib"
 
-	"uzi/internal/domain"
+	"mri/internal/domain"
 
 	"github.com/google/uuid"
 )

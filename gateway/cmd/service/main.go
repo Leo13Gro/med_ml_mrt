@@ -25,12 +25,12 @@ import (
 	brokeradapters "gateway/internal/adapters/broker"
 	authgrpcadapter "gateway/internal/adapters/grpc/auth"
 	medgrpcadapter "gateway/internal/adapters/grpc/med"
-	uzigrpcadapter "gateway/internal/adapters/grpc/uzi"
+	mrigrpcadapter "gateway/internal/adapters/grpc/mri"
 
 	authhandler "gateway/internal/api/auth"
 	downloadhandler "gateway/internal/api/download"
 	medhandler "gateway/internal/api/med"
-	uzihandler "gateway/internal/api/uzi"
+	mrihandler "gateway/internal/api/mri"
 
 	"gateway/internal/middleware"
 
@@ -97,13 +97,13 @@ func run() (exitCode int) {
 		return failExitCode
 	}
 
-	uziConn, err := grpc.NewClient(
-		cfg.Adapters.UziUrl,
+	mriConn, err := grpc.NewClient(
+		cfg.Adapters.MriUrl,
 		grpc.WithInsecure(),
 		grpc.WithChainUnaryInterceptor(grpclib.ClientCallLogger),
 	)
 	if err != nil {
-		slog.Error("init uziConn", "err", err)
+		slog.Error("init mriConn", "err", err)
 		return failExitCode
 	}
 
@@ -113,24 +113,24 @@ func run() (exitCode int) {
 		grpc.WithChainUnaryInterceptor(grpclib.ClientCallLogger),
 	)
 	if err != nil {
-		slog.Error("init uziConn", "err", err)
+		slog.Error("init mriConn", "err", err)
 		return failExitCode
 	}
 
 	medAdapter := medgrpcadapter.New(medConn)
-	uziAdapter := uzigrpcadapter.New(uziConn)
+	mriAdapter := mrigrpcadapter.New(mriConn)
 	authAdapter := authgrpcadapter.New(authConn)
 
 	adapter := adapters.New(
 		authAdapter,
 		medAdapter,
-		uziAdapter,
+		mriAdapter,
 		brokeradapter,
 	)
 
 	authHandler := authhandler.New(adapter)
 	medHandler := medhandler.New(adapter)
-	uziHandler := uzihandler.New(adapter, dao)
+	mriHandler := mrihandler.New(adapter, dao)
 	downloadHandler := downloadhandler.New(dao)
 
 	// TODO: пробросить ошибки с логированием на верхнем уровне
@@ -148,7 +148,7 @@ func run() (exitCode int) {
 	downloadRouter := apiRouter.PathPrefix("/download").Subrouter()
 	downloadRouter.Use(mdlwrs.Log, mdlwrs.Jwt)
 
-	downloadRouter.HandleFunc("/mri/{id}", downloadHandler.GetUzi).Methods("GET")
+	downloadRouter.HandleFunc("/mri/{id}", downloadHandler.GetMri).Methods("GET")
 	downloadRouter.HandleFunc("/mri/{mri_id}/image/{image_id}", downloadHandler.GetImage).Methods("GET")
 
 	authRouter := apiRouter.PathPrefix("/auth").Subrouter()
@@ -174,30 +174,30 @@ func run() (exitCode int) {
 	medRouter.HandleFunc("/doctors/patient", medHandler.GetDoctorPatients).Methods("GET")
 	medRouter.HandleFunc("/doctors", medHandler.GetDoctor).Methods("GET")
 
-	uziRouter := apiRouter.PathPrefix("/mri").Subrouter()
-	uziRouter.Use(mdlwrs.Log, mdlwrs.Jwt)
+	mriRouter := apiRouter.PathPrefix("/mri").Subrouter()
+	mriRouter.Use(mdlwrs.Log, mdlwrs.Jwt)
 
-	uziRouter.HandleFunc("/echographics/{id}", uziHandler.PatchEchographics).Methods("PATCH")
-	uziRouter.HandleFunc("/echographics/{id}", uziHandler.GetEchographics).Methods("GET")
+	mriRouter.HandleFunc("/echographics/{id}", mriHandler.PatchEchographics).Methods("PATCH")
+	mriRouter.HandleFunc("/echographics/{id}", mriHandler.GetEchographics).Methods("GET")
 
-	uziRouter.HandleFunc("/segments/{id}", uziHandler.PatchSegment).Methods("PATCH")
-	uziRouter.HandleFunc("/segments/{id}", uziHandler.DeleteSegment).Methods("DELETE")
-	uziRouter.HandleFunc("/segments", uziHandler.PostSegment).Methods("POST")
+	mriRouter.HandleFunc("/segments/{id}", mriHandler.PatchSegment).Methods("PATCH")
+	mriRouter.HandleFunc("/segments/{id}", mriHandler.DeleteSegment).Methods("DELETE")
+	mriRouter.HandleFunc("/segments", mriHandler.PostSegment).Methods("POST")
 
-	uziRouter.HandleFunc("/nodes/{id}", uziHandler.PatchNode).Methods("PATCH")
-	uziRouter.HandleFunc("/nodes/{id}", uziHandler.DeleteNode).Methods("DELETE")
-	uziRouter.HandleFunc("/nodes", uziHandler.PostNodes).Methods("POST")
+	mriRouter.HandleFunc("/nodes/{id}", mriHandler.PatchNode).Methods("PATCH")
+	mriRouter.HandleFunc("/nodes/{id}", mriHandler.DeleteNode).Methods("DELETE")
+	mriRouter.HandleFunc("/nodes", mriHandler.PostNodes).Methods("POST")
 
-	uziRouter.HandleFunc("/images/{id}/nodes-segments", uziHandler.GetUziNodeSegments).Methods("GET")
+	mriRouter.HandleFunc("/images/{id}/nodes-segments", mriHandler.GetMriNodeSegments).Methods("GET")
 
-	uziRouter.HandleFunc("/patient/{id}/mris", uziHandler.GetPatientUzi).Methods("GET")
-	uziRouter.HandleFunc("/mris/{id}/images", uziHandler.GetUziImages).Methods("GET")
-	uziRouter.HandleFunc("/mris/{id}/nodes", uziHandler.GetAllNodes).Methods("GET")
-	uziRouter.HandleFunc("/mris/{id}", uziHandler.GetUzi).Methods("GET")
-	uziRouter.HandleFunc("/mris/{id}", uziHandler.PatchUzi).Methods("PATCH")
-	uziRouter.HandleFunc("/mris", uziHandler.PostUzi).Methods("POST")
+	mriRouter.HandleFunc("/patient/{id}/mris", mriHandler.GetPatientMri).Methods("GET")
+	mriRouter.HandleFunc("/mris/{id}/images", mriHandler.GetMriImages).Methods("GET")
+	mriRouter.HandleFunc("/mris/{id}/nodes", mriHandler.GetAllNodes).Methods("GET")
+	mriRouter.HandleFunc("/mris/{id}", mriHandler.GetMri).Methods("GET")
+	mriRouter.HandleFunc("/mris/{id}", mriHandler.PatchMri).Methods("PATCH")
+	mriRouter.HandleFunc("/mris", mriHandler.PostMri).Methods("POST")
 
-	uziRouter.HandleFunc("/devices", uziHandler.GetUziDevices).Methods("GET")
+	mriRouter.HandleFunc("/devices", mriHandler.GetMriDevices).Methods("GET")
 
 	slog.Info("start serve", slog.String("url", cfg.App.Url))
 	if err := http.ListenAndServe(cfg.App.Url, r); err != nil {

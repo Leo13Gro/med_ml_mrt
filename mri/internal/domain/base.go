@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Uzi struct {
+type Mri struct {
 	Id         uuid.UUID
 	Projection string
 	Checked    bool

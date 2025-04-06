@@ -23,7 +23,7 @@ func New(
 	}
 }
 
-// GetUzi Получение мрт
+// GetMri Получение мрт
 //
 //	@Summary		Получение мрт
 //	@Description	Получение мрт
@@ -34,7 +34,7 @@ func New(
 //	@Success		200		{file}		File	"Изображение МРТ"
 //	@Failure		500		{string}	string	"Internal Server Error"
 //	@Router			/download/mri/{id} [get]
-func (h *Handler) GetUzi(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetMri(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	id := mux.Vars(r)["id"]
@@ -68,13 +68,13 @@ func (h *Handler) GetUzi(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) GetImage(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
-	uziID := mux.Vars(r)["mri_id"]
+	mriID := mux.Vars(r)["mri_id"]
 	imageID := mux.Vars(r)["image_id"]
 
 	file, err := h.dao.NewFileRepo().GetFile(
 		ctx,
 		filepath.Join(
-			uziID,
+			mriID,
 			imageID,
 			imageID,
 		),

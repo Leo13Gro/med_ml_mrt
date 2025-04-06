@@ -13,7 +13,7 @@ type DAO interface {
 	daolib.DAO
 	NewFileRepo() FileRepo
 	NewDeviceQuery(ctx context.Context) DeviceQuery
-	NewUziQuery(ctx context.Context) UziQuery
+	NewMriQuery(ctx context.Context) MriQuery
 	NewImageQuery(ctx context.Context) ImageQuery
 	NewSegmentQuery(ctx context.Context) SegmentQuery
 	NewNodeQuery(ctx context.Context) NodeQuery
@@ -51,11 +51,11 @@ func (d *dao) NewDeviceQuery(ctx context.Context) DeviceQuery {
 	return deviceQuery
 }
 
-func (d *dao) NewUziQuery(ctx context.Context) UziQuery {
-	uziQuery := &uziQuery{}
-	d.NewRepo(ctx, uziQuery)
+func (d *dao) NewMriQuery(ctx context.Context) MriQuery {
+	mriQuery := &mriQuery{}
+	d.NewRepo(ctx, mriQuery)
 
-	return uziQuery
+	return mriQuery
 }
 
 func (d *dao) NewImageQuery(ctx context.Context) ImageQuery {

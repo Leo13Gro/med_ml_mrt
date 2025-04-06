@@ -223,7 +223,7 @@ func (h *Handler) UpdatePatient(w http.ResponseWriter, r *http.Request) {
 		Id:          id,
 		Active:      req.Active,
 		Malignancy:  req.Malignancy,
-		LastUziDate: gtclib.Timestamp.TimePointerTo(req.LastUziDate),
+		LastMriDate: gtclib.Timestamp.TimePointerTo(req.LastMriDate),
 	})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)

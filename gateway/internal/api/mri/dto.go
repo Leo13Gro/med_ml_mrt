@@ -1,4 +1,4 @@
-package uzi
+package mri
 
 import (
 	"time"
@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Uzi struct {
+type Mri struct {
 	Id         uuid.UUID `json:"id"`
 	Projection string    `json:"projection"`
 	Checked    bool      `json:"checked"`
@@ -65,13 +65,13 @@ type Device struct {
 	Name string `json:"name"`
 }
 
-type PatchUziIn struct {
+type PatchMriIn struct {
 	Projection *string `json:"projection"`
 	Checked    *bool   `json:"checked"`
 }
 
-type PatchUziOut struct {
-	Uzi
+type PatchMriOut struct {
+	Mri
 }
 
 type PatchEchographicsIn struct {
@@ -99,16 +99,16 @@ type PatchEchographicsOut struct {
 	Echographic
 }
 
-type GetUziIn struct{}
+type GetMriIn struct{}
 
-type GetUziOut struct {
-	Uzi
+type GetMriOut struct {
+	Mri
 }
 
-type GetPatientUziIn struct{}
+type GetPatientMriIn struct{}
 
-type GetPatientUziOut struct {
-	Uzis []Uzi `json:"uzis"`
+type GetPatientMriOut struct {
+	Mris []Mri `json:"mris"`
 }
 
 type GetEchographicsIn struct{}
@@ -117,22 +117,22 @@ type GetEchographicsOut struct {
 	Echographic
 }
 
-type GetUziImagesIn struct{}
+type GetMriImagesIn struct{}
 
-type GetUziImagesOut struct {
+type GetMriImagesOut struct {
 	Images []Image `json:"images"`
 }
 
-type GetUziNodeSegmentsIn struct{}
+type GetMriNodeSegmentsIn struct{}
 
-type GetUziNodeSegmentsOut struct {
+type GetMriNodeSegmentsOut struct {
 	Nodes    []Node    `json:"nodes"`
 	Segments []Segment `json:"segments"`
 }
 
-type GetUziDeviceIn struct{}
+type GetMriDeviceIn struct{}
 
-type GetUziDeviceOut struct {
+type GetMriDeviceOut struct {
 	Devices []Device `json:"devices"`
 }
 

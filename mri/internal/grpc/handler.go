@@ -1,34 +1,34 @@
 package grpc
 
 import (
-	"uzi/internal/generated/grpc/service"
-	"uzi/internal/grpc/device"
-	"uzi/internal/grpc/image"
-	"uzi/internal/grpc/node"
-	"uzi/internal/grpc/segment"
-	"uzi/internal/grpc/uzi"
+	"mri/internal/generated/grpc/service"
+	"mri/internal/grpc/device"
+	"mri/internal/grpc/image"
+	"mri/internal/grpc/mri"
+	"mri/internal/grpc/node"
+	"mri/internal/grpc/segment"
 )
 
 type Handler struct {
 	device.DeviceHandler
-	uzi.UziHandler
+	mri.MriHandler
 	image.ImageHandler
 	node.NodeHandler
 	segment.SegmentHandler
 
-	service.UnsafeUziSrvServer
+	service.UnsafeMriSrvServer
 }
 
 func New(
 	deviceHandler device.DeviceHandler,
-	uziHandler uzi.UziHandler,
+	mriHandler mri.MriHandler,
 	imageHandler image.ImageHandler,
 	nodeHandler node.NodeHandler,
 	segmentHandler segment.SegmentHandler,
 ) *Handler {
 	return &Handler{
 		DeviceHandler:  deviceHandler,
-		UziHandler:     uziHandler,
+		MriHandler:     mriHandler,
 		ImageHandler:   imageHandler,
 		NodeHandler:    nodeHandler,
 		SegmentHandler: segmentHandler,

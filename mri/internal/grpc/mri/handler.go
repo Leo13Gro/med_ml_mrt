@@ -1,40 +1,40 @@
-package uzi
+package mri
 
 import (
 	"context"
 
-	"uzi/internal/domain"
-	pb "uzi/internal/generated/grpc/service"
-	"uzi/internal/services/uzi"
+	"mri/internal/domain"
+	pb "mri/internal/generated/grpc/service"
+	"mri/internal/services/mri"
 
 	"github.com/google/uuid"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-type UziHandler interface {
-	CreateUzi(ctx context.Context, req *pb.CreateUziIn) (*pb.CreateUziOut, error)
-	GetUzi(ctx context.Context, in *pb.GetUziIn) (*pb.GetUziOut, error)
-	GetPatientUzis(ctx context.Context, in *pb.GetPatientUzisIn) (*pb.GetPatientUzisOut, error)
+type MriHandler interface {
+	CreateMri(ctx context.Context, req *pb.CreateMriIn) (*pb.CreateMriOut, error)
+	GetMri(ctx context.Context, in *pb.GetMriIn) (*pb.GetMriOut, error)
+	GetPatientMris(ctx context.Context, in *pb.GetPatientMrisIn) (*pb.GetPatientMrisOut, error)
 	GetEchographic(ctx context.Context, in *pb.GetEchographicIn) (*pb.GetEchographicOut, error)
-	UpdateUzi(ctx context.Context, req *pb.UpdateUziIn) (*pb.UpdateUziOut, error)
+	UpdateMri(ctx context.Context, req *pb.UpdateMriIn) (*pb.UpdateMriOut, error)
 	UpdateEchographic(ctx context.Context, in *pb.UpdateEchographicIn) (*pb.UpdateEchographicOut, error)
 }
 
 type handler struct {
-	uziSrv uzi.Service
+	mriSrv mri.Service
 }
 
 func New(
-	uziSrv uzi.Service,
-) UziHandler {
+	mriSrv mri.Service,
+) MriHandler {
 	return &handler{
-		uziSrv: uziSrv,
+		mriSrv: mriSrv,
 	}
 }
 
-func (h *handler) CreateUzi(ctx context.Context, in *pb.CreateUziIn) (*pb.CreateUziOut, error) {
-	uuid, err := h.uziSrv.CreateUzi(ctx, domain.Uzi{
+func (h *handler) CreateMri(ctx context.Context, in *pb.CreateMriIn) (*pb.CreateMriOut, error) {
+	uuid, err := h.mriSrv.CreateMri(ctx, domain.Mri{
 		Projection: in.Projection,
 		PatientID:  uuid.MustParse(in.PatientId),
 		DeviceID:   int(in.DeviceId),
@@ -43,11 +43,11 @@ func (h *handler) CreateUzi(ctx context.Context, in *pb.CreateUziIn) (*pb.Create
 		return nil, status.Errorf(codes.Internal, "Что то пошло не так: %s", err.Error())
 	}
 
-	return &pb.CreateUziOut{Id: uuid.String()}, nil
+	return &pb.CreateMriOut{Id: uuid.String()}, nil
 }
 
 func (h *handler) GetEchographic(ctx context.Context, in *pb.GetEchographicIn) (*pb.GetEchographicOut, error) {
-	echographic, err := h.uziSrv.GetUziEchographicsByID(ctx, uuid.MustParse(in.Id))
+	echographic, err := h.mriSrv.GetMriEchographicsByID(ctx, uuid.MustParse(in.Id))
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "Что то пошло не так: %s", err.Error())
 	}
@@ -59,37 +59,37 @@ func (h *handler) GetEchographic(ctx context.Context, in *pb.GetEchographicIn) (
 	}, nil
 }
 
-func (h *handler) GetUzi(ctx context.Context, in *pb.GetUziIn) (*pb.GetUziOut, error) {
-	uzi, err := h.uziSrv.GetUziByID(ctx, uuid.MustParse(in.Id))
+func (h *handler) GetMri(ctx context.Context, in *pb.GetMriIn) (*pb.GetMriOut, error) {
+	mri, err := h.mriSrv.GetMriByID(ctx, uuid.MustParse(in.Id))
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "Что то пошло не так: %s", err.Error())
 	}
 
-	pbUzi := domainUziToPbUzi(&uzi)
+	pbMri := domainMriToPbMri(&mri)
 
-	return &pb.GetUziOut{
-		Uzi: pbUzi,
+	return &pb.GetMriOut{
+		Mri: pbMri,
 	}, nil
 }
 
-func (h *handler) GetPatientUzis(ctx context.Context, in *pb.GetPatientUzisIn) (*pb.GetPatientUzisOut, error) {
-	uzis, err := h.uziSrv.GetUzisByPatientID(ctx, uuid.MustParse(in.PatientId))
+func (h *handler) GetPatientMris(ctx context.Context, in *pb.GetPatientMrisIn) (*pb.GetPatientMrisOut, error) {
+	mris, err := h.mriSrv.GetMrisByPatientID(ctx, uuid.MustParse(in.PatientId))
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "Что то пошло не так: %s", err.Error())
 	}
 
-	resp := make([]*pb.Uzi, 0, len(uzis))
-	for _, v := range uzis {
-		resp = append(resp, domainUziToPbUzi(&v))
+	resp := make([]*pb.Mri, 0, len(mris))
+	for _, v := range mris {
+		resp = append(resp, domainMriToPbMri(&v))
 	}
 
-	return &pb.GetPatientUzisOut{Uzis: resp}, nil
+	return &pb.GetPatientMrisOut{Mris: resp}, nil
 }
 
-func (h *handler) UpdateUzi(ctx context.Context, in *pb.UpdateUziIn) (*pb.UpdateUziOut, error) {
-	uzi, err := h.uziSrv.UpdateUzi(ctx,
+func (h *handler) UpdateMri(ctx context.Context, in *pb.UpdateMriIn) (*pb.UpdateMriOut, error) {
+	mri, err := h.mriSrv.UpdateMri(ctx,
 		uuid.MustParse(in.Id),
-		uzi.UpdateUzi{
+		mri.UpdateMri{
 			Projection: in.Projection,
 			Checked:    in.Checked,
 		},
@@ -98,16 +98,16 @@ func (h *handler) UpdateUzi(ctx context.Context, in *pb.UpdateUziIn) (*pb.Update
 		return nil, status.Errorf(codes.Internal, "Что то пошло не так: %s", err.Error())
 	}
 
-	return &pb.UpdateUziOut{
-		Uzi: domainUziToPbUzi(&uzi),
+	return &pb.UpdateMriOut{
+		Mri: domainMriToPbMri(&mri),
 	}, nil
 }
 
 func (h *handler) UpdateEchographic(ctx context.Context, in *pb.UpdateEchographicIn) (*pb.UpdateEchographicOut, error) {
-	echographic, err := h.uziSrv.UpdateEchographic(
+	echographic, err := h.mriSrv.UpdateEchographic(
 		ctx,
 		uuid.MustParse(in.Echographic.Id),
-		uzi.UpdateEchographic{
+		mri.UpdateEchographic{
 			Contors:         in.Echographic.Contors,
 			LeftLobeLength:  in.Echographic.LeftLobeLength,
 			LeftLobeWidth:   in.Echographic.LeftLobeWidth,

@@ -3,9 +3,9 @@ package node
 import (
 	"context"
 
-	"uzi/internal/domain"
-	pb "uzi/internal/generated/grpc/service"
-	"uzi/internal/services/node"
+	"mri/internal/domain"
+	pb "mri/internal/generated/grpc/service"
+	"mri/internal/services/node"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/google/uuid"

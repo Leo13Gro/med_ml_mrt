@@ -3,7 +3,7 @@ package repository
 import (
 	"github.com/WantBeASleep/goooool/daolib"
 
-	"uzi/internal/repository/entity"
+	"mri/internal/repository/entity"
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/google/uuid"
@@ -13,7 +13,7 @@ const imageTable = "image"
 
 type ImageQuery interface {
 	InsertImages(images []entity.Image) error
-	GetImagesByUziID(uziID uuid.UUID) ([]entity.Image, error)
+	GetImagesByMriID(mriID uuid.UUID) ([]entity.Image, error)
 }
 
 type imageQuery struct {
@@ -49,7 +49,7 @@ func (q *imageQuery) InsertImages(images []entity.Image) error {
 	return err
 }
 
-func (q *imageQuery) GetImagesByUziID(uziID uuid.UUID) ([]entity.Image, error) {
+func (q *imageQuery) GetImagesByMriID(mriID uuid.UUID) ([]entity.Image, error) {
 	query := q.QueryBuilder().
 		Select(
 			"id",
@@ -57,7 +57,7 @@ func (q *imageQuery) GetImagesByUziID(uziID uuid.UUID) ([]entity.Image, error) {
 		).
 		From(imageTable).
 		Where(sq.Eq{
-			"mri_id": uziID,
+			"mri_id": mriID,
 		})
 
 	var images []entity.Image

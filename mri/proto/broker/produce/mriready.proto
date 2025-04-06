@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "internal/generated/broker/produce/uzicomplited";
+option go_package = "internal/generated/broker/produce/mricomplited";
 
 import "google/protobuf/timestamp.proto";
 

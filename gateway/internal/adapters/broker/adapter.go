@@ -5,7 +5,7 @@ import (
 
 	"github.com/WantBeASleep/goooool/brokerlib"
 
-	pb "gateway/internal/generated/broker/produce/uziupload"
+	pb "gateway/internal/generated/broker/produce/mriupload"
 
 	"google.golang.org/protobuf/proto"
 )
@@ -35,7 +35,7 @@ func (a *adapter) SendMriUpload(msg *pb.MriUpload) error {
 	// TODO: когда будем делать партицированние пробрасывать сюда ключи
 	payload, err := proto.Marshal(msg)
 	if err != nil {
-		return fmt.Errorf("marshal uziupload event: %w", err)
+		return fmt.Errorf("marshal mriupload event: %w", err)
 	}
 	return a.producer.Send(mriuploadTopic, "52", payload)
 }

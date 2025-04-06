@@ -51,7 +51,7 @@ message Patient {
   string policy = 400;
   bool active = 500;
   bool malignancy = 600;
-  optional google.protobuf.Timestamp last_uzi_date = 700;
+  optional google.protobuf.Timestamp last_mri_date = 700;
 }
 
 message CreatePatientIn {
@@ -77,7 +77,7 @@ message UpdatePatientIn {
   string id = 200;
   optional bool active = 300;
   optional bool malignancy = 400;
-  optional google.protobuf.Timestamp last_uzi_date = 500;
+  optional google.protobuf.Timestamp last_mri_date = 500;
 }
 
 message UpdatePatientOut { Patient patient = 100; }

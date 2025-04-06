@@ -21,7 +21,7 @@ type Patient struct {
 	Policy      string     `json:"policy"`
 	Active      bool       `json:"active"`
 	Malignancy  bool       `json:"malignancy"`
-	LastUziDate *time.Time `json:"last_uzi_date"`
+	LastMriDate *time.Time `json:"last_mri_date"`
 }
 
 type Card struct {
@@ -73,7 +73,7 @@ type GetPatientOut struct {
 type UpdatePatientIn struct {
 	Active      *bool      `json:"active"`
 	Malignancy  *bool      `json:"malignancy"`
-	LastUziDate *time.Time `json:"last_uzi_date"`
+	LastMriDate *time.Time `json:"last_mri_date"`
 }
 
 type UpdatePatientOut struct {

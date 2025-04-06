@@ -185,7 +185,7 @@ services:
       - 8080:8080
     depends_on:
       - redpanda-0
-      - uzi_service
+      - mri_service
       - med_service
       - auth_service
     profiles:

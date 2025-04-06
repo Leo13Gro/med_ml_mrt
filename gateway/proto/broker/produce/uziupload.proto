@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-option go_package = "internal/generated/broker/produce/uziupload";
-
-message MriUpload {
-  string mri_id = 100;
-}

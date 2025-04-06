@@ -1,6 +1,6 @@
 package entity
 
-import "uzi/internal/domain"
+import "mri/internal/domain"
 
 type Device struct {
 	Id   int    `db:"id"`

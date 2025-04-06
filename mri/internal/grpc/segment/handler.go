@@ -3,9 +3,9 @@ package segment
 import (
 	"context"
 
-	"uzi/internal/domain"
-	pb "uzi/internal/generated/grpc/service"
-	"uzi/internal/services/segment"
+	"mri/internal/domain"
+	pb "mri/internal/generated/grpc/service"
+	"mri/internal/services/segment"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/google/uuid"

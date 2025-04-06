@@ -1,4 +1,4 @@
-package uzi
+package mri
 
 // TODO: большая проблема: то что рисуем на выход в сваггер != тому что туда реально уходит (уходит GRPC)
 // TODO: сделать выход контуров через json nyy
@@ -12,8 +12,8 @@ import (
 	adapters "gateway/internal/adapters"
 	"gateway/internal/domain"
 
-	uziuploadpb "gateway/internal/generated/broker/produce/uziupload"
-	uzipb "gateway/internal/generated/grpc/client/uzi"
+	mriuploadpb "gateway/internal/generated/broker/produce/mriupload"
+	mripb "gateway/internal/generated/grpc/client/mri"
 	"gateway/internal/repository"
 
 	"github.com/gorilla/mux"
@@ -35,7 +35,7 @@ func New(
 	}
 }
 
-// PostUzi загружает узи на обработку
+// PostMri загружает узи на обработку
 //
 //	@Summary		Загружает узи на обработку
 //	@Description	Загружает узи на обработку
@@ -49,14 +49,14 @@ func New(
 //	@Success		200			{string}	string	"molodec"
 //	@Failure		500			{string}	string	"Internal Server Error"
 //	@Router			/mri/mris [post]
-func (h *Handler) PostUzi(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) PostMri(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	projection := r.FormValue("projection")
 	patientID := r.FormValue("patient_id")
 	deviceID, _ := strconv.Atoi(r.FormValue("device_id"))
 
-	uziResp, err := h.adapter.UziAdapter.CreateUzi(ctx, &uzipb.CreateUziIn{
+	mriResp, err := h.adapter.MriAdapter.CreateMri(ctx, &mripb.CreateMriIn{
 		Projection: projection,
 		PatientId:  patientID,
 		DeviceId:   int64(deviceID),
@@ -81,19 +81,19 @@ func (h *Handler) PostUzi(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = h.dao.NewFileRepo().LoadFile(ctx, filepath.Join(uziResp.Id, uziResp.Id), domain.File{Format: mime, Buf: file})
+	err = h.dao.NewFileRepo().LoadFile(ctx, filepath.Join(mriResp.Id, mriResp.Id), domain.File{Format: mime, Buf: file})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
 	}
 
 	// TODO: нужна тотальная сага тут
-	if err := h.adapter.BrokerAdapter.SendMriUpload(&uziuploadpb.MriUpload{MriId: uziResp.Id}); err != nil {
+	if err := h.adapter.BrokerAdapter.SendMriUpload(&mriuploadpb.MriUpload{MriId: mriResp.Id}); err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
 	}
 
-	if err := json.NewEncoder(w).Encode(uziResp.Id); err != nil {
+	if err := json.NewEncoder(w).Encode(mriResp.Id); err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
 	}
@@ -101,7 +101,7 @@ func (h *Handler) PostUzi(w http.ResponseWriter, r *http.Request) {
 
 // TODO: проверить крайние случае, если что то не приходит например(неправильный id)
 // TODO: убрать echographic из ответа на обновление
-// PatchUzi Обновляет узи
+// PatchMri Обновляет узи
 //
 //	@Summary		Обновляет узи
 //	@Description	Обновляет узи
@@ -109,22 +109,22 @@ func (h *Handler) PostUzi(w http.ResponseWriter, r *http.Request) {
 //	@Produce		json
 //	@Param			token	header		string		true	"access_token"
 //	@Param			id		path		string		true	"mri_id"
-//	@Param			body	body		PatchUziIn	true	"обновляемые значения"
-//	@Success		200		{object}	PatchUziOut	"mri"
+//	@Param			body	body		PatchMriIn	true	"обновляемые значения"
+//	@Success		200		{object}	PatchMriOut	"mri"
 //	@Failure		500		{string}	string		"Internal Server Error"
 //	@Router			/mri/mris/{id} [patch]
-func (h *Handler) PatchUzi(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) PatchMri(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	id := mux.Vars(r)["id"]
 
-	var req PatchUziIn
+	var req PatchMriIn
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
 	}
 
-	resp, err := h.adapter.UziAdapter.UpdateUzi(ctx, &uzipb.UpdateUziIn{
+	resp, err := h.adapter.MriAdapter.UpdateMri(ctx, &mripb.UpdateMriIn{
 		Id:         id,
 		Projection: req.Projection,
 		Checked:    req.Checked,
@@ -134,7 +134,7 @@ func (h *Handler) PatchUzi(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := json.NewEncoder(w).Encode(resp.Uzi); err != nil {
+	if err := json.NewEncoder(w).Encode(resp.Mri); err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
 	}
@@ -163,8 +163,8 @@ func (h *Handler) PatchEchographics(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := h.adapter.UziAdapter.UpdateEchographic(ctx, &uzipb.UpdateEchographicIn{
-		Echographic: &uzipb.Echographic{
+	resp, err := h.adapter.MriAdapter.UpdateEchographic(ctx, &mripb.UpdateEchographicIn{
+		Echographic: &mripb.Echographic{
 			Id:              id,
 			LeftLobeLength:  req.LeftLobeLength,
 			LeftLobeWidth:   req.LeftLobeWidth,
@@ -196,7 +196,7 @@ func (h *Handler) PatchEchographics(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetUzi получает mri
+// GetMri получает mri
 //
 //	@Summary		получает mri
 //	@Description	получает mri
@@ -204,28 +204,28 @@ func (h *Handler) PatchEchographics(w http.ResponseWriter, r *http.Request) {
 //	@Produce		json
 //	@Param			token	header		string		true	"access_token"
 //	@Param			id		path		string		true	"mri_id"
-//	@Success		200		{object}	GetUziOut	"mri"
+//	@Success		200		{object}	GetMriOut	"mri"
 //	@Failure		500		{string}	string		"Internal Server Error"
 //	@Router			/mri/mris/{id} [get]
-func (h *Handler) GetUzi(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetMri(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	id := mux.Vars(r)["id"]
 
-	resp, err := h.adapter.UziAdapter.GetUzi(ctx, &uzipb.GetUziIn{Id: id})
+	resp, err := h.adapter.MriAdapter.GetMri(ctx, &mripb.GetMriIn{Id: id})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
 	}
 	// TODO: понять почему тут узи возвращается без эхографикой, а тут с
 	// TODO: подумать над content-tpye в ответе(посмотреть в каком порядке выставлять функции для ответа)
-	if err := json.NewEncoder(w).Encode(resp.Uzi); err != nil {
+	if err := json.NewEncoder(w).Encode(resp.Mri); err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
 	}
 }
 
-// GetPatientUzi Получить узи пациента
+// GetPatientMri Получить узи пациента
 //
 //	@Summary		Получить узи пациента
 //	@Description	Получить узи пациента
@@ -233,15 +233,15 @@ func (h *Handler) GetUzi(w http.ResponseWriter, r *http.Request) {
 //	@Produce		json
 //	@Param			token	header		string	true	"access_token"
 //	@Param			id		path		string	true	"patient_id"
-//	@Success		200		{object}	GetPatientUziOut
+//	@Success		200		{object}	GetPatientMriOut
 //	@Failure		500		{string}	string	"Internal Server Error"
 //	@Router			/mri/patient/{id}/mris [get]
-func (h *Handler) GetPatientUzi(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetPatientMri(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	id := mux.Vars(r)["id"]
 
-	res, err := h.adapter.UziAdapter.GetPatientUzis(ctx, &uzipb.GetPatientUzisIn{
+	res, err := h.adapter.MriAdapter.GetPatientMris(ctx, &mripb.GetPatientMrisIn{
 		PatientId: id,
 	})
 	if err != nil {
@@ -273,7 +273,7 @@ func (h *Handler) GetEchographics(w http.ResponseWriter, r *http.Request) {
 
 	id := mux.Vars(r)["id"]
 
-	resp, err := h.adapter.UziAdapter.GetEchographic(ctx, &uzipb.GetEchographicIn{Id: id})
+	resp, err := h.adapter.MriAdapter.GetEchographic(ctx, &mripb.GetEchographicIn{Id: id})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
@@ -286,7 +286,7 @@ func (h *Handler) GetEchographics(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetUziImages получает id картинок mri
+// GetMriImages получает id картинок mri
 //
 //	@Summary		получает списк id кадров mri
 //	@Description	получает списк id кадров mri
@@ -294,15 +294,15 @@ func (h *Handler) GetEchographics(w http.ResponseWriter, r *http.Request) {
 //	@Produce		json
 //	@Param			token	header		string			true	"access_token"
 //	@Param			id		path		string			true	"mri_id"
-//	@Success		200		{object}	GetUziImagesOut	"images"
+//	@Success		200		{object}	GetMriImagesOut	"images"
 //	@Failure		500		{string}	string			"Internal Server Error"
 //	@Router			/mri/mris/{id}/images [get]
-func (h *Handler) GetUziImages(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetMriImages(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	id := mux.Vars(r)["id"]
 
-	resp, err := h.adapter.UziAdapter.GetUziImages(ctx, &uzipb.GetUziImagesIn{MriId: id})
+	resp, err := h.adapter.MriAdapter.GetMriImages(ctx, &mripb.GetMriImagesIn{MriId: id})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
@@ -314,7 +314,7 @@ func (h *Handler) GetUziImages(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetUziNodeSegments получит ноды и сегменты на указанном изображении
+// GetMriNodeSegments получит ноды и сегменты на указанном изображении
 //
 //	@Summary		получит ноды и сегменты на указанном изображении
 //	@Description	получит ноды и сегменты на указанном изображении
@@ -322,17 +322,17 @@ func (h *Handler) GetUziImages(w http.ResponseWriter, r *http.Request) {
 //	@Produce		json
 //	@Param			token	header		string					true	"access_token"
 //	@Param			id		path		string					true	"image_id"
-//	@Success		200		{object}	GetUziNodeSegmentsOut	"nodes&&segments"
+//	@Success		200		{object}	GetMriNodeSegmentsOut	"nodes&&segments"
 //	@Failure		500		{string}	string					"Internal Server Error"
 //	@Router			/mri/images/{id}/nodes-segments [get]
-func (h *Handler) GetUziNodeSegments(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetMriNodeSegments(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	id := mux.Vars(r)["id"]
 
-	resp, err := h.adapter.UziAdapter.GetImageSegmentsWithNodes(
+	resp, err := h.adapter.MriAdapter.GetImageSegmentsWithNodes(
 		ctx,
-		&uzipb.GetImageSegmentsWithNodesIn{Id: id},
+		&mripb.GetImageSegmentsWithNodesIn{Id: id},
 	)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
@@ -345,20 +345,20 @@ func (h *Handler) GetUziNodeSegments(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetUziDevice получит список mri аппаратов
+// GetMriDevice получит список mri аппаратов
 //
 //	@Summary		получит список mri аппаратов
 //	@Description	получит список mri аппаратов
 //	@Tags			mri
 //	@Produce		json
 //	@Param			token	header		string			true	"access_token"
-//	@Success		200		{object}	GetUziDeviceOut	"mri аппараты"
+//	@Success		200		{object}	GetMriDeviceOut	"mri аппараты"
 //	@Failure		500		{string}	string			"Internal Server Error"
 //	@Router			/mri/devices [get]
-func (h *Handler) GetUziDevices(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetMriDevices(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
-	resp, err := h.adapter.UziAdapter.GetDeviceList(ctx, &emptypb.Empty{})
+	resp, err := h.adapter.MriAdapter.GetDeviceList(ctx, &emptypb.Empty{})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
@@ -390,9 +390,9 @@ func (h *Handler) PostNodes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	segments := make([]*uzipb.CreateNodeIn_NestedSegment, 0, len(req.Segments))
+	segments := make([]*mripb.CreateNodeIn_NestedSegment, 0, len(req.Segments))
 	for _, v := range req.Segments {
-		segments = append(segments, &uzipb.CreateNodeIn_NestedSegment{
+		segments = append(segments, &mripb.CreateNodeIn_NestedSegment{
 			ImageId:   v.ImageID.String(),
 			Contor:    v.Contor,
 			Knosp_012: v.Knosp012,
@@ -401,7 +401,7 @@ func (h *Handler) PostNodes(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	resp, err := h.adapter.UziAdapter.CreateNode(ctx, &uzipb.CreateNodeIn{
+	resp, err := h.adapter.MriAdapter.CreateNode(ctx, &mripb.CreateNodeIn{
 		MriId:     req.MriID.String(),
 		Segments:  segments,
 		Knosp_012: req.Knosp012,
@@ -436,7 +436,7 @@ func (h *Handler) GetAllNodes(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 
 	// TODO: в ответе пустые поля будут опущены, убрать теги omitempty.
-	resp, err := h.adapter.UziAdapter.GetAllNodes(ctx, &uzipb.GetAllNodesIn{
+	resp, err := h.adapter.MriAdapter.GetAllNodes(ctx, &mripb.GetAllNodesIn{
 		MriId: id,
 	})
 	if err != nil {
@@ -465,7 +465,7 @@ func (h *Handler) DeleteNode(w http.ResponseWriter, r *http.Request) {
 
 	id := mux.Vars(r)["id"]
 
-	resp, err := h.adapter.UziAdapter.DeleteNode(ctx, &uzipb.DeleteNodeIn{Id: id})
+	resp, err := h.adapter.MriAdapter.DeleteNode(ctx, &mripb.DeleteNodeIn{Id: id})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
@@ -498,7 +498,7 @@ func (h *Handler) PatchNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := h.adapter.UziAdapter.UpdateNode(ctx, &uzipb.UpdateNodeIn{
+	resp, err := h.adapter.MriAdapter.UpdateNode(ctx, &mripb.UpdateNodeIn{
 		Id:        id,
 		Knosp_012: req.Knosp012,
 		Knosp_3:   req.Knosp3,
@@ -535,7 +535,7 @@ func (h *Handler) PostSegment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := h.adapter.UziAdapter.CreateSegment(ctx, &uzipb.CreateSegmentIn{
+	resp, err := h.adapter.MriAdapter.CreateSegment(ctx, &mripb.CreateSegmentIn{
 		ImageId:   req.ImageID.String(),
 		NodeId:    req.NodeID.String(),
 		Contor:    req.Contor,
@@ -569,7 +569,7 @@ func (h *Handler) DeleteSegment(w http.ResponseWriter, r *http.Request) {
 
 	id := mux.Vars(r)["id"]
 
-	resp, err := h.adapter.UziAdapter.DeleteSegment(ctx, &uzipb.DeleteSegmentIn{Id: id})
+	resp, err := h.adapter.MriAdapter.DeleteSegment(ctx, &mripb.DeleteSegmentIn{Id: id})
 	if err != nil {
 		http.Error(w, fmt.Sprintf("что то пошло не так: %v", err), 500)
 		return
@@ -602,7 +602,7 @@ func (h *Handler) PatchSegment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := h.adapter.UziAdapter.UpdateSegment(ctx, &uzipb.UpdateSegmentIn{
+	resp, err := h.adapter.MriAdapter.UpdateSegment(ctx, &mripb.UpdateSegmentIn{
 		Id:        id,
 		Knosp_012: req.Knosp012,
 		Knosp_3:   req.Knosp3,
