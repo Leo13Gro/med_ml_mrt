@@ -1,7 +1,7 @@
 package entity
 
 import (
-	"uzi/internal/domain"
+	"mri/internal/domain"
 
 	"github.com/google/uuid"
 )

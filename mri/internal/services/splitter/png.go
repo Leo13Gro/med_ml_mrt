@@ -1,7 +1,7 @@
 package splitter
 
 import (
-	"uzi/internal/domain"
+	"mri/internal/domain"
 )
 
 type pngSplitter struct{}

@@ -1,4 +1,4 @@
-package uziupload
+package mriupload
 
 import (
 	"context"
@@ -7,8 +7,8 @@ import (
 
 	"github.com/WantBeASleep/goooool/brokerlib"
 
-	pb "uzi/internal/generated/broker/consume/uziupload"
-	"uzi/internal/services/image"
+	pb "mri/internal/generated/broker/consume/mriupload"
+	"mri/internal/services/image"
 
 	"github.com/google/uuid"
 	"google.golang.org/protobuf/proto"
@@ -44,8 +44,8 @@ func (h *subscriber) ProcessMessage(ctx context.Context, msg []byte) error {
 		return errors.New("wrong msg type. mriupload required")
 	}
 
-	if err := h.imageSrv.SplitUzi(ctx, uuid.MustParse(event.MriId)); err != nil {
-		return fmt.Errorf("process uziupload: %w", err)
+	if err := h.imageSrv.SplitMri(ctx, uuid.MustParse(event.MriId)); err != nil {
+		return fmt.Errorf("process mriupload: %w", err)
 	}
 	return nil
 }

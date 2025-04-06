@@ -4,17 +4,17 @@ option go_package = "internal/generated/grpc/service";
 
 import "google/protobuf/empty.proto";
 
-service UziSrv {
+service MriSrv {
   rpc getDeviceList(google.protobuf.Empty) returns (GetDeviceListOut);
 
-  rpc createUzi(CreateUziIn) returns (CreateUziOut);
-  rpc updateUzi(UpdateUziIn) returns (UpdateUziOut);
-  rpc getUzi(GetUziIn) returns (GetUziOut);
-  rpc getPatientUzis(GetPatientUzisIn) returns (GetPatientUzisOut);
+  rpc createMri(CreateMriIn) returns (CreateMriOut);
+  rpc updateMri(UpdateMriIn) returns (UpdateMriOut);
+  rpc getMri(GetMriIn) returns (GetMriOut);
+  rpc getPatientMris(GetPatientMrisIn) returns (GetPatientMrisOut);
   rpc updateEchographic(UpdateEchographicIn) returns (UpdateEchographicOut);
   rpc getEchographic(GetEchographicIn) returns (GetEchographicOut);
 
-  rpc getUziImages(GetUziImagesIn) returns (GetUziImagesOut);
+  rpc getMriImages(GetMriImagesIn) returns (GetMriImagesOut);
   rpc getImageSegmentsWithNodes(GetImageSegmentsWithNodesIn)
       returns (GetImageSegmentsWithNodesOut);
 
@@ -73,9 +73,9 @@ message GetEchographicIn { string id = 100; }
 
 message GetEchographicOut { Echographic echographic = 400; }
 
-// UZI
+// MRI
 
-message Uzi {
+message Mri {
   string id = 100;
   string projection = 300;
   bool checked = 400;
@@ -84,32 +84,32 @@ message Uzi {
   string create_at = 700;
 }
 
-message CreateUziIn {
+message CreateMriIn {
   string projection = 100;
   string patient_id = 200;
   int64 device_id = 300;
 }
 
-message CreateUziOut { string id = 100; }
+message CreateMriOut { string id = 100; }
 
-message UpdateUziIn {
+message UpdateMriIn {
   string id = 100;
   optional string projection = 200;
   optional bool checked = 300;
 }
 
-message UpdateUziOut { Uzi uzi = 100; }
+message UpdateMriOut { Mri mri = 100; }
 
-message GetUziIn { string id = 100; }
+message GetMriIn { string id = 100; }
 
-message GetUziOut { Uzi uzi = 100; }
+message GetMriOut { Mri mri = 100; }
 
-message GetPatientUzisIn {
+message GetPatientMrisIn {
   string patient_id = 100;
 }
 
-message GetPatientUzisOut {
-  repeated Uzi uzis = 100;
+message GetPatientMrisOut {
+  repeated Mri mris = 100;
 }
 
 // IMAGE
@@ -119,9 +119,9 @@ message Image {
   int64 page = 200;
 };
 
-message GetUziImagesIn { string mri_id = 100; }
+message GetMriImagesIn { string mri_id = 100; }
 
-message GetUziImagesOut { repeated Image images = 100; }
+message GetMriImagesOut { repeated Image images = 100; }
 
 // SEGMENT
 

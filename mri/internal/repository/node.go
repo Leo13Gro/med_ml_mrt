@@ -3,7 +3,7 @@ package repository
 import (
 	"github.com/WantBeASleep/goooool/daolib"
 
-	"uzi/internal/repository/entity"
+	"mri/internal/repository/entity"
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/google/uuid"
@@ -15,7 +15,7 @@ type NodeQuery interface {
 	InsertNode(node entity.Node) error
 	GetNodeByPK(id uuid.UUID) (entity.Node, error)
 	GetNodesByImageID(id uuid.UUID) ([]entity.Node, error)
-	GetNodesByUziID(id uuid.UUID) ([]entity.Node, error)
+	GetNodesByMriID(id uuid.UUID) ([]entity.Node, error)
 	UpdateNode(node entity.Node) (int64, error)
 	DeleteNodeByPK(id uuid.UUID) error
 }
@@ -96,15 +96,15 @@ func (q *nodeQuery) GetNodesByImageID(id uuid.UUID) ([]entity.Node, error) {
 			"image.id": id,
 		})
 
-	var uzi []entity.Node
-	if err := q.Runner().Selectx(q.Context(), &uzi, query); err != nil {
+	var mri []entity.Node
+	if err := q.Runner().Selectx(q.Context(), &mri, query); err != nil {
 		return nil, err
 	}
 
-	return uzi, nil
+	return mri, nil
 }
 
-func (q *nodeQuery) GetNodesByUziID(id uuid.UUID) ([]entity.Node, error) {
+func (q *nodeQuery) GetNodesByMriID(id uuid.UUID) ([]entity.Node, error) {
 	query := q.QueryBuilder().
 		Select(
 			"id",
@@ -119,12 +119,12 @@ func (q *nodeQuery) GetNodesByUziID(id uuid.UUID) ([]entity.Node, error) {
 			"mri_id": id,
 		})
 
-	var uzi []entity.Node
-	if err := q.Runner().Selectx(q.Context(), &uzi, query); err != nil {
+	var mri []entity.Node
+	if err := q.Runner().Selectx(q.Context(), &mri, query); err != nil {
 		return nil, err
 	}
 
-	return uzi, nil
+	return mri, nil
 }
 
 // TODO: упорядочнить Insert/Delete/Select/Update

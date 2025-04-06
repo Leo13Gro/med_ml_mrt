@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"uzi/internal/domain"
-	"uzi/internal/repository"
-	"uzi/internal/repository/entity"
+	"mri/internal/domain"
+	"mri/internal/repository"
+	"mri/internal/repository/entity"
 
 	"github.com/google/uuid"
 )

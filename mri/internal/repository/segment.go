@@ -3,7 +3,7 @@ package repository
 import (
 	"github.com/WantBeASleep/goooool/daolib"
 
-	"uzi/internal/repository/entity"
+	"mri/internal/repository/entity"
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/google/uuid"
@@ -19,7 +19,7 @@ type SegmentQuery interface {
 	// GetUziIDBySegmentID(id uuid.UUID) (uuid.UUID, error)
 	UpdateSegment(segment entity.Segment) (int64, error)
 	DeleteSegmentByPK(id uuid.UUID) error
-	DeleteSegmentByUziID(id uuid.UUID) (int64, error)
+	DeleteSegmentByMriID(id uuid.UUID) (int64, error)
 }
 
 type segmentQuery struct {
@@ -187,7 +187,7 @@ func (q *segmentQuery) DeleteSegmentByPK(id uuid.UUID) error {
 	return nil
 }
 
-func (q *segmentQuery) DeleteSegmentByUziID(id uuid.UUID) (int64, error) {
+func (q *segmentQuery) DeleteSegmentByMriID(id uuid.UUID) (int64, error) {
 	query := q.QueryBuilder().
 		Delete(segmentTable).
 		Where(sq.Eq{

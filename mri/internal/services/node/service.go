@@ -7,9 +7,9 @@ import (
 
 	// "uzi/internal/adapters"
 
-	"uzi/internal/domain"
-	"uzi/internal/repository"
-	"uzi/internal/repository/entity"
+	"mri/internal/domain"
+	"mri/internal/repository"
+	"mri/internal/repository/entity"
 
 	"github.com/google/uuid"
 )
@@ -106,7 +106,7 @@ func (s *service) insertNodesWithSegments(ctx context.Context, nodes []domain.No
 }
 
 func (s *service) GetAllNodes(ctx context.Context, id uuid.UUID) ([]domain.Node, error) {
-	nodesDB, err := s.dao.NewNodeQuery(ctx).GetNodesByUziID(id)
+	nodesDB, err := s.dao.NewNodeQuery(ctx).GetNodesByMriID(id)
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +138,7 @@ func (s *service) DeleteNode(ctx context.Context, id uuid.UUID) error {
 		return fmt.Errorf("begin transaction: %w", err)
 	}
 
-	if _, err := s.dao.NewSegmentQuery(ctx).DeleteSegmentByUziID(id); err != nil {
+	if _, err := s.dao.NewSegmentQuery(ctx).DeleteSegmentByMriID(id); err != nil {
 		rollbackErr := s.dao.RollbackTx(ctx)
 		return fmt.Errorf("delete node segments: %w", errors.Join(err, rollbackErr))
 	}

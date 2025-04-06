@@ -6,7 +6,7 @@ import (
 	"image"
 	"image/png"
 
-	"uzi/internal/domain"
+	"mri/internal/domain"
 )
 
 type Service interface {

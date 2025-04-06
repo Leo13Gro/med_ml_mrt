@@ -1,4 +1,4 @@
-package uziprocessed
+package mriprocessed
 
 import (
 	"context"
@@ -7,9 +7,9 @@ import (
 
 	"github.com/WantBeASleep/goooool/brokerlib"
 
-	"uzi/internal/domain"
-	pb "uzi/internal/generated/broker/consume/uziprocessed"
-	"uzi/internal/services/node"
+	"mri/internal/domain"
+	pb "mri/internal/generated/broker/consume/mriprocessed"
+	"mri/internal/services/node"
 
 	"github.com/google/uuid"
 	"google.golang.org/protobuf/proto"
@@ -42,7 +42,7 @@ func (h *subscriber) GetConfig() brokerlib.SubscriberConfig {
 func (h *subscriber) ProcessMessage(ctx context.Context, msg []byte) error {
 	var event pb.MriProcessed
 	if err := proto.Unmarshal(msg, &event); err != nil {
-		return errors.New("wrong msg type. uziprocessed required")
+		return errors.New("wrong msg type. mriprocessed required")
 	}
 
 	nodes := make([]domain.Node, 0, len(event.Nodes))

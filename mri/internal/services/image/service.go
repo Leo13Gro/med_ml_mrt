@@ -6,21 +6,21 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"uzi/internal/adapters"
-	uzisplittedpb "uzi/internal/generated/broker/produce/uzisplitted"
+	"mri/internal/adapters"
+	mrisplittedpb "mri/internal/generated/broker/produce/mrisplitted"
 
-	"uzi/internal/domain"
-	"uzi/internal/repository"
-	"uzi/internal/repository/entity"
-	"uzi/internal/services/splitter"
+	"mri/internal/domain"
+	"mri/internal/repository"
+	"mri/internal/repository/entity"
+	"mri/internal/services/splitter"
 
 	"github.com/google/uuid"
 )
 
 type Service interface {
-	GetUziImages(ctx context.Context, uziID uuid.UUID) ([]domain.Image, error)
+	GetMriImages(ctx context.Context, mriID uuid.UUID) ([]domain.Image, error)
 	GetImageSegmentsWithNodes(ctx context.Context, id uuid.UUID) ([]domain.Node, []domain.Segment, error)
-	SplitUzi(ctx context.Context, uziID uuid.UUID) error
+	SplitMri(ctx context.Context, mriID uuid.UUID) error
 }
 
 type service struct {
@@ -56,8 +56,8 @@ func (s *service) CreateImages(ctx context.Context, images []domain.Image) ([]uu
 	return ids, nil
 }
 
-func (s *service) GetUziImages(ctx context.Context, uziID uuid.UUID) ([]domain.Image, error) {
-	images, err := s.dao.NewImageQuery(ctx).GetImagesByUziID(uziID)
+func (s *service) GetMriImages(ctx context.Context, mriID uuid.UUID) ([]domain.Image, error) {
+	images, err := s.dao.NewImageQuery(ctx).GetImagesByMriID(mriID)
 	if err != nil {
 		return nil, fmt.Errorf("get images by mri_id: %w", err)
 	}
@@ -86,18 +86,18 @@ func (s *service) GetImageSegmentsWithNodes(ctx context.Context, id uuid.UUID) (
 // загрузить в psql
 // загрузить в s3
 // написать в kafka
-func (s *service) SplitUzi(ctx context.Context, uziID uuid.UUID) error {
+func (s *service) SplitMri(ctx context.Context, mriID uuid.UUID) error {
 	fileRepo := s.dao.NewFileRepo()
 
-	exists, err := s.dao.NewUziQuery(ctx).CheckExist(uziID)
+	exists, err := s.dao.NewMriQuery(ctx).CheckExist(mriID)
 	if err != nil {
-		return fmt.Errorf("check exists uzi: %w", err)
+		return fmt.Errorf("check exists mri: %w", err)
 	}
 	if !exists {
-		return errors.New("uzi doesnt exist")
+		return errors.New("mri doesnt exist")
 	}
 
-	file, closer, err := fileRepo.GetFileViaTemp(ctx, filepath.Join(uziID.String(), uziID.String()))
+	file, closer, err := fileRepo.GetFileViaTemp(ctx, filepath.Join(mriID.String(), mriID.String()))
 	if err != nil {
 		return fmt.Errorf("get file via temp: %w", err)
 	}
@@ -111,7 +111,7 @@ func (s *service) SplitUzi(ctx context.Context, uziID uuid.UUID) error {
 
 	images := make([]domain.Image, len(splitted))
 	for i := range images {
-		images[i].MriID = uziID
+		images[i].MriID = mriID
 		images[i].Page = i + 1
 	}
 
@@ -122,16 +122,16 @@ func (s *service) SplitUzi(ctx context.Context, uziID uuid.UUID) error {
 	}
 
 	for i, v := range ids {
-		if err := fileRepo.LoadFile(ctx, filepath.Join(uziID.String(), v.String(), v.String()), splitted[i]); err != nil {
+		if err := fileRepo.LoadFile(ctx, filepath.Join(mriID.String(), v.String(), v.String()), splitted[i]); err != nil {
 			return fmt.Errorf("load file to S3: %w", err)
 		}
 	}
 
-	if err := s.adapter.BrokerAdapter.SendMriSplitted(&uzisplittedpb.MriSplitted{
-		MriId:   uziID.String(),
+	if err := s.adapter.BrokerAdapter.SendMriSplitted(&mrisplittedpb.MriSplitted{
+		MriId:   mriID.String(),
 		PagesId: uuid.UUIDs(ids).Strings(),
 	}); err != nil {
-		return fmt.Errorf("send to uzisplitted topic: %w", err)
+		return fmt.Errorf("send to mrisplitted topic: %w", err)
 	}
 
 	return nil

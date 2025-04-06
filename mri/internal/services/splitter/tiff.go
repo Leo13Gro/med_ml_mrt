@@ -5,7 +5,7 @@ import (
 
 	"github.com/WantBeASleep/goooool/slicer"
 
-	"uzi/internal/domain"
+	"mri/internal/domain"
 
 	"github.com/chai2010/tiff"
 )
