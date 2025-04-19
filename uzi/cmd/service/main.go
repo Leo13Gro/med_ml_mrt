@@ -7,37 +7,34 @@ import (
 	"net"
 	"os"
 
-	"github.com/WantBeASleep/goooool/brokerlib"
-	"github.com/WantBeASleep/goooool/grpclib"
-	"github.com/WantBeASleep/goooool/loglib"
-
-	pkgconfig "github.com/WantBeASleep/goooool/config"
+	dbuslib "github.com/WantBeASleep/med_ml_lib/dbus"
+	grpclib "github.com/WantBeASleep/med_ml_lib/grpc"
+	observerdbuslib "github.com/WantBeASleep/med_ml_lib/observer/dbus"
+	observergrpclib "github.com/WantBeASleep/med_ml_lib/observer/grpc"
+	loglib "github.com/WantBeASleep/med_ml_lib/observer/log"
 
 	"uzi/internal/config"
 
+	"github.com/ilyakaznacheev/cleanenv"
+
 	"uzi/internal/repository"
 
-	devicesrv "uzi/internal/services/device"
-	imagesrv "uzi/internal/services/image"
-	nodesrv "uzi/internal/services/node"
-	segmentsrv "uzi/internal/services/segment"
-	uzisrv "uzi/internal/services/uzi"
+	services "uzi/internal/services"
 
 	pb "uzi/internal/generated/grpc/service"
-	grpchandler "uzi/internal/grpc"
 
-	devicehandler "uzi/internal/grpc/device"
-	imagehandler "uzi/internal/grpc/image"
-	nodehandler "uzi/internal/grpc/node"
-	segmenthandler "uzi/internal/grpc/segment"
-	uzihandler "uzi/internal/grpc/uzi"
+	grpchandler "uzi/internal/server"
 
-	uziprocessedsubscriber "uzi/internal/subs/uziprocessed"
-	uziuploadsubscriber "uzi/internal/subs/uziupload"
+	uziprocessedsubscriber "uzi/internal/dbus/consumers/uziprocessed"
+	uziuploadsubscriber "uzi/internal/dbus/consumers/uziupload"
 
-	adapters "uzi/internal/adapters"
-	brokeradapter "uzi/internal/adapters/broker"
+	dbusproducers "uzi/internal/dbus/producers"
+	uziprocessed "uzi/internal/generated/dbus/consume/uziprocessed"
+	uziupload "uzi/internal/generated/dbus/consume/uziupload"
+	uzicompletepb "uzi/internal/generated/dbus/produce/uzicomplete"
+	uzisplittedpb "uzi/internal/generated/dbus/produce/uzisplitted"
 
+	"github.com/IBM/sarama"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"github.com/minio/minio-go/v7"
@@ -55,11 +52,13 @@ func main() {
 }
 
 func run() (exitCode int) {
-	loglib.InitLogger(loglib.WithDevEnv())
-	cfg, err := pkgconfig.Load[config.Config]()
-	if err != nil {
+	loglib.InitLogger(loglib.WithEnv())
+
+	cfg := config.Config{}
+	if err := cleanenv.ReadEnv(&cfg); err != nil {
 		slog.Error("init config", "err", err)
 		return failExitCode
+
 	}
 
 	db, err := sqlx.Open("postgres", cfg.DB.Dsn)
@@ -83,66 +82,75 @@ func run() (exitCode int) {
 		return failExitCode
 	}
 
-	producer, err := brokerlib.NewProducer(cfg.Broker.Addrs)
+	producer, err := sarama.NewSyncProducer(cfg.Broker.Addrs, nil)
 	if err != nil {
-		slog.Error("init broker producer", slog.Any("err", err))
+		slog.Error("init sarama producer", "err", err)
+		return failExitCode
 	}
 
-	dao := repository.NewRepository(db, client, "uzi")
-	adapter := adapters.New(brokeradapter.New(producer))
-
-	deviceSrv := devicesrv.New(dao)
-	uziSrv := uzisrv.New(dao)
-	imageSrv := imagesrv.New(dao, adapter)
-	nodeSrv := nodesrv.New(dao)
-	serviceSrv := segmentsrv.New(dao)
-
-	// grpc
-	deviceHandler := devicehandler.New(deviceSrv)
-	uziHandler := uzihandler.New(uziSrv)
-	imageHandler := imagehandler.New(imageSrv)
-	nodeHandler := nodehandler.New(nodeSrv)
-	serviceHandler := segmenthandler.New(serviceSrv)
-
-	handler := grpchandler.New(
-		deviceHandler,
-		uziHandler,
-		imageHandler,
-		nodeHandler,
-		serviceHandler,
+	producerUziSplitted := dbuslib.NewProducer[*uzisplittedpb.UziSplitted](
+		producer,
+		"uzisplitted",
+		dbuslib.WithProducerMiddlewares[*uzisplittedpb.UziSplitted](
+			observerdbuslib.CrossEventProduce,
+			observerdbuslib.LogEventProduce,
+		),
 	)
+
+	producerUziComplete := dbuslib.NewProducer[*uzicompletepb.UziComplete](
+		producer,
+		"uzicomplete",
+		dbuslib.WithProducerMiddlewares[*uzicompletepb.UziComplete](
+			observerdbuslib.CrossEventProduce,
+			observerdbuslib.LogEventProduce,
+		),
+	)
+
+	dbusAdapter := dbusproducers.New(producerUziSplitted, producerUziComplete)
+
+	dao := repository.NewRepository(db, client, "uzi")
+
+	services := services.New(
+		dao,
+		dbusAdapter,
+	)
+
+	handler := grpchandler.New(services)
 
 	server := grpc.NewServer(
 		grpc.ChainUnaryInterceptor(
-			grpclib.ServerCallPanicRecoverInterceptor,
-			grpclib.ServerCallLoggerInterceptor,
+			grpclib.PanicRecover,
+			observergrpclib.CrossServerCall,
+			observergrpclib.LogServerCall,
 		),
 	)
 	pb.RegisterUziSrvServer(server, handler)
 
-	// broker
-	uziuploadSubscriber := uziuploadsubscriber.New(imageSrv)
-	uziprocessedSubscriber := uziprocessedsubscriber.New(nodeSrv)
+	// dbus
+	uziuploadSubscriber := uziuploadsubscriber.New(services)
+	uziprocessedSubscriber := uziprocessedsubscriber.New(services)
 
-	uziuploadHandler, err := brokerlib.GetSubscriberHandler(
+	uziUploadHandler := dbuslib.NewGroupSubscriber(
+		"uziupload",
+		cfg.Broker.Addrs,
+		"uziupload",
 		uziuploadSubscriber,
-		cfg.Broker.Addrs,
-		nil,
+		dbuslib.WithSubscriberMiddlewares[*uziupload.UziUpload](
+			observerdbuslib.CrossEventConsume,
+			observerdbuslib.LogEventConsume,
+		),
 	)
-	if err != nil {
-		slog.Error("create uzipload sub", "err", err)
-		return failExitCode
-	}
 
-	uziprocessedHandler, err := brokerlib.GetSubscriberHandler(
-		uziprocessedSubscriber,
+	uziprocessedHandler := dbuslib.NewGroupSubscriber(
+		"uziprocessed",
 		cfg.Broker.Addrs,
-		nil,
+		"uziprocessed",
+		uziprocessedSubscriber,
+		dbuslib.WithSubscriberMiddlewares[*uziprocessed.UziProcessed](
+			observerdbuslib.CrossEventConsume,
+			observerdbuslib.LogEventConsume,
+		),
 	)
-	if err != nil {
-		slog.Error("create uziprocesse sub", "err", err)
-		return failExitCode
-	}
 
 	lis, err := net.Listen("tcp", cfg.App.Url)
 	if err != nil {
@@ -162,7 +170,7 @@ func run() (exitCode int) {
 	}()
 	go func() {
 		// пока без DI
-		if err := uziuploadHandler.Start(context.Background()); err != nil {
+		if err := uziUploadHandler.Start(context.Background()); err != nil {
 			slog.Error("start uziupload handler", "err", err)
 		}
 	}()

@@ -5,27 +5,21 @@ import (
 	"net"
 	"os"
 
-	"github.com/WantBeASleep/goooool/grpclib"
-	"github.com/WantBeASleep/goooool/loglib"
+	grpclib "github.com/WantBeASleep/med_ml_lib/grpc"
+	observergrpclib "github.com/WantBeASleep/med_ml_lib/observer/grpc"
+	loglib "github.com/WantBeASleep/med_ml_lib/observer/log"
+
+	"github.com/ilyakaznacheev/cleanenv"
+	_ "github.com/joho/godotenv/autoload"
 
 	"auth/internal/config"
 
-	pkgconfig "github.com/WantBeASleep/goooool/config"
-
 	"auth/internal/repository"
 
-	loginsrv "auth/internal/services/login"
-	passwordsrv "auth/internal/services/password"
-	refreshsrv "auth/internal/services/refresh"
-	registersrv "auth/internal/services/register"
-	tokenizersrv "auth/internal/services/tokenizer"
+	"auth/internal/server"
+	"auth/internal/services"
 
 	pb "auth/internal/generated/grpc/service"
-	grpchandler "auth/internal/grpc"
-
-	loginhadnler "auth/internal/grpc/login"
-	refreshhadnler "auth/internal/grpc/refresh"
-	registerhadnler "auth/internal/grpc/register"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -42,16 +36,11 @@ func main() {
 }
 
 func run() (exitCode int) {
-	loglib.InitLogger(loglib.WithDevEnv())
-	cfg, err := pkgconfig.Load[config.Config]()
-	if err != nil {
-		slog.Error("init config", "err", err)
-		return failExitCode
-	}
+	loglib.InitLogger(loglib.WithEnv())
 
-	pubKey, privKey, err := cfg.ParseRsaKeys()
-	if err != nil {
-		slog.Error("parse rsa keys", "err", err)
+	cfg := config.Config{}
+	if err := cleanenv.ReadEnv(&cfg); err != nil {
+		slog.Error("init config", "err", err)
 		return failExitCode
 	}
 
@@ -69,32 +58,15 @@ func run() (exitCode int) {
 
 	dao := repository.NewRepository(db)
 
-	tokenizerSrv := tokenizersrv.New(
-		cfg.JWT.AccessTokenTime,
-		cfg.JWT.RefreshTokenTime,
-		privKey,
-		pubKey,
-	)
-	passwordSrv := passwordsrv.New()
+	services := services.New(dao, &cfg)
 
-	loginSrv := loginsrv.New(dao, passwordSrv, tokenizerSrv)
-	refreshSrv := refreshsrv.New(dao, tokenizerSrv)
-	registerSrv := registersrv.New(dao, passwordSrv)
-
-	loginHadnler := loginhadnler.New(loginSrv)
-	refreshHadnler := refreshhadnler.New(refreshSrv)
-	registerHadnler := registerhadnler.New(registerSrv)
-
-	handler := grpchandler.New(
-		loginHadnler,
-		refreshHadnler,
-		registerHadnler,
-	)
+	handler := server.New(services)
 
 	server := grpc.NewServer(
 		grpc.ChainUnaryInterceptor(
-			grpclib.ServerCallPanicRecoverInterceptor,
-			grpclib.ServerCallLoggerInterceptor,
+			grpclib.PanicRecover,
+			observergrpclib.CrossServerCall,
+			observergrpclib.LogServerCall,
 		),
 	)
 	pb.RegisterAuthSrvServer(server, handler)

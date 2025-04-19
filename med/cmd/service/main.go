@@ -5,25 +5,20 @@ import (
 	"net"
 	"os"
 
-	"github.com/WantBeASleep/goooool/grpclib"
-	"github.com/WantBeASleep/goooool/loglib"
+	grpclib "github.com/WantBeASleep/med_ml_lib/grpc"
+	observergrpclib "github.com/WantBeASleep/med_ml_lib/observer/grpc"
+	loglib "github.com/WantBeASleep/med_ml_lib/observer/log"
 
 	"med/internal/config"
 
-	pkgconfig "github.com/WantBeASleep/goooool/config"
+	"github.com/ilyakaznacheev/cleanenv"
+	_ "github.com/joho/godotenv/autoload"
 
 	"med/internal/repository"
-
-	cardsrv "med/internal/services/card"
-	doctorsrv "med/internal/services/doctor"
-	patientsrv "med/internal/services/patient"
+	"med/internal/server"
+	"med/internal/services"
 
 	pb "med/internal/generated/grpc/service"
-	grpchandler "med/internal/grpc"
-
-	cardhandler "med/internal/grpc/card"
-	doctorhandler "med/internal/grpc/doctor"
-	patienthandler "med/internal/grpc/patient"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -40,9 +35,10 @@ func main() {
 }
 
 func run() (exitCode int) {
-	loglib.InitLogger(loglib.WithDevEnv())
-	cfg, err := pkgconfig.Load[config.Config]()
-	if err != nil {
+	loglib.InitLogger(loglib.WithEnv())
+
+	cfg := config.Config{}
+	if err := cleanenv.ReadEnv(&cfg); err != nil {
 		slog.Error("init config", "err", err)
 		return failExitCode
 	}
@@ -61,24 +57,14 @@ func run() (exitCode int) {
 
 	dao := repository.NewRepository(db)
 
-	patientSrv := patientsrv.New(dao)
-	doctorSrv := doctorsrv.New(dao)
-	cardSrv := cardsrv.New(dao)
-
-	patientHandler := patienthandler.New(patientSrv)
-	doctorHandler := doctorhandler.New(doctorSrv)
-	cardHandler := cardhandler.New(cardSrv)
-
-	handler := grpchandler.New(
-		patientHandler,
-		doctorHandler,
-		cardHandler,
-	)
+	service := services.NewService(dao)
+	handler := server.New(service)
 
 	server := grpc.NewServer(
 		grpc.ChainUnaryInterceptor(
-			grpclib.ServerCallPanicRecoverInterceptor,
-			grpclib.ServerCallLoggerInterceptor,
+			grpclib.PanicRecover,
+			observergrpclib.CrossServerCall,
+			observergrpclib.LogServerCall,
 		),
 	)
 	pb.RegisterMedSrvServer(server, handler)

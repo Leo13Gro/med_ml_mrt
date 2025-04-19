@@ -3,14 +3,16 @@ package repository
 import (
 	"context"
 
-	"github.com/WantBeASleep/goooool/daolib"
+	"auth/internal/repository/user"
+
+	daolib "github.com/WantBeASleep/med_ml_lib/dao"
 
 	"github.com/jmoiron/sqlx"
 )
 
 type DAO interface {
 	daolib.DAO
-	NewUserQuery(ctx context.Context) UserQuery
+	NewUserRepo(ctx context.Context) user.Repository
 }
 
 type dao struct {
@@ -21,9 +23,9 @@ func NewRepository(psql *sqlx.DB) DAO {
 	return &dao{DAO: daolib.NewDao(psql)}
 }
 
-func (d *dao) NewUserQuery(ctx context.Context) UserQuery {
-	userQuery := &userQuery{}
-	d.NewRepo(ctx, userQuery)
+func (d *dao) NewUserRepo(ctx context.Context) user.Repository {
+	userRepo := user.NewR()
+	d.NewRepo(ctx, userRepo)
 
-	return userQuery
+	return userRepo
 }
