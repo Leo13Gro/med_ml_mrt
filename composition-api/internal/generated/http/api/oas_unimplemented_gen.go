@@ -22,6 +22,24 @@ func (UnimplementedHandler) DownloadUziIDImageIDGet(ctx context.Context, params 
 	return r, ht.ErrNotImplemented
 }
 
+// KtIDGet implements GET /kt/{id} operation.
+//
+// Получить кт.
+//
+// GET /kt/{id}
+func (UnimplementedHandler) KtIDGet(ctx context.Context, params KtIDGetParams) (r KtIDGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// KtPost implements POST /kt operation.
+//
+// Загрузить кт на обработку.
+//
+// POST /kt
+func (UnimplementedHandler) KtPost(ctx context.Context, req *KtPostReq) (r KtPostRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // LoginPost implements POST /login operation.
 //
 // Авторизация.

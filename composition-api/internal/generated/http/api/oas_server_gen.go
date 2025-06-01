@@ -14,6 +14,18 @@ type Handler interface {
 	//
 	// GET /download/{uzi_id}/{image_id}
 	DownloadUziIDImageIDGet(ctx context.Context, params DownloadUziIDImageIDGetParams) (DownloadUziIDImageIDGetRes, error)
+	// KtIDGet implements GET /kt/{id} operation.
+	//
+	// Получить кт.
+	//
+	// GET /kt/{id}
+	KtIDGet(ctx context.Context, params KtIDGetParams) (KtIDGetRes, error)
+	// KtPost implements POST /kt operation.
+	//
+	// Загрузить кт на обработку.
+	//
+	// POST /kt
+	KtPost(ctx context.Context, req *KtPostReq) (KtPostRes, error)
 	// LoginPost implements POST /login operation.
 	//
 	// Авторизация.

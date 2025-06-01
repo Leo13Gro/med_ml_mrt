@@ -506,6 +506,8 @@ func (s *ErrorStatusCode) SetResponse(val Error) {
 }
 
 func (*ErrorStatusCode) downloadUziIDImageIDGetRes()       {}
+func (*ErrorStatusCode) ktIDGetRes()                       {}
+func (*ErrorStatusCode) ktPostRes()                        {}
 func (*ErrorStatusCode) loginPostRes()                     {}
 func (*ErrorStatusCode) medCardDoctorIDPatientIDGetRes()   {}
 func (*ErrorStatusCode) medCardDoctorIDPatientIDPatchRes() {}
@@ -578,6 +580,64 @@ func (s *Image) SetUziID(val uuid.UUID) {
 // SetPage sets the value of Page.
 func (s *Image) SetPage(val int) {
 	s.Page = val
+}
+
+// Кт.
+// Ref: #/components/schemas/kt
+type Kt struct {
+	// Id кт.
+	ID uuid.UUID `json:"id"`
+	// Дата создания в формате RFC3339.
+	CreateAt time.Time `json:"create_at"`
+}
+
+// GetID returns the value of ID.
+func (s *Kt) GetID() uuid.UUID {
+	return s.ID
+}
+
+// GetCreateAt returns the value of CreateAt.
+func (s *Kt) GetCreateAt() time.Time {
+	return s.CreateAt
+}
+
+// SetID sets the value of ID.
+func (s *Kt) SetID(val uuid.UUID) {
+	s.ID = val
+}
+
+// SetCreateAt sets the value of CreateAt.
+func (s *Kt) SetCreateAt(val time.Time) {
+	s.CreateAt = val
+}
+
+func (*Kt) ktIDGetRes() {}
+
+type KtPostReq struct {
+	// Файл кт. **обязательно с .mp4**.
+	File ht.MultipartFile `json:"file"`
+	// Описание узи.
+	Description OptString `json:"description"`
+}
+
+// GetFile returns the value of File.
+func (s *KtPostReq) GetFile() ht.MultipartFile {
+	return s.File
+}
+
+// GetDescription returns the value of Description.
+func (s *KtPostReq) GetDescription() OptString {
+	return s.Description
+}
+
+// SetFile sets the value of File.
+func (s *KtPostReq) SetFile(val ht.MultipartFile) {
+	s.File = val
+}
+
+// SetDescription sets the value of Description.
+func (s *KtPostReq) SetDescription(val OptString) {
+	s.Description = val
 }
 
 type LoginPostOK struct {
@@ -1671,6 +1731,7 @@ func (s *SimpleUuid) SetID(val uuid.UUID) {
 	s.ID = val
 }
 
+func (*SimpleUuid) ktPostRes()         {}
 func (*SimpleUuid) medPatientPostRes() {}
 func (*SimpleUuid) regDoctorPostRes()  {}
 func (*SimpleUuid) regPatientPostRes() {}

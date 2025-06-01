@@ -7,6 +7,10 @@ message UziSplitted {
   repeated string pages_id = 200;
 }
 
+message KtPrepared {
+  string kt_id = 100;
+}
+
 message UziProcessed {
   // из-за коллизии имен с grpc, пришлось использовать вложенные сообщения
   message Node {

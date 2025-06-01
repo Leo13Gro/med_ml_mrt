@@ -5,6 +5,14 @@ type DownloadUziIDImageIDGetRes interface {
 	downloadUziIDImageIDGetRes()
 }
 
+type KtIDGetRes interface {
+	ktIDGetRes()
+}
+
+type KtPostRes interface {
+	ktPostRes()
+}
+
 type LoginPostRes interface {
 	loginPostRes()
 }

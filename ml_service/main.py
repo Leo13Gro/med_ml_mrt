@@ -8,8 +8,10 @@ import ml_service.internal.api.ml_controller as ctrl
 import ml_service.internal.events.events as kafkaevents
 import ml_service.internal.ml_model.classification_efficientnet as cla
 import ml_service.internal.ml_model.segmentation as seg
+import ml_service.internal.ml_model.kt.neuro_class as kt
 import ml_service.internal.s3.s3 as mys3
 import ml_service.internal.usecases.uzi.uzi as usecaseuzi
+import ml_service.internal.usecases.kt.kt as usecasekt
 from ml_service.config.default import get_settings
 
 
@@ -29,11 +31,13 @@ def run_server():
 
     segmdl = seg.SegmentationModel(model_type=settings.segmentation_model_type)
     claml = cla.EfficientNetModel(model_type=settings.classification_model_type)
+    ktml = kt.KtModel()
 
-    usecase = usecaseuzi.uziUseCase(segmdl, claml, s3)
+    usecaseUzi = usecaseuzi.uziUseCase(segmdl, claml, s3)
+    usecaseKt = usecasekt.ktUseCase(ktml, s3)
 
-    controller = ctrl.MlController(usecase)
-    kafka = kafkaevents.EventsYo(usecase)
+    controller = ctrl.MlController(usecaseUzi)
+    kafka = kafkaevents.EventsYo(usecaseUzi, usecaseKt)
     print("Kafka started...")
     kafka.run()
 

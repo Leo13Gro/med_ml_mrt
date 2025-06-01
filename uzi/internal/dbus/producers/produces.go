@@ -6,6 +6,7 @@ package dbus
 import (
 	"context"
 
+	ktpreparedpb "uzi/internal/generated/dbus/produce/ktprepared"
 	uzicompletepb "uzi/internal/generated/dbus/produce/uzicomplete"
 	uzisplittedpb "uzi/internal/generated/dbus/produce/uzisplitted"
 
@@ -15,20 +16,24 @@ import (
 type Producer interface {
 	SendUziSplitted(ctx context.Context, msg *uzisplittedpb.UziSplitted) error
 	SendUziComplete(ctx context.Context, msg *uzicompletepb.UziComplete) error
+	SendKtPrepared(ctx context.Context, msg *ktpreparedpb.KtPrepared) error
 }
 
 type producer struct {
 	producerUziSplitted dbuslib.Producer[*uzisplittedpb.UziSplitted]
 	producerUziComplete dbuslib.Producer[*uzicompletepb.UziComplete]
+	producerKtPrepared  dbuslib.Producer[*ktpreparedpb.KtPrepared]
 }
 
 func New(
 	producerUziSplitted dbuslib.Producer[*uzisplittedpb.UziSplitted],
 	producerUziComplete dbuslib.Producer[*uzicompletepb.UziComplete],
+	producerKtPrepared dbuslib.Producer[*ktpreparedpb.KtPrepared],
 ) Producer {
 	return &producer{
 		producerUziSplitted: producerUziSplitted,
 		producerUziComplete: producerUziComplete,
+		producerKtPrepared:  producerKtPrepared,
 	}
 }
 
@@ -38,4 +43,8 @@ func (a *producer) SendUziSplitted(ctx context.Context, msg *uzisplittedpb.UziSp
 
 func (a *producer) SendUziComplete(ctx context.Context, msg *uzicompletepb.UziComplete) error {
 	return a.producerUziComplete.Send(ctx, msg)
+}
+
+func (a *producer) SendKtPrepared(ctx context.Context, msg *ktpreparedpb.KtPrepared) error {
+	return a.producerKtPrepared.Send(ctx, msg)
 }

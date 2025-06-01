@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	"composition-api/internal/server/kt"
+
 	api "composition-api/internal/generated/http/api"
 	"composition-api/internal/server/auth"
 	"composition-api/internal/server/download"
@@ -16,6 +18,7 @@ import (
 type server struct {
 	auth.AuthRoute
 	uzi.UziRoute
+	kt.KTRoute
 	med.MedRoute
 	register.RegisterRoute
 	download.DownloadRoute
@@ -23,6 +26,7 @@ type server struct {
 
 func New(services *services.Services) api.Handler {
 	uziRoute := uzi.NewUziRoute(services)
+	ktRoute := kt.NewKTRoute(services)
 	authRoute := auth.NewAuthRoute(services)
 	medRoute := med.NewMedRoute(services)
 	registerRoute := register.NewRegisterRoute(services)
@@ -30,6 +34,7 @@ func New(services *services.Services) api.Handler {
 
 	return &server{
 		UziRoute:      uziRoute,
+		KTRoute:       ktRoute,
 		AuthRoute:     authRoute,
 		MedRoute:      medRoute,
 		RegisterRoute: registerRoute,

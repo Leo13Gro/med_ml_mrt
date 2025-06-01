@@ -25,12 +25,16 @@ import (
 
 	grpchandler "uzi/internal/server"
 
+	ktuploadsubscriber "uzi/internal/dbus/consumers/ktupload"
 	uziprocessedsubscriber "uzi/internal/dbus/consumers/uziprocessed"
 	uziuploadsubscriber "uzi/internal/dbus/consumers/uziupload"
 
 	dbusproducers "uzi/internal/dbus/producers"
+	ktupload "uzi/internal/generated/dbus/consume/ktupload"
 	uziprocessed "uzi/internal/generated/dbus/consume/uziprocessed"
 	uziupload "uzi/internal/generated/dbus/consume/uziupload"
+
+	ktpreparedpb "uzi/internal/generated/dbus/produce/ktprepared"
 	uzicompletepb "uzi/internal/generated/dbus/produce/uzicomplete"
 	uzisplittedpb "uzi/internal/generated/dbus/produce/uzisplitted"
 
@@ -97,6 +101,15 @@ func run() (exitCode int) {
 		),
 	)
 
+	producerKtiPrepared := dbuslib.NewProducer[*ktpreparedpb.KtPrepared](
+		producer,
+		"ktprepared",
+		dbuslib.WithProducerMiddlewares[*ktpreparedpb.KtPrepared](
+			observerdbuslib.CrossEventProduce,
+			observerdbuslib.LogEventProduce,
+		),
+	)
+
 	producerUziComplete := dbuslib.NewProducer[*uzicompletepb.UziComplete](
 		producer,
 		"uzicomplete",
@@ -106,7 +119,7 @@ func run() (exitCode int) {
 		),
 	)
 
-	dbusAdapter := dbusproducers.New(producerUziSplitted, producerUziComplete)
+	dbusAdapter := dbusproducers.New(producerUziSplitted, producerUziComplete, producerKtiPrepared)
 
 	dao := repository.NewRepository(db, client, "uzi")
 
@@ -129,6 +142,7 @@ func run() (exitCode int) {
 	// dbus
 	uziuploadSubscriber := uziuploadsubscriber.New(services)
 	uziprocessedSubscriber := uziprocessedsubscriber.New(services)
+	ktuploadSubscriber := ktuploadsubscriber.New(services)
 
 	uziUploadHandler := dbuslib.NewGroupSubscriber(
 		"uziupload",
@@ -147,6 +161,17 @@ func run() (exitCode int) {
 		"uziprocessed",
 		uziprocessedSubscriber,
 		dbuslib.WithSubscriberMiddlewares[*uziprocessed.UziProcessed](
+			observerdbuslib.CrossEventConsume,
+			observerdbuslib.LogEventConsume,
+		),
+	)
+
+	ktUploadHandler := dbuslib.NewGroupSubscriber(
+		"ktupload",
+		cfg.Broker.Addrs,
+		"ktupload",
+		ktuploadSubscriber,
+		dbuslib.WithSubscriberMiddlewares[*ktupload.KtUpload](
 			observerdbuslib.CrossEventConsume,
 			observerdbuslib.LogEventConsume,
 		),
@@ -177,6 +202,12 @@ func run() (exitCode int) {
 	go func() {
 		if err := uziprocessedHandler.Start(context.Background()); err != nil {
 			slog.Error("start uziprocessedHandler handler", "err", err)
+		}
+	}()
+	go func() {
+		// пока без DI
+		if err := ktUploadHandler.Start(context.Background()); err != nil {
+			slog.Error("start ktupload handler", "err", err)
 		}
 	}()
 

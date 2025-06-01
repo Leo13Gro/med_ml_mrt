@@ -9,6 +9,7 @@ import (
 	"composition-api/internal/services/doctor"
 	"composition-api/internal/services/download"
 	"composition-api/internal/services/image"
+	"composition-api/internal/services/kt"
 	"composition-api/internal/services/node"
 	"composition-api/internal/services/node_segment"
 	"composition-api/internal/services/patient"
@@ -21,6 +22,7 @@ import (
 type Services struct {
 	DeviceService      device.Service
 	UziService         uzi.Service
+	KTService          kt.Service
 	ImageService       image.Service
 	NodeService        node.Service
 	SegmentService     segment.Service
@@ -40,6 +42,7 @@ func New(
 ) *Services {
 	deviceService := device.New(adapters)
 	uziService := uzi.New(adapters, dao, producers)
+	ktService := kt.New(adapters, dao, producers)
 	imageService := image.New(adapters)
 	nodeService := node.New(adapters)
 	segmentService := segment.New(adapters)
@@ -54,6 +57,7 @@ func New(
 	return &Services{
 		DeviceService:      deviceService,
 		UziService:         uziService,
+		KTService:          ktService,
 		ImageService:       imageService,
 		NodeService:        nodeService,
 		SegmentService:     segmentService,

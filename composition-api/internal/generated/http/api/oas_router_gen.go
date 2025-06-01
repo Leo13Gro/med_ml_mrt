@@ -116,6 +116,58 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 				}
 
+			case 'k': // Prefix: "kt"
+
+				if l := len("kt"); len(elem) >= l && elem[0:l] == "kt" {
+					elem = elem[l:]
+				} else {
+					break
+				}
+
+				if len(elem) == 0 {
+					switch r.Method {
+					case "POST":
+						s.handleKtPostRequest([0]string{}, elemIsEscaped, w, r)
+					default:
+						s.notAllowed(w, r, "POST")
+					}
+
+					return
+				}
+				switch elem[0] {
+				case '/': // Prefix: "/"
+
+					if l := len("/"); len(elem) >= l && elem[0:l] == "/" {
+						elem = elem[l:]
+					} else {
+						break
+					}
+
+					// Param: "id"
+					// Leaf parameter, slashes are prohibited
+					idx := strings.IndexByte(elem, '/')
+					if idx >= 0 {
+						break
+					}
+					args[0] = elem
+					elem = ""
+
+					if len(elem) == 0 {
+						// Leaf node.
+						switch r.Method {
+						case "GET":
+							s.handleKtIDGetRequest([1]string{
+								args[0],
+							}, elemIsEscaped, w, r)
+						default:
+							s.notAllowed(w, r, "GET")
+						}
+
+						return
+					}
+
+				}
+
 			case 'l': // Prefix: "login"
 
 				if l := len("login"); len(elem) >= l && elem[0:l] == "login" {
@@ -1024,6 +1076,64 @@ func (s *Server) FindPath(method string, u *url.URL) (r Route, _ bool) {
 							r.pathPattern = "/download/{uzi_id}/{image_id}"
 							r.args = args
 							r.count = 2
+							return r, true
+						default:
+							return
+						}
+					}
+
+				}
+
+			case 'k': // Prefix: "kt"
+
+				if l := len("kt"); len(elem) >= l && elem[0:l] == "kt" {
+					elem = elem[l:]
+				} else {
+					break
+				}
+
+				if len(elem) == 0 {
+					switch method {
+					case "POST":
+						r.name = KtPostOperation
+						r.summary = "загрузить кт на обработку"
+						r.operationID = ""
+						r.pathPattern = "/kt"
+						r.args = args
+						r.count = 0
+						return r, true
+					default:
+						return
+					}
+				}
+				switch elem[0] {
+				case '/': // Prefix: "/"
+
+					if l := len("/"); len(elem) >= l && elem[0:l] == "/" {
+						elem = elem[l:]
+					} else {
+						break
+					}
+
+					// Param: "id"
+					// Leaf parameter, slashes are prohibited
+					idx := strings.IndexByte(elem, '/')
+					if idx >= 0 {
+						break
+					}
+					args[0] = elem
+					elem = ""
+
+					if len(elem) == 0 {
+						// Leaf node.
+						switch method {
+						case "GET":
+							r.name = KtIDGetOperation
+							r.summary = "получить кт"
+							r.operationID = ""
+							r.pathPattern = "/kt/{id}"
+							r.args = args
+							r.count = 1
 							return r, true
 						default:
 							return

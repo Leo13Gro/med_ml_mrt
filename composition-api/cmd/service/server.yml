@@ -26,6 +26,24 @@ components:
       example:
         id: 1
         name: "ульпанатор 3000"
+    kt:
+      type: object
+      description: кт
+      required:
+        - id
+        - create_at
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: id кт
+        create_at:
+          type: string
+          format: date-time
+          description: дата создания в формате RFC3339
+      example:
+        id: "123e4567-e89b-12d3-a456-426614174000"
+        create_at: "2021-01-01T00:00:00Z" # RFC3339
 
     uzi:
       type: object
@@ -500,6 +518,65 @@ security:
   - bearerAuth: []
 
 paths:
+  /kt:
+    post:
+      summary: загрузить кт на обработку
+      tags:
+        - kt
+
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: файл кт. **обязательно с .mp4**
+                description:
+                  type: string
+                  description: описание узи
+              required:
+                - file
+      responses:
+        '200':
+          description: id кт
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/simpleUuid"
+        '500':
+          $ref: "#/components/responses/error"
+        default:
+          $ref: "#/components/responses/error"
+
+  /kt/{id}:
+    get:
+      summary: получить кт
+      tags:
+        - kt
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id кт
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: кт
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/kt"
+        '500':
+          $ref: "#/components/responses/error"
+        default:
+          $ref: "#/components/responses/error"
   /login:
     post:
       summary: авторизация

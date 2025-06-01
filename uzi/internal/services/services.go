@@ -4,6 +4,7 @@ import (
 	"uzi/internal/repository"
 	"uzi/internal/services/device"
 	"uzi/internal/services/image"
+	"uzi/internal/services/kt"
 	"uzi/internal/services/node"
 	"uzi/internal/services/node_segment"
 	"uzi/internal/services/segment"
@@ -21,6 +22,7 @@ type Services struct {
 	Segment     segment.Service
 	NodeSegment node_segment.Service
 	Splitter    splitter.Service
+	Kt          kt.Service
 }
 
 func New(
@@ -34,6 +36,7 @@ func New(
 	segment := segment.New(dao)
 	nodeSegment := node_segment.New(dao)
 	splitter := splitter.New()
+	kt := kt.New(dao, dbus)
 
 	return &Services{
 		Device:      device,
@@ -43,5 +46,6 @@ func New(
 		Segment:     segment,
 		NodeSegment: nodeSegment,
 		Splitter:    splitter,
+		Kt:          kt,
 	}
 }

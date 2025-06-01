@@ -7,6 +7,8 @@ type OperationName = string
 
 const (
 	DownloadUziIDImageIDGetOperation       OperationName = "DownloadUziIDImageIDGet"
+	KtIDGetOperation                       OperationName = "KtIDGet"
+	KtPostOperation                        OperationName = "KtPost"
 	LoginPostOperation                     OperationName = "LoginPost"
 	MedCardDoctorIDPatientIDGetOperation   OperationName = "MedCardDoctorIDPatientIDGet"
 	MedCardDoctorIDPatientIDPatchOperation OperationName = "MedCardDoctorIDPatientIDPatch"

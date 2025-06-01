@@ -233,6 +233,20 @@ func (s *Image) SetFake() {
 }
 
 // SetFake set fake values.
+func (s *Kt) SetFake() {
+	{
+		{
+			s.ID = uuid.New()
+		}
+	}
+	{
+		{
+			s.CreateAt = time.Now()
+		}
+	}
+}
+
+// SetFake set fake values.
 func (s *LoginPostOK) SetFake() {
 	{
 		{

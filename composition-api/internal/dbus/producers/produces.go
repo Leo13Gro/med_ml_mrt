@@ -9,15 +9,18 @@ import (
 	"github.com/IBM/sarama"
 	dbuslib "github.com/WantBeASleep/med_ml_lib/dbus"
 
+	ktuploadpb "composition-api/internal/generated/dbus/produce/ktupload"
 	uziuploadpb "composition-api/internal/generated/dbus/produce/uziupload"
 )
 
 type Producer interface {
 	SendUziUpload(ctx context.Context, msg *uziuploadpb.UziUpload) error
+	SendKtUpload(ctx context.Context, msg *ktuploadpb.KtUpload) error
 }
 
 type producer struct {
 	producerUziUpload dbuslib.Producer[*uziuploadpb.UziUpload]
+	producerKtUpload  dbuslib.Producer[*ktuploadpb.KtUpload]
 }
 
 func New(
@@ -28,11 +31,21 @@ func New(
 		"uziupload",
 	)
 
+	producerKtUpload := dbuslib.NewProducer[*ktuploadpb.KtUpload](
+		client,
+		"ktupload",
+	)
+
 	return &producer{
 		producerUziUpload: producerUziUpload,
+		producerKtUpload:  producerKtUpload,
 	}
 }
 
 func (a *producer) SendUziUpload(ctx context.Context, msg *uziuploadpb.UziUpload) error {
 	return a.producerUziUpload.Send(ctx, msg)
+}
+
+func (a *producer) SendKtUpload(ctx context.Context, msg *ktuploadpb.KtUpload) error {
+	return a.producerKtUpload.Send(ctx, msg)
 }
