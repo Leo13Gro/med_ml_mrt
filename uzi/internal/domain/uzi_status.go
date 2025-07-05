@@ -4,6 +4,7 @@ import "fmt"
 
 type UziStatus string
 
+// TODO: переделать в общий для всех исследований (aka переименовать)
 const (
 	// узи создано
 	UziStatusNew UziStatus = "new"

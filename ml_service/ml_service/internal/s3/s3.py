@@ -31,3 +31,13 @@ class S3:
             )
         except S3Error as e:
             print("Ошибка при загрузке файла:", e)
+
+
+    def store_as_is(self, obj, path, size, content_type: str):
+        """Сохранить файл (as is) в S3."""
+        try:
+            self.minio_client.put_object(
+                self.bucket, path, obj, size, content_type
+            )
+        except S3Error as e:
+            print("Ошибка при загрузке файла:", e)

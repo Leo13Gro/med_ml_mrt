@@ -10,6 +10,7 @@ import (
 )
 
 type Service interface {
+	CreateUzi(ctx context.Context, arg ) (uuid.UUID, error)
 	PrepareKt(ctx context.Context, id uuid.UUID) error
 }
 
