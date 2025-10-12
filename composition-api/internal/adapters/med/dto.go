@@ -17,8 +17,8 @@ type CreatePatientArg struct {
 }
 
 type UpdatePatientIn struct {
-	Id          uuid.UUID
-	Active      *bool
-	Malignancy  *bool
-	LastUziDate *time.Time
+	Id           uuid.UUID
+	Active       *bool
+	Malignancy   *bool
+	LastExamDate *time.Time
 }

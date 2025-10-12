@@ -7,5 +7,5 @@ import (
 )
 
 func (s *service) Delete(ctx context.Context, id uuid.UUID) error {
-	return s.adapters.Uzi.DeleteSegment(ctx, id)
+	return s.adapters.Exam.DeleteSegment(ctx, id)
 }

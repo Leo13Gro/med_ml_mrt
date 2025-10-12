@@ -40,7 +40,7 @@ message Patient {
   bool active = 500;
   bool malignancy = 600;
   string birth_date = 700; // RFC3339
-  optional string last_uzi_date = 800; // RFC3339
+  optional string last_exam_date = 800; // RFC3339
 }
 
 message CreatePatientIn {
@@ -65,7 +65,7 @@ message UpdatePatientIn {
   string id = 100;
   optional bool active = 300;
   optional bool malignancy = 400;
-  optional string last_uzi_date = 500; // RFC3339
+  optional string last_exam_date = 500; // RFC3339
 }
 
 message UpdatePatientOut { Patient patient = 100; }

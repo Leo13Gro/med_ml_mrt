@@ -16,21 +16,21 @@ import (
 	"github.com/ogen-go/ogen/validate"
 )
 
-// DownloadUziIDImageIDGetParams is parameters of GET /download/{uzi_id}/{image_id} operation.
-type DownloadUziIDImageIDGetParams struct {
+// DownloadMriIDImageIDGetParams is parameters of GET /download/{mri_id}/{image_id} operation.
+type DownloadMriIDImageIDGetParams struct {
 	// Id узи.
-	UziID uuid.UUID
+	MriID uuid.UUID
 	// Id кадра.
 	ImageID uuid.UUID
 }
 
-func unpackDownloadUziIDImageIDGetParams(packed middleware.Parameters) (params DownloadUziIDImageIDGetParams) {
+func unpackDownloadMriIDImageIDGetParams(packed middleware.Parameters) (params DownloadMriIDImageIDGetParams) {
 	{
 		key := middleware.ParameterKey{
-			Name: "uzi_id",
+			Name: "mri_id",
 			In:   "path",
 		}
-		params.UziID = packed[key].(uuid.UUID)
+		params.MriID = packed[key].(uuid.UUID)
 	}
 	{
 		key := middleware.ParameterKey{
@@ -42,8 +42,8 @@ func unpackDownloadUziIDImageIDGetParams(packed middleware.Parameters) (params D
 	return params
 }
 
-func decodeDownloadUziIDImageIDGetParams(args [2]string, argsEscaped bool, r *http.Request) (params DownloadUziIDImageIDGetParams, _ error) {
-	// Decode path: uzi_id.
+func decodeDownloadMriIDImageIDGetParams(args [2]string, argsEscaped bool, r *http.Request) (params DownloadMriIDImageIDGetParams, _ error) {
+	// Decode path: mri_id.
 	if err := func() error {
 		param := args[0]
 		if argsEscaped {
@@ -55,7 +55,7 @@ func decodeDownloadUziIDImageIDGetParams(args [2]string, argsEscaped bool, r *ht
 		}
 		if len(param) > 0 {
 			d := uri.NewPathDecoder(uri.PathDecoderConfig{
-				Param:   "uzi_id",
+				Param:   "mri_id",
 				Value:   param,
 				Style:   uri.PathStyleSimple,
 				Explode: false,
@@ -72,7 +72,7 @@ func decodeDownloadUziIDImageIDGetParams(args [2]string, argsEscaped bool, r *ht
 					return err
 				}
 
-				params.UziID = c
+				params.MriID = c
 				return nil
 			}(); err != nil {
 				return err
@@ -83,7 +83,7 @@ func decodeDownloadUziIDImageIDGetParams(args [2]string, argsEscaped bool, r *ht
 		return nil
 	}(); err != nil {
 		return params, &ogenerrors.DecodeParamError{
-			Name: "uzi_id",
+			Name: "mri_id",
 			In:   "path",
 			Err:  err,
 		}
@@ -136,6 +136,72 @@ func decodeDownloadUziIDImageIDGetParams(args [2]string, argsEscaped bool, r *ht
 	return params, nil
 }
 
+// KtIDDeleteParams is parameters of DELETE /kt/{id} operation.
+type KtIDDeleteParams struct {
+	// Id КТ.
+	ID uuid.UUID
+}
+
+func unpackKtIDDeleteParams(packed middleware.Parameters) (params KtIDDeleteParams) {
+	{
+		key := middleware.ParameterKey{
+			Name: "id",
+			In:   "path",
+		}
+		params.ID = packed[key].(uuid.UUID)
+	}
+	return params
+}
+
+func decodeKtIDDeleteParams(args [1]string, argsEscaped bool, r *http.Request) (params KtIDDeleteParams, _ error) {
+	// Decode path: id.
+	if err := func() error {
+		param := args[0]
+		if argsEscaped {
+			unescaped, err := url.PathUnescape(args[0])
+			if err != nil {
+				return errors.Wrap(err, "unescape path")
+			}
+			param = unescaped
+		}
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToUUID(val)
+				if err != nil {
+					return err
+				}
+
+				params.ID = c
+				return nil
+			}(); err != nil {
+				return err
+			}
+		} else {
+			return validate.ErrFieldRequired
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "id",
+			In:   "path",
+			Err:  err,
+		}
+	}
+	return params, nil
+}
+
 // KtIDGetParams is parameters of GET /kt/{id} operation.
 type KtIDGetParams struct {
 	// Id кт.
@@ -154,6 +220,72 @@ func unpackKtIDGetParams(packed middleware.Parameters) (params KtIDGetParams) {
 }
 
 func decodeKtIDGetParams(args [1]string, argsEscaped bool, r *http.Request) (params KtIDGetParams, _ error) {
+	// Decode path: id.
+	if err := func() error {
+		param := args[0]
+		if argsEscaped {
+			unescaped, err := url.PathUnescape(args[0])
+			if err != nil {
+				return errors.Wrap(err, "unescape path")
+			}
+			param = unescaped
+		}
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToUUID(val)
+				if err != nil {
+					return err
+				}
+
+				params.ID = c
+				return nil
+			}(); err != nil {
+				return err
+			}
+		} else {
+			return validate.ErrFieldRequired
+		}
+		return nil
+	}(); err != nil {
+		return params, &ogenerrors.DecodeParamError{
+			Name: "id",
+			In:   "path",
+			Err:  err,
+		}
+	}
+	return params, nil
+}
+
+// KtIDPatchParams is parameters of PATCH /kt/{id} operation.
+type KtIDPatchParams struct {
+	// Id КТ.
+	ID uuid.UUID
+}
+
+func unpackKtIDPatchParams(packed middleware.Parameters) (params KtIDPatchParams) {
+	{
+		key := middleware.ParameterKey{
+			Name: "id",
+			In:   "path",
+		}
+		params.ID = packed[key].(uuid.UUID)
+	}
+	return params
+}
+
+func decodeKtIDPatchParams(args [1]string, argsEscaped bool, r *http.Request) (params KtIDPatchParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -706,13 +838,13 @@ func decodeMedPatientIDPatchParams(args [1]string, argsEscaped bool, r *http.Req
 	return params, nil
 }
 
-// UziIDDeleteParams is parameters of DELETE /uzi/{id} operation.
-type UziIDDeleteParams struct {
+// MriIDDeleteParams is parameters of DELETE /mri/{id} operation.
+type MriIDDeleteParams struct {
 	// Id узи.
 	ID uuid.UUID
 }
 
-func unpackUziIDDeleteParams(packed middleware.Parameters) (params UziIDDeleteParams) {
+func unpackMriIDDeleteParams(packed middleware.Parameters) (params MriIDDeleteParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -723,7 +855,7 @@ func unpackUziIDDeleteParams(packed middleware.Parameters) (params UziIDDeletePa
 	return params
 }
 
-func decodeUziIDDeleteParams(args [1]string, argsEscaped bool, r *http.Request) (params UziIDDeleteParams, _ error) {
+func decodeMriIDDeleteParams(args [1]string, argsEscaped bool, r *http.Request) (params MriIDDeleteParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -772,13 +904,13 @@ func decodeUziIDDeleteParams(args [1]string, argsEscaped bool, r *http.Request) 
 	return params, nil
 }
 
-// UziIDEchographicsGetParams is parameters of GET /uzi/{id}/echographics operation.
-type UziIDEchographicsGetParams struct {
+// MriIDEchographicsGetParams is parameters of GET /mri/{id}/echographics operation.
+type MriIDEchographicsGetParams struct {
 	// Id узи.
 	ID uuid.UUID
 }
 
-func unpackUziIDEchographicsGetParams(packed middleware.Parameters) (params UziIDEchographicsGetParams) {
+func unpackMriIDEchographicsGetParams(packed middleware.Parameters) (params MriIDEchographicsGetParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -789,7 +921,7 @@ func unpackUziIDEchographicsGetParams(packed middleware.Parameters) (params UziI
 	return params
 }
 
-func decodeUziIDEchographicsGetParams(args [1]string, argsEscaped bool, r *http.Request) (params UziIDEchographicsGetParams, _ error) {
+func decodeMriIDEchographicsGetParams(args [1]string, argsEscaped bool, r *http.Request) (params MriIDEchographicsGetParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -838,13 +970,13 @@ func decodeUziIDEchographicsGetParams(args [1]string, argsEscaped bool, r *http.
 	return params, nil
 }
 
-// UziIDEchographicsPatchParams is parameters of PATCH /uzi/{id}/echographics operation.
-type UziIDEchographicsPatchParams struct {
+// MriIDEchographicsPatchParams is parameters of PATCH /mri/{id}/echographics operation.
+type MriIDEchographicsPatchParams struct {
 	// Id узи.
 	ID uuid.UUID
 }
 
-func unpackUziIDEchographicsPatchParams(packed middleware.Parameters) (params UziIDEchographicsPatchParams) {
+func unpackMriIDEchographicsPatchParams(packed middleware.Parameters) (params MriIDEchographicsPatchParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -855,7 +987,7 @@ func unpackUziIDEchographicsPatchParams(packed middleware.Parameters) (params Uz
 	return params
 }
 
-func decodeUziIDEchographicsPatchParams(args [1]string, argsEscaped bool, r *http.Request) (params UziIDEchographicsPatchParams, _ error) {
+func decodeMriIDEchographicsPatchParams(args [1]string, argsEscaped bool, r *http.Request) (params MriIDEchographicsPatchParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -904,13 +1036,13 @@ func decodeUziIDEchographicsPatchParams(args [1]string, argsEscaped bool, r *htt
 	return params, nil
 }
 
-// UziIDGetParams is parameters of GET /uzi/{id} operation.
-type UziIDGetParams struct {
+// MriIDGetParams is parameters of GET /mri/{id} operation.
+type MriIDGetParams struct {
 	// Id узи.
 	ID uuid.UUID
 }
 
-func unpackUziIDGetParams(packed middleware.Parameters) (params UziIDGetParams) {
+func unpackMriIDGetParams(packed middleware.Parameters) (params MriIDGetParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -921,7 +1053,7 @@ func unpackUziIDGetParams(packed middleware.Parameters) (params UziIDGetParams) 
 	return params
 }
 
-func decodeUziIDGetParams(args [1]string, argsEscaped bool, r *http.Request) (params UziIDGetParams, _ error) {
+func decodeMriIDGetParams(args [1]string, argsEscaped bool, r *http.Request) (params MriIDGetParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -970,13 +1102,13 @@ func decodeUziIDGetParams(args [1]string, argsEscaped bool, r *http.Request) (pa
 	return params, nil
 }
 
-// UziIDImagesGetParams is parameters of GET /uzi/{id}/images operation.
-type UziIDImagesGetParams struct {
+// MriIDImagesGetParams is parameters of GET /mri/{id}/images operation.
+type MriIDImagesGetParams struct {
 	// Id узи.
 	ID uuid.UUID
 }
 
-func unpackUziIDImagesGetParams(packed middleware.Parameters) (params UziIDImagesGetParams) {
+func unpackMriIDImagesGetParams(packed middleware.Parameters) (params MriIDImagesGetParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -987,7 +1119,7 @@ func unpackUziIDImagesGetParams(packed middleware.Parameters) (params UziIDImage
 	return params
 }
 
-func decodeUziIDImagesGetParams(args [1]string, argsEscaped bool, r *http.Request) (params UziIDImagesGetParams, _ error) {
+func decodeMriIDImagesGetParams(args [1]string, argsEscaped bool, r *http.Request) (params MriIDImagesGetParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -1036,13 +1168,13 @@ func decodeUziIDImagesGetParams(args [1]string, argsEscaped bool, r *http.Reques
 	return params, nil
 }
 
-// UziIDNodesGetParams is parameters of GET /uzi/{id}/nodes operation.
-type UziIDNodesGetParams struct {
-	// Uzi_id.
+// MriIDNodesGetParams is parameters of GET /mri/{id}/nodes operation.
+type MriIDNodesGetParams struct {
+	// Mri_id.
 	ID uuid.UUID
 }
 
-func unpackUziIDNodesGetParams(packed middleware.Parameters) (params UziIDNodesGetParams) {
+func unpackMriIDNodesGetParams(packed middleware.Parameters) (params MriIDNodesGetParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -1053,7 +1185,7 @@ func unpackUziIDNodesGetParams(packed middleware.Parameters) (params UziIDNodesG
 	return params
 }
 
-func decodeUziIDNodesGetParams(args [1]string, argsEscaped bool, r *http.Request) (params UziIDNodesGetParams, _ error) {
+func decodeMriIDNodesGetParams(args [1]string, argsEscaped bool, r *http.Request) (params MriIDNodesGetParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -1102,13 +1234,13 @@ func decodeUziIDNodesGetParams(args [1]string, argsEscaped bool, r *http.Request
 	return params, nil
 }
 
-// UziIDNodesSegmentsPostParams is parameters of POST /uzi/{id}/nodes-segments operation.
-type UziIDNodesSegmentsPostParams struct {
+// MriIDNodesSegmentsPostParams is parameters of POST /mri/{id}/nodes-segments operation.
+type MriIDNodesSegmentsPostParams struct {
 	// Id узи.
 	ID uuid.UUID
 }
 
-func unpackUziIDNodesSegmentsPostParams(packed middleware.Parameters) (params UziIDNodesSegmentsPostParams) {
+func unpackMriIDNodesSegmentsPostParams(packed middleware.Parameters) (params MriIDNodesSegmentsPostParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -1119,7 +1251,7 @@ func unpackUziIDNodesSegmentsPostParams(packed middleware.Parameters) (params Uz
 	return params
 }
 
-func decodeUziIDNodesSegmentsPostParams(args [1]string, argsEscaped bool, r *http.Request) (params UziIDNodesSegmentsPostParams, _ error) {
+func decodeMriIDNodesSegmentsPostParams(args [1]string, argsEscaped bool, r *http.Request) (params MriIDNodesSegmentsPostParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -1168,13 +1300,13 @@ func decodeUziIDNodesSegmentsPostParams(args [1]string, argsEscaped bool, r *htt
 	return params, nil
 }
 
-// UziIDPatchParams is parameters of PATCH /uzi/{id} operation.
-type UziIDPatchParams struct {
+// MriIDPatchParams is parameters of PATCH /mri/{id} operation.
+type MriIDPatchParams struct {
 	// Id узи.
 	ID uuid.UUID
 }
 
-func unpackUziIDPatchParams(packed middleware.Parameters) (params UziIDPatchParams) {
+func unpackMriIDPatchParams(packed middleware.Parameters) (params MriIDPatchParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -1185,7 +1317,7 @@ func unpackUziIDPatchParams(packed middleware.Parameters) (params UziIDPatchPara
 	return params
 }
 
-func decodeUziIDPatchParams(args [1]string, argsEscaped bool, r *http.Request) (params UziIDPatchParams, _ error) {
+func decodeMriIDPatchParams(args [1]string, argsEscaped bool, r *http.Request) (params MriIDPatchParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -1234,13 +1366,13 @@ func decodeUziIDPatchParams(args [1]string, argsEscaped bool, r *http.Request) (
 	return params, nil
 }
 
-// UziImageIDNodesSegmentsGetParams is parameters of GET /uzi/image/{id}/nodes-segments operation.
-type UziImageIDNodesSegmentsGetParams struct {
+// MriImageIDNodesSegmentsGetParams is parameters of GET /mri/image/{id}/nodes-segments operation.
+type MriImageIDNodesSegmentsGetParams struct {
 	// Id изображения.
 	ID uuid.UUID
 }
 
-func unpackUziImageIDNodesSegmentsGetParams(packed middleware.Parameters) (params UziImageIDNodesSegmentsGetParams) {
+func unpackMriImageIDNodesSegmentsGetParams(packed middleware.Parameters) (params MriImageIDNodesSegmentsGetParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -1251,7 +1383,7 @@ func unpackUziImageIDNodesSegmentsGetParams(packed middleware.Parameters) (param
 	return params
 }
 
-func decodeUziImageIDNodesSegmentsGetParams(args [1]string, argsEscaped bool, r *http.Request) (params UziImageIDNodesSegmentsGetParams, _ error) {
+func decodeMriImageIDNodesSegmentsGetParams(args [1]string, argsEscaped bool, r *http.Request) (params MriImageIDNodesSegmentsGetParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -1300,12 +1432,12 @@ func decodeUziImageIDNodesSegmentsGetParams(args [1]string, argsEscaped bool, r 
 	return params, nil
 }
 
-// UziNodesIDDeleteParams is parameters of DELETE /uzi/nodes/{id} operation.
-type UziNodesIDDeleteParams struct {
+// MriNodesIDDeleteParams is parameters of DELETE /mri/nodes/{id} operation.
+type MriNodesIDDeleteParams struct {
 	ID uuid.UUID
 }
 
-func unpackUziNodesIDDeleteParams(packed middleware.Parameters) (params UziNodesIDDeleteParams) {
+func unpackMriNodesIDDeleteParams(packed middleware.Parameters) (params MriNodesIDDeleteParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -1316,7 +1448,7 @@ func unpackUziNodesIDDeleteParams(packed middleware.Parameters) (params UziNodes
 	return params
 }
 
-func decodeUziNodesIDDeleteParams(args [1]string, argsEscaped bool, r *http.Request) (params UziNodesIDDeleteParams, _ error) {
+func decodeMriNodesIDDeleteParams(args [1]string, argsEscaped bool, r *http.Request) (params MriNodesIDDeleteParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -1365,13 +1497,13 @@ func decodeUziNodesIDDeleteParams(args [1]string, argsEscaped bool, r *http.Requ
 	return params, nil
 }
 
-// UziNodesIDPatchParams is parameters of PATCH /uzi/nodes/{id} operation.
-type UziNodesIDPatchParams struct {
+// MriNodesIDPatchParams is parameters of PATCH /mri/nodes/{id} operation.
+type MriNodesIDPatchParams struct {
 	// Id узла.
 	ID uuid.UUID
 }
 
-func unpackUziNodesIDPatchParams(packed middleware.Parameters) (params UziNodesIDPatchParams) {
+func unpackMriNodesIDPatchParams(packed middleware.Parameters) (params MriNodesIDPatchParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -1382,7 +1514,7 @@ func unpackUziNodesIDPatchParams(packed middleware.Parameters) (params UziNodesI
 	return params
 }
 
-func decodeUziNodesIDPatchParams(args [1]string, argsEscaped bool, r *http.Request) (params UziNodesIDPatchParams, _ error) {
+func decodeMriNodesIDPatchParams(args [1]string, argsEscaped bool, r *http.Request) (params MriNodesIDPatchParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -1431,13 +1563,13 @@ func decodeUziNodesIDPatchParams(args [1]string, argsEscaped bool, r *http.Reque
 	return params, nil
 }
 
-// UziNodesIDSegmentsGetParams is parameters of GET /uzi/nodes/{id}/segments operation.
-type UziNodesIDSegmentsGetParams struct {
+// MriNodesIDSegmentsGetParams is parameters of GET /mri/nodes/{id}/segments operation.
+type MriNodesIDSegmentsGetParams struct {
 	// Id узла.
 	ID uuid.UUID
 }
 
-func unpackUziNodesIDSegmentsGetParams(packed middleware.Parameters) (params UziNodesIDSegmentsGetParams) {
+func unpackMriNodesIDSegmentsGetParams(packed middleware.Parameters) (params MriNodesIDSegmentsGetParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -1448,7 +1580,7 @@ func unpackUziNodesIDSegmentsGetParams(packed middleware.Parameters) (params Uzi
 	return params
 }
 
-func decodeUziNodesIDSegmentsGetParams(args [1]string, argsEscaped bool, r *http.Request) (params UziNodesIDSegmentsGetParams, _ error) {
+func decodeMriNodesIDSegmentsGetParams(args [1]string, argsEscaped bool, r *http.Request) (params MriNodesIDSegmentsGetParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -1497,12 +1629,12 @@ func decodeUziNodesIDSegmentsGetParams(args [1]string, argsEscaped bool, r *http
 	return params, nil
 }
 
-// UziSegmentIDDeleteParams is parameters of DELETE /uzi/segment/{id} operation.
-type UziSegmentIDDeleteParams struct {
+// MriSegmentIDDeleteParams is parameters of DELETE /mri/segment/{id} operation.
+type MriSegmentIDDeleteParams struct {
 	ID uuid.UUID
 }
 
-func unpackUziSegmentIDDeleteParams(packed middleware.Parameters) (params UziSegmentIDDeleteParams) {
+func unpackMriSegmentIDDeleteParams(packed middleware.Parameters) (params MriSegmentIDDeleteParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -1513,7 +1645,7 @@ func unpackUziSegmentIDDeleteParams(packed middleware.Parameters) (params UziSeg
 	return params
 }
 
-func decodeUziSegmentIDDeleteParams(args [1]string, argsEscaped bool, r *http.Request) (params UziSegmentIDDeleteParams, _ error) {
+func decodeMriSegmentIDDeleteParams(args [1]string, argsEscaped bool, r *http.Request) (params MriSegmentIDDeleteParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -1562,13 +1694,13 @@ func decodeUziSegmentIDDeleteParams(args [1]string, argsEscaped bool, r *http.Re
 	return params, nil
 }
 
-// UziSegmentIDPatchParams is parameters of PATCH /uzi/segment/{id} operation.
-type UziSegmentIDPatchParams struct {
+// MriSegmentIDPatchParams is parameters of PATCH /mri/segment/{id} operation.
+type MriSegmentIDPatchParams struct {
 	// Id сегмента.
 	ID uuid.UUID
 }
 
-func unpackUziSegmentIDPatchParams(packed middleware.Parameters) (params UziSegmentIDPatchParams) {
+func unpackMriSegmentIDPatchParams(packed middleware.Parameters) (params MriSegmentIDPatchParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -1579,7 +1711,7 @@ func unpackUziSegmentIDPatchParams(packed middleware.Parameters) (params UziSegm
 	return params
 }
 
-func decodeUziSegmentIDPatchParams(args [1]string, argsEscaped bool, r *http.Request) (params UziSegmentIDPatchParams, _ error) {
+func decodeMriSegmentIDPatchParams(args [1]string, argsEscaped bool, r *http.Request) (params MriSegmentIDPatchParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -1628,13 +1760,13 @@ func decodeUziSegmentIDPatchParams(args [1]string, argsEscaped bool, r *http.Req
 	return params, nil
 }
 
-// UzisAuthorIDGetParams is parameters of GET /uzis/author/{id} operation.
-type UzisAuthorIDGetParams struct {
+// MrisAuthorIDGetParams is parameters of GET /mris/author/{id} operation.
+type MrisAuthorIDGetParams struct {
 	// Id аккаунта, загрузившего узи.
 	ID uuid.UUID
 }
 
-func unpackUzisAuthorIDGetParams(packed middleware.Parameters) (params UzisAuthorIDGetParams) {
+func unpackMrisAuthorIDGetParams(packed middleware.Parameters) (params MrisAuthorIDGetParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -1645,7 +1777,7 @@ func unpackUzisAuthorIDGetParams(packed middleware.Parameters) (params UzisAutho
 	return params
 }
 
-func decodeUzisAuthorIDGetParams(args [1]string, argsEscaped bool, r *http.Request) (params UzisAuthorIDGetParams, _ error) {
+func decodeMrisAuthorIDGetParams(args [1]string, argsEscaped bool, r *http.Request) (params MrisAuthorIDGetParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]
@@ -1694,13 +1826,13 @@ func decodeUzisAuthorIDGetParams(args [1]string, argsEscaped bool, r *http.Reque
 	return params, nil
 }
 
-// UzisExternalIDGetParams is parameters of GET /uzis/external/{id} operation.
-type UzisExternalIDGetParams struct {
+// MrisExternalIDGetParams is parameters of GET /mris/external/{id} operation.
+type MrisExternalIDGetParams struct {
 	// Внешний id пациента/организации etc.
 	ID uuid.UUID
 }
 
-func unpackUzisExternalIDGetParams(packed middleware.Parameters) (params UzisExternalIDGetParams) {
+func unpackMrisExternalIDGetParams(packed middleware.Parameters) (params MrisExternalIDGetParams) {
 	{
 		key := middleware.ParameterKey{
 			Name: "id",
@@ -1711,7 +1843,7 @@ func unpackUzisExternalIDGetParams(packed middleware.Parameters) (params UzisExt
 	return params
 }
 
-func decodeUzisExternalIDGetParams(args [1]string, argsEscaped bool, r *http.Request) (params UzisExternalIDGetParams, _ error) {
+func decodeMrisExternalIDGetParams(args [1]string, argsEscaped bool, r *http.Request) (params MrisExternalIDGetParams, _ error) {
 	// Decode path: id.
 	if err := func() error {
 		param := args[0]

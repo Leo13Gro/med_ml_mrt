@@ -10,14 +10,14 @@ type Patient struct{}
 
 func (m Patient) Api(d domain.Patient) api.Patient {
 	return api.Patient{
-		ID:          d.Id,
-		Fullname:    d.FullName,
-		Email:       d.Email,
-		Policy:      d.Policy,
-		Active:      d.Active,
-		Malignancy:  d.Malignancy,
-		BirthDate:   d.BirthDate,
-		LastUziDate: mappers.ToOptDate(d.LastUziDate),
+		ID:           d.Id,
+		Fullname:     d.FullName,
+		Email:        d.Email,
+		Policy:       d.Policy,
+		Active:       d.Active,
+		Malignancy:   d.Malignancy,
+		BirthDate:    d.BirthDate,
+		LastExamDate: mappers.ToOptDate(d.LastExamDate),
 	}
 }
 

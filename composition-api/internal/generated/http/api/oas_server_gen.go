@@ -8,18 +8,30 @@ import (
 
 // Handler handles operations described by OpenAPI v3 specification.
 type Handler interface {
-	// DownloadUziIDImageIDGet implements GET /download/{uzi_id}/{image_id} operation.
+	// DownloadMriIDImageIDGet implements GET /download/{mri_id}/{image_id} operation.
 	//
 	// Получить кадр узи.
 	//
-	// GET /download/{uzi_id}/{image_id}
-	DownloadUziIDImageIDGet(ctx context.Context, params DownloadUziIDImageIDGetParams) (DownloadUziIDImageIDGetRes, error)
+	// GET /download/{mri_id}/{image_id}
+	DownloadMriIDImageIDGet(ctx context.Context, params DownloadMriIDImageIDGetParams) (DownloadMriIDImageIDGetRes, error)
+	// KtIDDelete implements DELETE /kt/{id} operation.
+	//
+	// Удалить КТ.
+	//
+	// DELETE /kt/{id}
+	KtIDDelete(ctx context.Context, params KtIDDeleteParams) (KtIDDeleteRes, error)
 	// KtIDGet implements GET /kt/{id} operation.
 	//
 	// Получить кт.
 	//
 	// GET /kt/{id}
 	KtIDGet(ctx context.Context, params KtIDGetParams) (KtIDGetRes, error)
+	// KtIDPatch implements PATCH /kt/{id} operation.
+	//
+	// Обновить КТ.
+	//
+	// PATCH /kt/{id}
+	KtIDPatch(ctx context.Context, req *KtIDPatchReq, params KtIDPatchParams) (KtIDPatchRes, error)
 	// KtPost implements POST /kt operation.
 	//
 	// Загрузить кт на обработку.
@@ -80,6 +92,126 @@ type Handler interface {
 	//
 	// POST /med/patient
 	MedPatientPost(ctx context.Context, req *MedPatientPostReq) (MedPatientPostRes, error)
+	// MriDevicePost implements POST /mri/device operation.
+	//
+	// Добавить mri аппарат.
+	//
+	// POST /mri/device
+	MriDevicePost(ctx context.Context, req *MriDevicePostReq) (MriDevicePostRes, error)
+	// MriDevicesGet implements GET /mri/devices operation.
+	//
+	// Получит список mri апппапапратов.
+	//
+	// GET /mri/devices
+	MriDevicesGet(ctx context.Context) (MriDevicesGetRes, error)
+	// MriIDDelete implements DELETE /mri/{id} operation.
+	//
+	// Удалить узи.
+	//
+	// DELETE /mri/{id}
+	MriIDDelete(ctx context.Context, params MriIDDeleteParams) (MriIDDeleteRes, error)
+	// MriIDEchographicsGet implements GET /mri/{id}/echographics operation.
+	//
+	// Получить эхографику mri.
+	//
+	// GET /mri/{id}/echographics
+	MriIDEchographicsGet(ctx context.Context, params MriIDEchographicsGetParams) (MriIDEchographicsGetRes, error)
+	// MriIDEchographicsPatch implements PATCH /mri/{id}/echographics operation.
+	//
+	// Обновить эхографику.
+	//
+	// PATCH /mri/{id}/echographics
+	MriIDEchographicsPatch(ctx context.Context, req *Echographics, params MriIDEchographicsPatchParams) (MriIDEchographicsPatchRes, error)
+	// MriIDGet implements GET /mri/{id} operation.
+	//
+	// Получить узи.
+	//
+	// GET /mri/{id}
+	MriIDGet(ctx context.Context, params MriIDGetParams) (MriIDGetRes, error)
+	// MriIDImagesGet implements GET /mri/{id}/images operation.
+	//
+	// Получает списк изображений mri.
+	//
+	// GET /mri/{id}/images
+	MriIDImagesGet(ctx context.Context, params MriIDImagesGetParams) (MriIDImagesGetRes, error)
+	// MriIDNodesGet implements GET /mri/{id}/nodes operation.
+	//
+	// Получить все узлы узи.
+	//
+	// GET /mri/{id}/nodes
+	MriIDNodesGet(ctx context.Context, params MriIDNodesGetParams) (MriIDNodesGetRes, error)
+	// MriIDNodesSegmentsPost implements POST /mri/{id}/nodes-segments operation.
+	//
+	// Добавить узел с сегментами.
+	//
+	// POST /mri/{id}/nodes-segments
+	MriIDNodesSegmentsPost(ctx context.Context, req *MriIDNodesSegmentsPostReq, params MriIDNodesSegmentsPostParams) (MriIDNodesSegmentsPostRes, error)
+	// MriIDPatch implements PATCH /mri/{id} operation.
+	//
+	// Обновить узи.
+	//
+	// PATCH /mri/{id}
+	MriIDPatch(ctx context.Context, req *MriIDPatchReq, params MriIDPatchParams) (MriIDPatchRes, error)
+	// MriImageIDNodesSegmentsGet implements GET /mri/image/{id}/nodes-segments operation.
+	//
+	// Получит узлы и сегменты на указанном изображении.
+	//
+	// GET /mri/image/{id}/nodes-segments
+	MriImageIDNodesSegmentsGet(ctx context.Context, params MriImageIDNodesSegmentsGetParams) (MriImageIDNodesSegmentsGetRes, error)
+	// MriNodesIDDelete implements DELETE /mri/nodes/{id} operation.
+	//
+	// Сегменты узла будут также удалены.
+	//
+	// DELETE /mri/nodes/{id}
+	MriNodesIDDelete(ctx context.Context, params MriNodesIDDeleteParams) (MriNodesIDDeleteRes, error)
+	// MriNodesIDPatch implements PATCH /mri/nodes/{id} operation.
+	//
+	// Обновить узел.
+	//
+	// PATCH /mri/nodes/{id}
+	MriNodesIDPatch(ctx context.Context, req *MriNodesIDPatchReq, params MriNodesIDPatchParams) (MriNodesIDPatchRes, error)
+	// MriNodesIDSegmentsGet implements GET /mri/nodes/{id}/segments operation.
+	//
+	// Получить сегменты узла.
+	//
+	// GET /mri/nodes/{id}/segments
+	MriNodesIDSegmentsGet(ctx context.Context, params MriNodesIDSegmentsGetParams) (MriNodesIDSegmentsGetRes, error)
+	// MriPost implements POST /mri operation.
+	//
+	// Загрузить узи на обработку.
+	//
+	// POST /mri
+	MriPost(ctx context.Context, req *MriPostReq) (MriPostRes, error)
+	// MriSegmentIDDelete implements DELETE /mri/segment/{id} operation.
+	//
+	// Если у узла не останется сегментов, он будет **удален**.
+	//
+	// DELETE /mri/segment/{id}
+	MriSegmentIDDelete(ctx context.Context, params MriSegmentIDDeleteParams) (MriSegmentIDDeleteRes, error)
+	// MriSegmentIDPatch implements PATCH /mri/segment/{id} operation.
+	//
+	// Обновить сегмент.
+	//
+	// PATCH /mri/segment/{id}
+	MriSegmentIDPatch(ctx context.Context, req *MriSegmentIDPatchReq, params MriSegmentIDPatchParams) (MriSegmentIDPatchRes, error)
+	// MriSegmentPost implements POST /mri/segment operation.
+	//
+	// Добавить новый сегмент.
+	//
+	// POST /mri/segment
+	MriSegmentPost(ctx context.Context, req *MriSegmentPostReq) (MriSegmentPostRes, error)
+	// MrisAuthorIDGet implements GET /mris/author/{id} operation.
+	//
+	// Получить узи по id автора.
+	//
+	// GET /mris/author/{id}
+	MrisAuthorIDGet(ctx context.Context, params MrisAuthorIDGetParams) (MrisAuthorIDGetRes, error)
+	// MrisExternalIDGet implements GET /mris/external/{id} operation.
+	//
+	// Получить узи по внешнему id.
+	//
+	// GET /mris/external/{id}
+	MrisExternalIDGet(ctx context.Context, params MrisExternalIDGetParams) (MrisExternalIDGetRes, error)
 	// RefreshPost implements POST /refresh operation.
 	//
 	// Обновить access token.
@@ -100,126 +232,6 @@ type Handler interface {
 	//
 	// POST /reg/patient
 	RegPatientPost(ctx context.Context, req *RegPatientPostReq) (RegPatientPostRes, error)
-	// UziDevicePost implements POST /uzi/device operation.
-	//
-	// Добавить uzi аппарат.
-	//
-	// POST /uzi/device
-	UziDevicePost(ctx context.Context, req *UziDevicePostReq) (UziDevicePostRes, error)
-	// UziDevicesGet implements GET /uzi/devices operation.
-	//
-	// Получит список uzi апппапапратов.
-	//
-	// GET /uzi/devices
-	UziDevicesGet(ctx context.Context) (UziDevicesGetRes, error)
-	// UziIDDelete implements DELETE /uzi/{id} operation.
-	//
-	// Удалить узи.
-	//
-	// DELETE /uzi/{id}
-	UziIDDelete(ctx context.Context, params UziIDDeleteParams) (UziIDDeleteRes, error)
-	// UziIDEchographicsGet implements GET /uzi/{id}/echographics operation.
-	//
-	// Получить эхографику uzi.
-	//
-	// GET /uzi/{id}/echographics
-	UziIDEchographicsGet(ctx context.Context, params UziIDEchographicsGetParams) (UziIDEchographicsGetRes, error)
-	// UziIDEchographicsPatch implements PATCH /uzi/{id}/echographics operation.
-	//
-	// Обновить эхографику.
-	//
-	// PATCH /uzi/{id}/echographics
-	UziIDEchographicsPatch(ctx context.Context, req *Echographics, params UziIDEchographicsPatchParams) (UziIDEchographicsPatchRes, error)
-	// UziIDGet implements GET /uzi/{id} operation.
-	//
-	// Получить узи.
-	//
-	// GET /uzi/{id}
-	UziIDGet(ctx context.Context, params UziIDGetParams) (UziIDGetRes, error)
-	// UziIDImagesGet implements GET /uzi/{id}/images operation.
-	//
-	// Получает списк изображений uzi.
-	//
-	// GET /uzi/{id}/images
-	UziIDImagesGet(ctx context.Context, params UziIDImagesGetParams) (UziIDImagesGetRes, error)
-	// UziIDNodesGet implements GET /uzi/{id}/nodes operation.
-	//
-	// Получить все узлы узи.
-	//
-	// GET /uzi/{id}/nodes
-	UziIDNodesGet(ctx context.Context, params UziIDNodesGetParams) (UziIDNodesGetRes, error)
-	// UziIDNodesSegmentsPost implements POST /uzi/{id}/nodes-segments operation.
-	//
-	// Добавить узел с сегментами.
-	//
-	// POST /uzi/{id}/nodes-segments
-	UziIDNodesSegmentsPost(ctx context.Context, req *UziIDNodesSegmentsPostReq, params UziIDNodesSegmentsPostParams) (UziIDNodesSegmentsPostRes, error)
-	// UziIDPatch implements PATCH /uzi/{id} operation.
-	//
-	// Обновить узи.
-	//
-	// PATCH /uzi/{id}
-	UziIDPatch(ctx context.Context, req *UziIDPatchReq, params UziIDPatchParams) (UziIDPatchRes, error)
-	// UziImageIDNodesSegmentsGet implements GET /uzi/image/{id}/nodes-segments operation.
-	//
-	// Получит узлы и сегменты на указанном изображении.
-	//
-	// GET /uzi/image/{id}/nodes-segments
-	UziImageIDNodesSegmentsGet(ctx context.Context, params UziImageIDNodesSegmentsGetParams) (UziImageIDNodesSegmentsGetRes, error)
-	// UziNodesIDDelete implements DELETE /uzi/nodes/{id} operation.
-	//
-	// Сегменты узла будут также удалены.
-	//
-	// DELETE /uzi/nodes/{id}
-	UziNodesIDDelete(ctx context.Context, params UziNodesIDDeleteParams) (UziNodesIDDeleteRes, error)
-	// UziNodesIDPatch implements PATCH /uzi/nodes/{id} operation.
-	//
-	// Обновить узел.
-	//
-	// PATCH /uzi/nodes/{id}
-	UziNodesIDPatch(ctx context.Context, req *UziNodesIDPatchReq, params UziNodesIDPatchParams) (UziNodesIDPatchRes, error)
-	// UziNodesIDSegmentsGet implements GET /uzi/nodes/{id}/segments operation.
-	//
-	// Получить сегменты узла.
-	//
-	// GET /uzi/nodes/{id}/segments
-	UziNodesIDSegmentsGet(ctx context.Context, params UziNodesIDSegmentsGetParams) (UziNodesIDSegmentsGetRes, error)
-	// UziPost implements POST /uzi operation.
-	//
-	// Загрузить узи на обработку.
-	//
-	// POST /uzi
-	UziPost(ctx context.Context, req *UziPostReq) (UziPostRes, error)
-	// UziSegmentIDDelete implements DELETE /uzi/segment/{id} operation.
-	//
-	// Если у узла не останется сегментов, он будет **удален**.
-	//
-	// DELETE /uzi/segment/{id}
-	UziSegmentIDDelete(ctx context.Context, params UziSegmentIDDeleteParams) (UziSegmentIDDeleteRes, error)
-	// UziSegmentIDPatch implements PATCH /uzi/segment/{id} operation.
-	//
-	// Обновить сегмент.
-	//
-	// PATCH /uzi/segment/{id}
-	UziSegmentIDPatch(ctx context.Context, req *UziSegmentIDPatchReq, params UziSegmentIDPatchParams) (UziSegmentIDPatchRes, error)
-	// UziSegmentPost implements POST /uzi/segment operation.
-	//
-	// Добавить новый сегмент.
-	//
-	// POST /uzi/segment
-	UziSegmentPost(ctx context.Context, req *UziSegmentPostReq) (UziSegmentPostRes, error)
-	// UzisAuthorIDGet implements GET /uzis/author/{id} operation.
-	//
-	// Получить узи по id автора.
-	//
-	// GET /uzis/author/{id}
-	UzisAuthorIDGet(ctx context.Context, params UzisAuthorIDGetParams) (UzisAuthorIDGetRes, error)
-	// UzisExternalIDGet implements GET /uzis/external/{id} operation.
-	//
-	// Получить узи по внешнему id.
-	//
-	// GET /uzis/external/{id}
-	UzisExternalIDGet(ctx context.Context, params UzisExternalIDGetParams) (UzisExternalIDGetRes, error)
 	// NewError creates *ErrorStatusCode from error returned by handler.
 	//
 	// Used for common default response.

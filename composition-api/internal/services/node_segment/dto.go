@@ -22,7 +22,7 @@ type CreateNodeWithSegmentArg_Segment struct {
 }
 
 type CreateNodeWithSegmentArg struct {
-	UziID    uuid.UUID
+	MriID    uuid.UUID
 	Node     CreateNodeWithSegmentArg_Node
 	Segments []CreateNodeWithSegmentArg_Segment
 }

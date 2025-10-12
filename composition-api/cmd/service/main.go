@@ -48,12 +48,12 @@ func run() (exitCode int) {
 	}
 
 	// adapters
-	uziConn, err := grpc.NewClient(
-		cfg.Adapters.UziUrl,
+	examConn, err := grpc.NewClient(
+		cfg.Adapters.ExamUrl,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	)
 	if err != nil {
-		slog.Error("init uziConn", slog.Any("err", err))
+		slog.Error("init examConn", slog.Any("err", err))
 		return failExitCode
 	}
 	authConn, err := grpc.NewClient(
@@ -73,7 +73,7 @@ func run() (exitCode int) {
 		return failExitCode
 	}
 
-	adapters := adapters.NewAdapters(uziConn, authConn, medConn)
+	adapters := adapters.NewAdapters(examConn, authConn, medConn)
 
 	// infra
 	s3Client, err := minio.New(cfg.S3.Endpoint, &minio.Options{
@@ -85,7 +85,7 @@ func run() (exitCode int) {
 		return failExitCode
 	}
 
-	dao := repository.NewRepository(s3Client, "uzi")
+	dao := repository.NewRepository(s3Client, "mri")
 
 	dbusClient, err := sarama.NewSyncProducer(cfg.Dbus.Addrs, nil)
 	if err != nil {

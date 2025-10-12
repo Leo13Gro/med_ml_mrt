@@ -5,11 +5,11 @@ import (
 
 	"github.com/google/uuid"
 
-	adapter "composition-api/internal/adapters/uzi"
+	adapter "composition-api/internal/adapters/exam"
 )
 
 func (s *service) Create(ctx context.Context, arg CreateSegmentArg) (uuid.UUID, error) {
-	id, err := s.adapters.Uzi.CreateSegment(ctx, adapter.CreateSegmentIn{
+	id, err := s.adapters.Exam.CreateSegment(ctx, adapter.CreateSegmentIn{
 		ImageID:   arg.ImageID,
 		NodeID:    arg.NodeID,
 		Contor:    arg.Contor,

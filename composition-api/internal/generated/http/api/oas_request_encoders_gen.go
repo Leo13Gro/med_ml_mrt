@@ -16,6 +16,20 @@ import (
 	"github.com/ogen-go/ogen/uri"
 )
 
+func encodeKtIDPatchRequest(
+	req *KtIDPatchReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	e := new(jx.Encoder)
+	{
+		req.Encode(e)
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
 func encodeKtPostRequest(
 	req *KtPostReq,
 	r *http.Request,
@@ -24,6 +38,19 @@ func encodeKtPostRequest(
 	request := req
 
 	q := uri.NewFormEncoder(map[string]string{})
+	{
+		// Encode "device_id" form field.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "device_id",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.IntToString(request.DeviceID))
+		}); err != nil {
+			return errors.Wrap(err, "encode query")
+		}
+	}
 	{
 		// Encode "description" form field.
 		cfg := uri.QueryParameterEncodingConfig{
@@ -123,8 +150,8 @@ func encodeMedPatientPostRequest(
 	return nil
 }
 
-func encodeRefreshPostRequest(
-	req *RefreshPostReq,
+func encodeMriDevicePostRequest(
+	req *MriDevicePostReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"
@@ -137,49 +164,7 @@ func encodeRefreshPostRequest(
 	return nil
 }
 
-func encodeRegDoctorPostRequest(
-	req *RegDoctorPostReq,
-	r *http.Request,
-) error {
-	const contentType = "application/json"
-	e := new(jx.Encoder)
-	{
-		req.Encode(e)
-	}
-	encoded := e.Bytes()
-	ht.SetBody(r, bytes.NewReader(encoded), contentType)
-	return nil
-}
-
-func encodeRegPatientPostRequest(
-	req *RegPatientPostReq,
-	r *http.Request,
-) error {
-	const contentType = "application/json"
-	e := new(jx.Encoder)
-	{
-		req.Encode(e)
-	}
-	encoded := e.Bytes()
-	ht.SetBody(r, bytes.NewReader(encoded), contentType)
-	return nil
-}
-
-func encodeUziDevicePostRequest(
-	req *UziDevicePostReq,
-	r *http.Request,
-) error {
-	const contentType = "application/json"
-	e := new(jx.Encoder)
-	{
-		req.Encode(e)
-	}
-	encoded := e.Bytes()
-	ht.SetBody(r, bytes.NewReader(encoded), contentType)
-	return nil
-}
-
-func encodeUziIDEchographicsPatchRequest(
+func encodeMriIDEchographicsPatchRequest(
 	req *Echographics,
 	r *http.Request,
 ) error {
@@ -193,8 +178,8 @@ func encodeUziIDEchographicsPatchRequest(
 	return nil
 }
 
-func encodeUziIDNodesSegmentsPostRequest(
-	req *UziIDNodesSegmentsPostReq,
+func encodeMriIDNodesSegmentsPostRequest(
+	req *MriIDNodesSegmentsPostReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"
@@ -207,8 +192,8 @@ func encodeUziIDNodesSegmentsPostRequest(
 	return nil
 }
 
-func encodeUziIDPatchRequest(
-	req *UziIDPatchReq,
+func encodeMriIDPatchRequest(
+	req *MriIDPatchReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"
@@ -221,8 +206,8 @@ func encodeUziIDPatchRequest(
 	return nil
 }
 
-func encodeUziNodesIDPatchRequest(
-	req *UziNodesIDPatchReq,
+func encodeMriNodesIDPatchRequest(
+	req *MriNodesIDPatchReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"
@@ -235,8 +220,8 @@ func encodeUziNodesIDPatchRequest(
 	return nil
 }
 
-func encodeUziPostRequest(
-	req *UziPostReq,
+func encodeMriPostRequest(
+	req *MriPostReq,
 	r *http.Request,
 ) error {
 	const contentType = "multipart/form-data"
@@ -311,8 +296,8 @@ func encodeUziPostRequest(
 	return nil
 }
 
-func encodeUziSegmentIDPatchRequest(
-	req *UziSegmentIDPatchReq,
+func encodeMriSegmentIDPatchRequest(
+	req *MriSegmentIDPatchReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"
@@ -325,8 +310,50 @@ func encodeUziSegmentIDPatchRequest(
 	return nil
 }
 
-func encodeUziSegmentPostRequest(
-	req *UziSegmentPostReq,
+func encodeMriSegmentPostRequest(
+	req *MriSegmentPostReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	e := new(jx.Encoder)
+	{
+		req.Encode(e)
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeRefreshPostRequest(
+	req *RefreshPostReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	e := new(jx.Encoder)
+	{
+		req.Encode(e)
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeRegDoctorPostRequest(
+	req *RegDoctorPostReq,
+	r *http.Request,
+) error {
+	const contentType = "application/json"
+	e := new(jx.Encoder)
+	{
+		req.Encode(e)
+	}
+	encoded := e.Bytes()
+	ht.SetBody(r, bytes.NewReader(encoded), contentType)
+	return nil
+}
+
+func encodeRegPatientPostRequest(
+	req *RegPatientPostReq,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"

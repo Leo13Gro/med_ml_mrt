@@ -234,7 +234,7 @@ func TestImage_Examples(t *testing.T) {
 	for i, tc := range []struct {
 		Input string
 	}{
-		{Input: "{\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"page\":1,\"uzi_id\":\"123e4567-e89b-12d3-a456-426614174000\"}"},
+		{Input: "{\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"mri_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"page\":1}"},
 	} {
 		tc := tc
 		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
@@ -297,6 +297,61 @@ func TestKt_Examples(t *testing.T) {
 			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
 		})
 	}
+}
+func TestKtIDPatchReq_EncodeDecode(t *testing.T) {
+	var typ KtIDPatchReq
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 KtIDPatchReq
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+
+func TestKtIDPatchReq_Examples(t *testing.T) {
+
+	for i, tc := range []struct {
+		Input string
+	}{
+		{Input: "{\"checked\":true,\"class_probabilities\":{\"class1\":0.95,\"class2\":0.05}}"},
+	} {
+		tc := tc
+		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
+			var typ KtIDPatchReq
+
+			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
+				if validateErr, ok := errors.Into[*validate.Error](err); ok {
+					t.Skipf("Validation error: %v", validateErr)
+					return
+				}
+				require.NoErrorf(t, err, "Input: %s", tc.Input)
+			}
+
+			e := jx.Encoder{}
+			typ.Encode(&e)
+			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
+
+			var typ2 KtIDPatchReq
+			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
+		})
+	}
+}
+func TestKtIDPatchReqClassProbabilities_EncodeDecode(t *testing.T) {
+	var typ KtIDPatchReqClassProbabilities
+	typ = make(KtIDPatchReqClassProbabilities)
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 KtIDPatchReqClassProbabilities
+	typ2 = make(KtIDPatchReqClassProbabilities)
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
 }
 func TestLoginPostOK_EncodeDecode(t *testing.T) {
 	var typ LoginPostOK
@@ -399,6 +454,444 @@ func TestMedPatientPostReq_EncodeDecode(t *testing.T) {
 	var typ2 MedPatientPostReq
 	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
 }
+func TestMri_EncodeDecode(t *testing.T) {
+	var typ Mri
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 Mri
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+
+func TestMri_Examples(t *testing.T) {
+
+	for i, tc := range []struct {
+		Input string
+	}{
+		{Input: "{\"author_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"checked\":false,\"create_at\":\"2021-01-01T00:00:00Z\",\"device_id\":1,\"external_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"projection\":\"cross\",\"status\":\"pending\"}"},
+	} {
+		tc := tc
+		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
+			var typ Mri
+
+			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
+				if validateErr, ok := errors.Into[*validate.Error](err); ok {
+					t.Skipf("Validation error: %v", validateErr)
+					return
+				}
+				require.NoErrorf(t, err, "Input: %s", tc.Input)
+			}
+
+			e := jx.Encoder{}
+			typ.Encode(&e)
+			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
+
+			var typ2 Mri
+			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
+		})
+	}
+}
+func TestMriDevicePostOK_EncodeDecode(t *testing.T) {
+	var typ MriDevicePostOK
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriDevicePostOK
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+
+func TestMriDevicePostOK_Examples(t *testing.T) {
+
+	for i, tc := range []struct {
+		Input string
+	}{
+		{Input: "{\"id\":1}"},
+	} {
+		tc := tc
+		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
+			var typ MriDevicePostOK
+
+			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
+				if validateErr, ok := errors.Into[*validate.Error](err); ok {
+					t.Skipf("Validation error: %v", validateErr)
+					return
+				}
+				require.NoErrorf(t, err, "Input: %s", tc.Input)
+			}
+
+			e := jx.Encoder{}
+			typ.Encode(&e)
+			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
+
+			var typ2 MriDevicePostOK
+			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
+		})
+	}
+}
+func TestMriDevicePostReq_EncodeDecode(t *testing.T) {
+	var typ MriDevicePostReq
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriDevicePostReq
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+
+func TestMriDevicePostReq_Examples(t *testing.T) {
+
+	for i, tc := range []struct {
+		Input string
+	}{
+		{Input: "{\"name\":\"Siemens\"}"},
+	} {
+		tc := tc
+		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
+			var typ MriDevicePostReq
+
+			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
+				if validateErr, ok := errors.Into[*validate.Error](err); ok {
+					t.Skipf("Validation error: %v", validateErr)
+					return
+				}
+				require.NoErrorf(t, err, "Input: %s", tc.Input)
+			}
+
+			e := jx.Encoder{}
+			typ.Encode(&e)
+			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
+
+			var typ2 MriDevicePostReq
+			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
+		})
+	}
+}
+func TestMriDevicesGetOKApplicationJSON_EncodeDecode(t *testing.T) {
+	var typ MriDevicesGetOKApplicationJSON
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriDevicesGetOKApplicationJSON
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriIDImagesGetOKApplicationJSON_EncodeDecode(t *testing.T) {
+	var typ MriIDImagesGetOKApplicationJSON
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriIDImagesGetOKApplicationJSON
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriIDNodesGetOKApplicationJSON_EncodeDecode(t *testing.T) {
+	var typ MriIDNodesGetOKApplicationJSON
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriIDNodesGetOKApplicationJSON
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriIDNodesSegmentsPostOK_EncodeDecode(t *testing.T) {
+	var typ MriIDNodesSegmentsPostOK
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriIDNodesSegmentsPostOK
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriIDNodesSegmentsPostReq_EncodeDecode(t *testing.T) {
+	var typ MriIDNodesSegmentsPostReq
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriIDNodesSegmentsPostReq
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriIDNodesSegmentsPostReqNode_EncodeDecode(t *testing.T) {
+	var typ MriIDNodesSegmentsPostReqNode
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriIDNodesSegmentsPostReqNode
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriIDNodesSegmentsPostReqSegmentsItem_EncodeDecode(t *testing.T) {
+	var typ MriIDNodesSegmentsPostReqSegmentsItem
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriIDNodesSegmentsPostReqSegmentsItem
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriIDPatchReq_EncodeDecode(t *testing.T) {
+	var typ MriIDPatchReq
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriIDPatchReq
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+
+func TestMriIDPatchReq_Examples(t *testing.T) {
+
+	for i, tc := range []struct {
+		Input string
+	}{
+		{Input: "{\"checked\":true,\"projection\":\"cross\"}"},
+	} {
+		tc := tc
+		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
+			var typ MriIDPatchReq
+
+			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
+				if validateErr, ok := errors.Into[*validate.Error](err); ok {
+					t.Skipf("Validation error: %v", validateErr)
+					return
+				}
+				require.NoErrorf(t, err, "Input: %s", tc.Input)
+			}
+
+			e := jx.Encoder{}
+			typ.Encode(&e)
+			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
+
+			var typ2 MriIDPatchReq
+			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
+		})
+	}
+}
+func TestMriIDPatchReqProjection_EncodeDecode(t *testing.T) {
+	var typ MriIDPatchReqProjection
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriIDPatchReqProjection
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriImageIDNodesSegmentsGetOK_EncodeDecode(t *testing.T) {
+	var typ MriImageIDNodesSegmentsGetOK
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriImageIDNodesSegmentsGetOK
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriNodesIDPatchReq_EncodeDecode(t *testing.T) {
+	var typ MriNodesIDPatchReq
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriNodesIDPatchReq
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+
+func TestMriNodesIDPatchReq_Examples(t *testing.T) {
+
+	for i, tc := range []struct {
+		Input string
+	}{
+		{Input: "{\"tirads_23\":0.67,\"tirads_4\":0.23,\"tirads_5\":0.89,\"validation\":\"invalid\"}"},
+	} {
+		tc := tc
+		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
+			var typ MriNodesIDPatchReq
+
+			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
+				if validateErr, ok := errors.Into[*validate.Error](err); ok {
+					t.Skipf("Validation error: %v", validateErr)
+					return
+				}
+				require.NoErrorf(t, err, "Input: %s", tc.Input)
+			}
+
+			e := jx.Encoder{}
+			typ.Encode(&e)
+			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
+
+			var typ2 MriNodesIDPatchReq
+			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
+		})
+	}
+}
+func TestMriNodesIDPatchReqValidation_EncodeDecode(t *testing.T) {
+	var typ MriNodesIDPatchReqValidation
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriNodesIDPatchReqValidation
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriNodesIDSegmentsGetOKApplicationJSON_EncodeDecode(t *testing.T) {
+	var typ MriNodesIDSegmentsGetOKApplicationJSON
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriNodesIDSegmentsGetOKApplicationJSON
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriProjection_EncodeDecode(t *testing.T) {
+	var typ MriProjection
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriProjection
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriSegmentIDPatchReq_EncodeDecode(t *testing.T) {
+	var typ MriSegmentIDPatchReq
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriSegmentIDPatchReq
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+
+func TestMriSegmentIDPatchReq_Examples(t *testing.T) {
+
+	for i, tc := range []struct {
+		Input string
+	}{
+		{Input: "{\"contor\":[{\"true\":100,\"x\":100},{\"true\":200,\"x\":200}],\"tirads_23\":0.67,\"tirads_4\":0.23,\"tirads_5\":0.89}"},
+	} {
+		tc := tc
+		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
+			var typ MriSegmentIDPatchReq
+
+			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
+				if validateErr, ok := errors.Into[*validate.Error](err); ok {
+					t.Skipf("Validation error: %v", validateErr)
+					return
+				}
+				require.NoErrorf(t, err, "Input: %s", tc.Input)
+			}
+
+			e := jx.Encoder{}
+			typ.Encode(&e)
+			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
+
+			var typ2 MriSegmentIDPatchReq
+			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
+		})
+	}
+}
+func TestMriSegmentPostReq_EncodeDecode(t *testing.T) {
+	var typ MriSegmentPostReq
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriSegmentPostReq
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMriStatus_EncodeDecode(t *testing.T) {
+	var typ MriStatus
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MriStatus
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMrisAuthorIDGetOKApplicationJSON_EncodeDecode(t *testing.T) {
+	var typ MrisAuthorIDGetOKApplicationJSON
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MrisAuthorIDGetOKApplicationJSON
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestMrisExternalIDGetOKApplicationJSON_EncodeDecode(t *testing.T) {
+	var typ MrisExternalIDGetOKApplicationJSON
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 MrisExternalIDGetOKApplicationJSON
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
 func TestNode_EncodeDecode(t *testing.T) {
 	var typ Node
 	typ.SetFake()
@@ -417,7 +910,7 @@ func TestNode_Examples(t *testing.T) {
 	for i, tc := range []struct {
 		Input string
 	}{
-		{Input: "{\"ai\":true,\"description\":\"узел явно неправильный\",\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"tirads_23\":0.67,\"tirads_4\":0.23,\"tirads_5\":0.89,\"uzi_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"validation\":\"invalid\"}"},
+		{Input: "{\"ai\":true,\"description\":\"узел явно неправильный\",\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"mri_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"tirads_23\":0.67,\"tirads_4\":0.23,\"tirads_5\":0.89,\"validation\":\"invalid\"}"},
 	} {
 		tc := tc
 		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
@@ -470,7 +963,7 @@ func TestPatient_Examples(t *testing.T) {
 	for i, tc := range []struct {
 		Input string
 	}{
-		{Input: "{\"active\":true,\"birth_date\":\"2021-01-01\",\"email\":\"ivan@example.com\",\"fullname\":\"Иван Иванов\",\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"last_uzi_date\":\"2024-01-01\",\"malignancy\":false,\"policy\":\"1234567890\"}"},
+		{Input: "{\"active\":true,\"birth_date\":\"2021-01-01\",\"email\":\"ivan@example.com\",\"fullname\":\"Иван Иванов\",\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"last_exam_date\":\"2024-01-01\",\"malignancy\":false,\"policy\":\"1234567890\"}"},
 	} {
 		tc := tc
 		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
@@ -709,442 +1202,4 @@ func TestSimpleUuid_Examples(t *testing.T) {
 			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
 		})
 	}
-}
-func TestUzi_EncodeDecode(t *testing.T) {
-	var typ Uzi
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 Uzi
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-
-func TestUzi_Examples(t *testing.T) {
-
-	for i, tc := range []struct {
-		Input string
-	}{
-		{Input: "{\"author_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"checked\":false,\"create_at\":\"2021-01-01T00:00:00Z\",\"device_id\":1,\"external_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"projection\":\"cross\",\"status\":\"pending\"}"},
-	} {
-		tc := tc
-		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
-			var typ Uzi
-
-			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
-				if validateErr, ok := errors.Into[*validate.Error](err); ok {
-					t.Skipf("Validation error: %v", validateErr)
-					return
-				}
-				require.NoErrorf(t, err, "Input: %s", tc.Input)
-			}
-
-			e := jx.Encoder{}
-			typ.Encode(&e)
-			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
-
-			var typ2 Uzi
-			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
-		})
-	}
-}
-func TestUziDevicePostOK_EncodeDecode(t *testing.T) {
-	var typ UziDevicePostOK
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziDevicePostOK
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-
-func TestUziDevicePostOK_Examples(t *testing.T) {
-
-	for i, tc := range []struct {
-		Input string
-	}{
-		{Input: "{\"id\":1}"},
-	} {
-		tc := tc
-		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
-			var typ UziDevicePostOK
-
-			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
-				if validateErr, ok := errors.Into[*validate.Error](err); ok {
-					t.Skipf("Validation error: %v", validateErr)
-					return
-				}
-				require.NoErrorf(t, err, "Input: %s", tc.Input)
-			}
-
-			e := jx.Encoder{}
-			typ.Encode(&e)
-			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
-
-			var typ2 UziDevicePostOK
-			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
-		})
-	}
-}
-func TestUziDevicePostReq_EncodeDecode(t *testing.T) {
-	var typ UziDevicePostReq
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziDevicePostReq
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-
-func TestUziDevicePostReq_Examples(t *testing.T) {
-
-	for i, tc := range []struct {
-		Input string
-	}{
-		{Input: "{\"name\":\"Siemens\"}"},
-	} {
-		tc := tc
-		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
-			var typ UziDevicePostReq
-
-			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
-				if validateErr, ok := errors.Into[*validate.Error](err); ok {
-					t.Skipf("Validation error: %v", validateErr)
-					return
-				}
-				require.NoErrorf(t, err, "Input: %s", tc.Input)
-			}
-
-			e := jx.Encoder{}
-			typ.Encode(&e)
-			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
-
-			var typ2 UziDevicePostReq
-			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
-		})
-	}
-}
-func TestUziDevicesGetOKApplicationJSON_EncodeDecode(t *testing.T) {
-	var typ UziDevicesGetOKApplicationJSON
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziDevicesGetOKApplicationJSON
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziIDImagesGetOKApplicationJSON_EncodeDecode(t *testing.T) {
-	var typ UziIDImagesGetOKApplicationJSON
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziIDImagesGetOKApplicationJSON
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziIDNodesGetOKApplicationJSON_EncodeDecode(t *testing.T) {
-	var typ UziIDNodesGetOKApplicationJSON
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziIDNodesGetOKApplicationJSON
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziIDNodesSegmentsPostOK_EncodeDecode(t *testing.T) {
-	var typ UziIDNodesSegmentsPostOK
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziIDNodesSegmentsPostOK
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziIDNodesSegmentsPostReq_EncodeDecode(t *testing.T) {
-	var typ UziIDNodesSegmentsPostReq
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziIDNodesSegmentsPostReq
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziIDNodesSegmentsPostReqNode_EncodeDecode(t *testing.T) {
-	var typ UziIDNodesSegmentsPostReqNode
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziIDNodesSegmentsPostReqNode
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziIDNodesSegmentsPostReqSegmentsItem_EncodeDecode(t *testing.T) {
-	var typ UziIDNodesSegmentsPostReqSegmentsItem
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziIDNodesSegmentsPostReqSegmentsItem
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziIDPatchReq_EncodeDecode(t *testing.T) {
-	var typ UziIDPatchReq
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziIDPatchReq
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-
-func TestUziIDPatchReq_Examples(t *testing.T) {
-
-	for i, tc := range []struct {
-		Input string
-	}{
-		{Input: "{\"checked\":true,\"projection\":\"cross\"}"},
-	} {
-		tc := tc
-		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
-			var typ UziIDPatchReq
-
-			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
-				if validateErr, ok := errors.Into[*validate.Error](err); ok {
-					t.Skipf("Validation error: %v", validateErr)
-					return
-				}
-				require.NoErrorf(t, err, "Input: %s", tc.Input)
-			}
-
-			e := jx.Encoder{}
-			typ.Encode(&e)
-			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
-
-			var typ2 UziIDPatchReq
-			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
-		})
-	}
-}
-func TestUziIDPatchReqProjection_EncodeDecode(t *testing.T) {
-	var typ UziIDPatchReqProjection
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziIDPatchReqProjection
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziImageIDNodesSegmentsGetOK_EncodeDecode(t *testing.T) {
-	var typ UziImageIDNodesSegmentsGetOK
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziImageIDNodesSegmentsGetOK
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziNodesIDPatchReq_EncodeDecode(t *testing.T) {
-	var typ UziNodesIDPatchReq
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziNodesIDPatchReq
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-
-func TestUziNodesIDPatchReq_Examples(t *testing.T) {
-
-	for i, tc := range []struct {
-		Input string
-	}{
-		{Input: "{\"tirads_23\":0.67,\"tirads_4\":0.23,\"tirads_5\":0.89,\"validation\":\"invalid\"}"},
-	} {
-		tc := tc
-		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
-			var typ UziNodesIDPatchReq
-
-			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
-				if validateErr, ok := errors.Into[*validate.Error](err); ok {
-					t.Skipf("Validation error: %v", validateErr)
-					return
-				}
-				require.NoErrorf(t, err, "Input: %s", tc.Input)
-			}
-
-			e := jx.Encoder{}
-			typ.Encode(&e)
-			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
-
-			var typ2 UziNodesIDPatchReq
-			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
-		})
-	}
-}
-func TestUziNodesIDPatchReqValidation_EncodeDecode(t *testing.T) {
-	var typ UziNodesIDPatchReqValidation
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziNodesIDPatchReqValidation
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziNodesIDSegmentsGetOKApplicationJSON_EncodeDecode(t *testing.T) {
-	var typ UziNodesIDSegmentsGetOKApplicationJSON
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziNodesIDSegmentsGetOKApplicationJSON
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziProjection_EncodeDecode(t *testing.T) {
-	var typ UziProjection
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziProjection
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziSegmentIDPatchReq_EncodeDecode(t *testing.T) {
-	var typ UziSegmentIDPatchReq
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziSegmentIDPatchReq
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-
-func TestUziSegmentIDPatchReq_Examples(t *testing.T) {
-
-	for i, tc := range []struct {
-		Input string
-	}{
-		{Input: "{\"contor\":[{\"true\":100,\"x\":100},{\"true\":200,\"x\":200}],\"tirads_23\":0.67,\"tirads_4\":0.23,\"tirads_5\":0.89}"},
-	} {
-		tc := tc
-		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
-			var typ UziSegmentIDPatchReq
-
-			if err := typ.Decode(jx.DecodeStr(tc.Input)); err != nil {
-				if validateErr, ok := errors.Into[*validate.Error](err); ok {
-					t.Skipf("Validation error: %v", validateErr)
-					return
-				}
-				require.NoErrorf(t, err, "Input: %s", tc.Input)
-			}
-
-			e := jx.Encoder{}
-			typ.Encode(&e)
-			require.True(t, std.Valid(e.Bytes()), "Encoded: %s", e.Bytes())
-
-			var typ2 UziSegmentIDPatchReq
-			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
-		})
-	}
-}
-func TestUziSegmentPostReq_EncodeDecode(t *testing.T) {
-	var typ UziSegmentPostReq
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziSegmentPostReq
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUziStatus_EncodeDecode(t *testing.T) {
-	var typ UziStatus
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UziStatus
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUzisAuthorIDGetOKApplicationJSON_EncodeDecode(t *testing.T) {
-	var typ UzisAuthorIDGetOKApplicationJSON
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UzisAuthorIDGetOKApplicationJSON
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
-func TestUzisExternalIDGetOKApplicationJSON_EncodeDecode(t *testing.T) {
-	var typ UzisExternalIDGetOKApplicationJSON
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 UzisExternalIDGetOKApplicationJSON
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
 }

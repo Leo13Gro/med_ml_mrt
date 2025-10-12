@@ -1,3 +1,4 @@
+from confluent_kafka import Producer
 from ml_service.config.default import get_settings
 from ml_service.internal.s3.s3 import S3
 from ml_service.internal.ml_model.kt.Segmentation_YOLO import SegmentationModel
@@ -31,6 +32,20 @@ class ktUseCase:
         result = self.classification_model.predict(video_mask)
 
         self.reconstruct_video(video_mask, kt_id, 'video_mask_multiplied')
+
+        msg_event = pb_event.KtProcessed(
+            kt_id=kt_id, class_probabilities = result
+        )
+        content = msg_event.SerializeToString()
+
+        producer_config = {
+            "bootstrap.servers": settings.kafka_host + ":" + str(settings.kafka_port)
+        }
+        producer = Producer(producer_config)
+
+        producer.produce("ktprocessed", content)
+        producer.flush()
+
 
         print(type(result))
         print(result)

@@ -5,11 +5,11 @@ import (
 
 	"github.com/google/uuid"
 
-	domain "composition-api/internal/domain/uzi"
+	domain "composition-api/internal/domain/exam"
 )
 
-func (s *service) GetImagesByUziID(ctx context.Context, uziID uuid.UUID) ([]domain.Image, error) {
-	images, err := s.adapters.Uzi.GetImagesByUziId(ctx, uziID)
+func (s *service) GetImagesByMriID(ctx context.Context, mriID uuid.UUID) ([]domain.Image, error) {
+	images, err := s.adapters.Exam.GetImagesByMriId(ctx, mriID)
 	if err != nil {
 		return nil, err
 	}

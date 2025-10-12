@@ -8,7 +8,7 @@ import (
 )
 
 type DownloadHandler interface {
-	DownloadUziIDImageIDGet(ctx context.Context, params api.DownloadUziIDImageIDGetParams) (api.DownloadUziIDImageIDGetRes, error)
+	DownloadMriIDImageIDGet(ctx context.Context, params api.DownloadMriIDImageIDGetParams) (api.DownloadMriIDImageIDGetRes, error)
 }
 
 type handler struct {

@@ -6,11 +6,11 @@ import (
 	"github.com/google/uuid"
 
 	"composition-api/internal/adapters"
-	domain "composition-api/internal/domain/uzi"
+	domain "composition-api/internal/domain/exam"
 )
 
 type Service interface {
-	GetImagesByUziID(ctx context.Context, uziID uuid.UUID) ([]domain.Image, error)
+	GetImagesByMriID(ctx context.Context, mriID uuid.UUID) ([]domain.Image, error)
 }
 
 type service struct {

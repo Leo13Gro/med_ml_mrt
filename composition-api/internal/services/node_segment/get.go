@@ -5,11 +5,11 @@ import (
 
 	"github.com/google/uuid"
 
-	domain "composition-api/internal/domain/uzi"
+	domain "composition-api/internal/domain/exam"
 )
 
 func (s *service) GetNodeWithSegmentsByImageID(ctx context.Context, imageID uuid.UUID) ([]domain.Node, []domain.Segment, error) {
-	nodes, segments, err := s.adapters.Uzi.GetNodesWithSegmentsByImageId(ctx, imageID)
+	nodes, segments, err := s.adapters.Exam.GetNodesWithSegmentsByImageId(ctx, imageID)
 	if err != nil {
 		return nil, nil, err
 	}

@@ -13,12 +13,21 @@ type UnimplementedHandler struct{}
 
 var _ Handler = UnimplementedHandler{}
 
-// DownloadUziIDImageIDGet implements GET /download/{uzi_id}/{image_id} operation.
+// DownloadMriIDImageIDGet implements GET /download/{mri_id}/{image_id} operation.
 //
 // Получить кадр узи.
 //
-// GET /download/{uzi_id}/{image_id}
-func (UnimplementedHandler) DownloadUziIDImageIDGet(ctx context.Context, params DownloadUziIDImageIDGetParams) (r DownloadUziIDImageIDGetRes, _ error) {
+// GET /download/{mri_id}/{image_id}
+func (UnimplementedHandler) DownloadMriIDImageIDGet(ctx context.Context, params DownloadMriIDImageIDGetParams) (r DownloadMriIDImageIDGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// KtIDDelete implements DELETE /kt/{id} operation.
+//
+// Удалить КТ.
+//
+// DELETE /kt/{id}
+func (UnimplementedHandler) KtIDDelete(ctx context.Context, params KtIDDeleteParams) (r KtIDDeleteRes, _ error) {
 	return r, ht.ErrNotImplemented
 }
 
@@ -28,6 +37,15 @@ func (UnimplementedHandler) DownloadUziIDImageIDGet(ctx context.Context, params 
 //
 // GET /kt/{id}
 func (UnimplementedHandler) KtIDGet(ctx context.Context, params KtIDGetParams) (r KtIDGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// KtIDPatch implements PATCH /kt/{id} operation.
+//
+// Обновить КТ.
+//
+// PATCH /kt/{id}
+func (UnimplementedHandler) KtIDPatch(ctx context.Context, req *KtIDPatchReq, params KtIDPatchParams) (r KtIDPatchRes, _ error) {
 	return r, ht.ErrNotImplemented
 }
 
@@ -121,6 +139,186 @@ func (UnimplementedHandler) MedPatientPost(ctx context.Context, req *MedPatientP
 	return r, ht.ErrNotImplemented
 }
 
+// MriDevicePost implements POST /mri/device operation.
+//
+// Добавить mri аппарат.
+//
+// POST /mri/device
+func (UnimplementedHandler) MriDevicePost(ctx context.Context, req *MriDevicePostReq) (r MriDevicePostRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriDevicesGet implements GET /mri/devices operation.
+//
+// Получит список mri апппапапратов.
+//
+// GET /mri/devices
+func (UnimplementedHandler) MriDevicesGet(ctx context.Context) (r MriDevicesGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriIDDelete implements DELETE /mri/{id} operation.
+//
+// Удалить узи.
+//
+// DELETE /mri/{id}
+func (UnimplementedHandler) MriIDDelete(ctx context.Context, params MriIDDeleteParams) (r MriIDDeleteRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriIDEchographicsGet implements GET /mri/{id}/echographics operation.
+//
+// Получить эхографику mri.
+//
+// GET /mri/{id}/echographics
+func (UnimplementedHandler) MriIDEchographicsGet(ctx context.Context, params MriIDEchographicsGetParams) (r MriIDEchographicsGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriIDEchographicsPatch implements PATCH /mri/{id}/echographics operation.
+//
+// Обновить эхографику.
+//
+// PATCH /mri/{id}/echographics
+func (UnimplementedHandler) MriIDEchographicsPatch(ctx context.Context, req *Echographics, params MriIDEchographicsPatchParams) (r MriIDEchographicsPatchRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriIDGet implements GET /mri/{id} operation.
+//
+// Получить узи.
+//
+// GET /mri/{id}
+func (UnimplementedHandler) MriIDGet(ctx context.Context, params MriIDGetParams) (r MriIDGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriIDImagesGet implements GET /mri/{id}/images operation.
+//
+// Получает списк изображений mri.
+//
+// GET /mri/{id}/images
+func (UnimplementedHandler) MriIDImagesGet(ctx context.Context, params MriIDImagesGetParams) (r MriIDImagesGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriIDNodesGet implements GET /mri/{id}/nodes operation.
+//
+// Получить все узлы узи.
+//
+// GET /mri/{id}/nodes
+func (UnimplementedHandler) MriIDNodesGet(ctx context.Context, params MriIDNodesGetParams) (r MriIDNodesGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriIDNodesSegmentsPost implements POST /mri/{id}/nodes-segments operation.
+//
+// Добавить узел с сегментами.
+//
+// POST /mri/{id}/nodes-segments
+func (UnimplementedHandler) MriIDNodesSegmentsPost(ctx context.Context, req *MriIDNodesSegmentsPostReq, params MriIDNodesSegmentsPostParams) (r MriIDNodesSegmentsPostRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriIDPatch implements PATCH /mri/{id} operation.
+//
+// Обновить узи.
+//
+// PATCH /mri/{id}
+func (UnimplementedHandler) MriIDPatch(ctx context.Context, req *MriIDPatchReq, params MriIDPatchParams) (r MriIDPatchRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriImageIDNodesSegmentsGet implements GET /mri/image/{id}/nodes-segments operation.
+//
+// Получит узлы и сегменты на указанном изображении.
+//
+// GET /mri/image/{id}/nodes-segments
+func (UnimplementedHandler) MriImageIDNodesSegmentsGet(ctx context.Context, params MriImageIDNodesSegmentsGetParams) (r MriImageIDNodesSegmentsGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriNodesIDDelete implements DELETE /mri/nodes/{id} operation.
+//
+// Сегменты узла будут также удалены.
+//
+// DELETE /mri/nodes/{id}
+func (UnimplementedHandler) MriNodesIDDelete(ctx context.Context, params MriNodesIDDeleteParams) (r MriNodesIDDeleteRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriNodesIDPatch implements PATCH /mri/nodes/{id} operation.
+//
+// Обновить узел.
+//
+// PATCH /mri/nodes/{id}
+func (UnimplementedHandler) MriNodesIDPatch(ctx context.Context, req *MriNodesIDPatchReq, params MriNodesIDPatchParams) (r MriNodesIDPatchRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriNodesIDSegmentsGet implements GET /mri/nodes/{id}/segments operation.
+//
+// Получить сегменты узла.
+//
+// GET /mri/nodes/{id}/segments
+func (UnimplementedHandler) MriNodesIDSegmentsGet(ctx context.Context, params MriNodesIDSegmentsGetParams) (r MriNodesIDSegmentsGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriPost implements POST /mri operation.
+//
+// Загрузить узи на обработку.
+//
+// POST /mri
+func (UnimplementedHandler) MriPost(ctx context.Context, req *MriPostReq) (r MriPostRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriSegmentIDDelete implements DELETE /mri/segment/{id} operation.
+//
+// Если у узла не останется сегментов, он будет **удален**.
+//
+// DELETE /mri/segment/{id}
+func (UnimplementedHandler) MriSegmentIDDelete(ctx context.Context, params MriSegmentIDDeleteParams) (r MriSegmentIDDeleteRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriSegmentIDPatch implements PATCH /mri/segment/{id} operation.
+//
+// Обновить сегмент.
+//
+// PATCH /mri/segment/{id}
+func (UnimplementedHandler) MriSegmentIDPatch(ctx context.Context, req *MriSegmentIDPatchReq, params MriSegmentIDPatchParams) (r MriSegmentIDPatchRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MriSegmentPost implements POST /mri/segment operation.
+//
+// Добавить новый сегмент.
+//
+// POST /mri/segment
+func (UnimplementedHandler) MriSegmentPost(ctx context.Context, req *MriSegmentPostReq) (r MriSegmentPostRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MrisAuthorIDGet implements GET /mris/author/{id} operation.
+//
+// Получить узи по id автора.
+//
+// GET /mris/author/{id}
+func (UnimplementedHandler) MrisAuthorIDGet(ctx context.Context, params MrisAuthorIDGetParams) (r MrisAuthorIDGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// MrisExternalIDGet implements GET /mris/external/{id} operation.
+//
+// Получить узи по внешнему id.
+//
+// GET /mris/external/{id}
+func (UnimplementedHandler) MrisExternalIDGet(ctx context.Context, params MrisExternalIDGetParams) (r MrisExternalIDGetRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // RefreshPost implements POST /refresh operation.
 //
 // Обновить access token.
@@ -147,186 +345,6 @@ func (UnimplementedHandler) RegDoctorPost(ctx context.Context, req *RegDoctorPos
 //
 // POST /reg/patient
 func (UnimplementedHandler) RegPatientPost(ctx context.Context, req *RegPatientPostReq) (r RegPatientPostRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziDevicePost implements POST /uzi/device operation.
-//
-// Добавить uzi аппарат.
-//
-// POST /uzi/device
-func (UnimplementedHandler) UziDevicePost(ctx context.Context, req *UziDevicePostReq) (r UziDevicePostRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziDevicesGet implements GET /uzi/devices operation.
-//
-// Получит список uzi апппапапратов.
-//
-// GET /uzi/devices
-func (UnimplementedHandler) UziDevicesGet(ctx context.Context) (r UziDevicesGetRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziIDDelete implements DELETE /uzi/{id} operation.
-//
-// Удалить узи.
-//
-// DELETE /uzi/{id}
-func (UnimplementedHandler) UziIDDelete(ctx context.Context, params UziIDDeleteParams) (r UziIDDeleteRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziIDEchographicsGet implements GET /uzi/{id}/echographics operation.
-//
-// Получить эхографику uzi.
-//
-// GET /uzi/{id}/echographics
-func (UnimplementedHandler) UziIDEchographicsGet(ctx context.Context, params UziIDEchographicsGetParams) (r UziIDEchographicsGetRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziIDEchographicsPatch implements PATCH /uzi/{id}/echographics operation.
-//
-// Обновить эхографику.
-//
-// PATCH /uzi/{id}/echographics
-func (UnimplementedHandler) UziIDEchographicsPatch(ctx context.Context, req *Echographics, params UziIDEchographicsPatchParams) (r UziIDEchographicsPatchRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziIDGet implements GET /uzi/{id} operation.
-//
-// Получить узи.
-//
-// GET /uzi/{id}
-func (UnimplementedHandler) UziIDGet(ctx context.Context, params UziIDGetParams) (r UziIDGetRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziIDImagesGet implements GET /uzi/{id}/images operation.
-//
-// Получает списк изображений uzi.
-//
-// GET /uzi/{id}/images
-func (UnimplementedHandler) UziIDImagesGet(ctx context.Context, params UziIDImagesGetParams) (r UziIDImagesGetRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziIDNodesGet implements GET /uzi/{id}/nodes operation.
-//
-// Получить все узлы узи.
-//
-// GET /uzi/{id}/nodes
-func (UnimplementedHandler) UziIDNodesGet(ctx context.Context, params UziIDNodesGetParams) (r UziIDNodesGetRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziIDNodesSegmentsPost implements POST /uzi/{id}/nodes-segments operation.
-//
-// Добавить узел с сегментами.
-//
-// POST /uzi/{id}/nodes-segments
-func (UnimplementedHandler) UziIDNodesSegmentsPost(ctx context.Context, req *UziIDNodesSegmentsPostReq, params UziIDNodesSegmentsPostParams) (r UziIDNodesSegmentsPostRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziIDPatch implements PATCH /uzi/{id} operation.
-//
-// Обновить узи.
-//
-// PATCH /uzi/{id}
-func (UnimplementedHandler) UziIDPatch(ctx context.Context, req *UziIDPatchReq, params UziIDPatchParams) (r UziIDPatchRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziImageIDNodesSegmentsGet implements GET /uzi/image/{id}/nodes-segments operation.
-//
-// Получит узлы и сегменты на указанном изображении.
-//
-// GET /uzi/image/{id}/nodes-segments
-func (UnimplementedHandler) UziImageIDNodesSegmentsGet(ctx context.Context, params UziImageIDNodesSegmentsGetParams) (r UziImageIDNodesSegmentsGetRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziNodesIDDelete implements DELETE /uzi/nodes/{id} operation.
-//
-// Сегменты узла будут также удалены.
-//
-// DELETE /uzi/nodes/{id}
-func (UnimplementedHandler) UziNodesIDDelete(ctx context.Context, params UziNodesIDDeleteParams) (r UziNodesIDDeleteRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziNodesIDPatch implements PATCH /uzi/nodes/{id} operation.
-//
-// Обновить узел.
-//
-// PATCH /uzi/nodes/{id}
-func (UnimplementedHandler) UziNodesIDPatch(ctx context.Context, req *UziNodesIDPatchReq, params UziNodesIDPatchParams) (r UziNodesIDPatchRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziNodesIDSegmentsGet implements GET /uzi/nodes/{id}/segments operation.
-//
-// Получить сегменты узла.
-//
-// GET /uzi/nodes/{id}/segments
-func (UnimplementedHandler) UziNodesIDSegmentsGet(ctx context.Context, params UziNodesIDSegmentsGetParams) (r UziNodesIDSegmentsGetRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziPost implements POST /uzi operation.
-//
-// Загрузить узи на обработку.
-//
-// POST /uzi
-func (UnimplementedHandler) UziPost(ctx context.Context, req *UziPostReq) (r UziPostRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziSegmentIDDelete implements DELETE /uzi/segment/{id} operation.
-//
-// Если у узла не останется сегментов, он будет **удален**.
-//
-// DELETE /uzi/segment/{id}
-func (UnimplementedHandler) UziSegmentIDDelete(ctx context.Context, params UziSegmentIDDeleteParams) (r UziSegmentIDDeleteRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziSegmentIDPatch implements PATCH /uzi/segment/{id} operation.
-//
-// Обновить сегмент.
-//
-// PATCH /uzi/segment/{id}
-func (UnimplementedHandler) UziSegmentIDPatch(ctx context.Context, req *UziSegmentIDPatchReq, params UziSegmentIDPatchParams) (r UziSegmentIDPatchRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UziSegmentPost implements POST /uzi/segment operation.
-//
-// Добавить новый сегмент.
-//
-// POST /uzi/segment
-func (UnimplementedHandler) UziSegmentPost(ctx context.Context, req *UziSegmentPostReq) (r UziSegmentPostRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UzisAuthorIDGet implements GET /uzis/author/{id} operation.
-//
-// Получить узи по id автора.
-//
-// GET /uzis/author/{id}
-func (UnimplementedHandler) UzisAuthorIDGet(ctx context.Context, params UzisAuthorIDGetParams) (r UzisAuthorIDGetRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// UzisExternalIDGet implements GET /uzis/external/{id} operation.
-//
-// Получить узи по внешнему id.
-//
-// GET /uzis/external/{id}
-func (UnimplementedHandler) UzisExternalIDGet(ctx context.Context, params UzisExternalIDGetParams) (r UzisExternalIDGetRes, _ error) {
 	return r, ht.ErrNotImplemented
 }
 

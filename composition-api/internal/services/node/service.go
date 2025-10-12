@@ -6,11 +6,11 @@ import (
 	"github.com/google/uuid"
 
 	"composition-api/internal/adapters"
-	domain "composition-api/internal/domain/uzi"
+	domain "composition-api/internal/domain/exam"
 )
 
 type Service interface {
-	GetNodesByUziID(ctx context.Context, uziID uuid.UUID) ([]domain.Node, error)
+	GetNodesByMriID(ctx context.Context, mriID uuid.UUID) ([]domain.Node, error)
 	UpdateNode(ctx context.Context, arg UpdateNodeArg) (domain.Node, error)
 	DeleteNode(ctx context.Context, id uuid.UUID) error
 }

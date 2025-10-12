@@ -3,7 +3,7 @@ package kt
 import (
 	"context"
 
-	domain "composition-api/internal/domain/kt"
+	domain "composition-api/internal/domain/exam"
 
 	"github.com/google/uuid"
 )

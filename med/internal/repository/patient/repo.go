@@ -16,7 +16,7 @@ const (
 	columnActive      = "active"
 	columnMalignancy  = "malignancy"
 	columnBirthDate   = "birth_date"
-	columnLastUziDate = "last_uzi_date"
+	columnLastUziDate = "last_exam_date"
 )
 
 type Repository interface {

@@ -47,17 +47,17 @@ func (a *adapter) GetPatientsByDoctorID(ctx context.Context, doctorID uuid.UUID)
 }
 
 func (a *adapter) UpdatePatient(ctx context.Context, arg UpdatePatientIn) (domain.Patient, error) {
-	var lastUziDate *string
-	if arg.LastUziDate != nil {
-		date := arg.LastUziDate.Format(time.RFC3339)
-		lastUziDate = &date
+	var lastExamDate *string
+	if arg.LastExamDate != nil {
+		date := arg.LastExamDate.Format(time.RFC3339)
+		lastExamDate = &date
 	}
 
 	res, err := a.client.UpdatePatient(ctx, &pb.UpdatePatientIn{
-		Id:          arg.Id.String(),
-		Active:      arg.Active,
-		Malignancy:  arg.Malignancy,
-		LastUziDate: lastUziDate,
+		Id:           arg.Id.String(),
+		Active:       arg.Active,
+		Malignancy:   arg.Malignancy,
+		LastExamDate: lastExamDate,
 	})
 	if err != nil {
 		return domain.Patient{}, err

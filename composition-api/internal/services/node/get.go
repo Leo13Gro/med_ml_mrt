@@ -5,11 +5,11 @@ import (
 
 	"github.com/google/uuid"
 
-	domain "composition-api/internal/domain/uzi"
+	domain "composition-api/internal/domain/exam"
 )
 
-func (s *service) GetNodesByUziID(ctx context.Context, uziID uuid.UUID) ([]domain.Node, error) {
-	nodes, err := s.adapters.Uzi.GetNodesByUziId(ctx, uziID)
+func (s *service) GetNodesByMriID(ctx context.Context, mriID uuid.UUID) ([]domain.Node, error) {
+	nodes, err := s.adapters.Exam.GetNodesByMriId(ctx, mriID)
 	if err != nil {
 		return nil, err
 	}

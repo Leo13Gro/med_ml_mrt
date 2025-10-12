@@ -24,14 +24,14 @@ CREATE TABLE patient
     active        boolean      NOT NULL,
     malignancy    boolean      NOT NULL,
     birth_date    timestamp    NOT NULL,
-    last_uzi_date timestamp
+    last_exam_date timestamp
 );
 
 COMMENT ON TABLE patient IS 'Таблица пациентов';
 COMMENT ON COLUMN patient.policy IS 'Мед полис';
 COMMENT ON COLUMN patient.active IS 'Активен ли пациент';
 COMMENT ON COLUMN patient.malignancy IS 'Показатель злокачественного образования';
-COMMENT ON COLUMN patient.last_uzi_date IS 'Время последенго узи снимка';
+COMMENT ON COLUMN patient.last_exam_date IS 'Время последнего обследования';
 
 CREATE TABLE card
 (

@@ -118,5 +118,10 @@ class ClassificationModel:
 
         print(f"Predicted class: {outputs_probs}")
         print(classes[np.argmax(outputs_probs)])
-        return outputs_probs
+        
+        probs = outputs_probs.squeeze()
+        print(probs)
+
+        result_dict = {k: v.item() for k, v in zip(classes, probs)}
+        return result_dict
     

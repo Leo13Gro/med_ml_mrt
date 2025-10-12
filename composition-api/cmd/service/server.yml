@@ -31,7 +31,12 @@ components:
       description: кт
       required:
         - id
+        - checked
+        - author_id
+        - device_id
+        - status
         - create_at
+        - class_probabilities
       properties:
         id:
           type: string
@@ -45,7 +50,7 @@ components:
         id: "123e4567-e89b-12d3-a456-426614174000"
         create_at: "2021-01-01T00:00:00Z" # RFC3339
 
-    uzi:
+    mri:
       type: object
       description: узи
       required:
@@ -207,7 +212,7 @@ components:
       required:
         - id
         - ai
-        - uzi_id
+        - mri_id
         - tirads_23
         - tirads_4
         - tirads_5
@@ -219,7 +224,7 @@ components:
         ai:
           type: boolean
           description: признак того, что узел был создан нейронкой
-        uzi_id:
+        mri_id:
           type: string
           format: uuid
           description: id узи, к которому относится узел
@@ -251,7 +256,7 @@ components:
       example:
         id: "123e4567-e89b-12d3-a456-426614174000"
         ai: true
-        uzi_id: "123e4567-e89b-12d3-a456-426614174000"
+        mri_id: "123e4567-e89b-12d3-a456-426614174000"
         validation: "invalid"
         tirads_23: 0.67
         tirads_4: 0.23
@@ -346,14 +351,14 @@ components:
       description: изображение
       required:
         - id
-        - uzi_id
+        - mri_id
         - page
       properties:
         id:
           type: string
           format: uuid
           description: id изображения
-        uzi_id:
+        mri_id:
           type: string
           format: uuid
           description: id узи, к которому относится изображение
@@ -362,7 +367,7 @@ components:
           description: номер страницы
       example:
         id: "123e4567-e89b-12d3-a456-426614174000"
-        uzi_id: "123e4567-e89b-12d3-a456-426614174000"
+        mri_id: "123e4567-e89b-12d3-a456-426614174000"
         page: 1
 
     doctor:
@@ -438,10 +443,10 @@ components:
           type: string
           format: date
           description: дата рождения пациента
-        last_uzi_date:
+        last_exam_date:
           type: string
           format: date
-          description: дата последнего узи
+          description: дата последнего обследования
       example:
         id: "123e4567-e89b-12d3-a456-426614174000"
         fullname: "Иван Иванов"
@@ -450,7 +455,7 @@ components:
         active: true
         malignancy: false
         birth_date: "2021-01-01"
-        last_uzi_date: "2024-01-01"
+        last_exam_date: "2024-01-01"
 
     card:
       type: object
@@ -535,11 +540,15 @@ paths:
                   type: string
                   format: binary
                   description: файл кт. **обязательно с .mp4**
+                device_id:
+                  type: integer
+                  description: id узи аппарата
                 description:
                   type: string
                   description: описание узи
               required:
                 - file
+                - device_id
       responses:
         '200':
           description: id кт
@@ -577,6 +586,74 @@ paths:
           $ref: "#/components/responses/error"
         default:
           $ref: "#/components/responses/error"
+  
+    patch:
+      summary: обновить КТ
+      tags:
+        - kt
+      
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id КТ
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                checked:
+                  type: boolean
+                  description: признак того, что КТ проверено врачом
+                class_probabilities:
+                  type: object
+                  additionalProperties:
+                    type: number
+                    format: double
+                  description: Таблица вероятностей отнесения к определенному классу
+              example:
+                checked: true
+                class_probabilities:
+                  class1: 0.95
+                  class2: 0.05
+      responses:
+        '200':
+          description: КТ
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/kt"
+        '500':
+          $ref: "#/components/responses/error"
+        default:
+          $ref: "#/components/responses/error"
+
+    delete:
+      summary: удалить КТ
+      tags:
+        - kt
+      
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id КТ
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: КТ удалено
+        '500':
+          $ref: "#/components/responses/error"
+        default:
+          $ref: "#/components/responses/error"
+
   /login:
     post:
       summary: авторизация
@@ -1062,11 +1139,11 @@ paths:
           $ref: "#/components/responses/error"
         default:
           $ref: "#/components/responses/error"
-  /uzi:
+  /mri:
     post:
       summary: загрузить узи на обработку
       tags:
-        - uzi
+        - mri
       
       requestBody:
         required: true
@@ -1112,11 +1189,11 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/{id}:
+  /mri/{id}:
     get:
       summary: получить узи
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1132,7 +1209,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/uzi"
+                $ref: "#/components/schemas/mri"
         '500':
           $ref: "#/components/responses/error"
         default:
@@ -1141,7 +1218,7 @@ paths:
     patch:
       summary: обновить узи
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1176,7 +1253,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/uzi"
+                $ref: "#/components/schemas/mri"
         '500':
           $ref: "#/components/responses/error"
         default:
@@ -1185,7 +1262,7 @@ paths:
     delete:
       summary: удалить узи
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1203,11 +1280,11 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzis/external/{id}:
+  /mris/external/{id}:
     get:
       summary: получить узи по внешнему id
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1225,17 +1302,17 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/uzi'
+                  $ref: '#/components/schemas/mri'
         '500':
           $ref: "#/components/responses/error"
         default:
           $ref: "#/components/responses/error"
   
-  /uzis/author/{id}:
+  /mris/author/{id}:
     get:
       summary: получить узи по id автора
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1253,17 +1330,17 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/uzi'
+                  $ref: '#/components/schemas/mri'
         '500':
           $ref: "#/components/responses/error"
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/{id}/echographics:
+  /mri/{id}/echographics:
     get:
-      summary: получить эхографику uzi
+      summary: получить эхографику mri
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1288,7 +1365,7 @@ paths:
     patch:
       summary: обновить эхографику
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1316,11 +1393,11 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/device:
+  /mri/device:
     post:
-      summary: добавить uzi аппарат
+      summary: добавить mri аппарат
       tags:
-        - uzi
+        - mri
       
       requestBody:
         required: true
@@ -1339,7 +1416,7 @@ paths:
                 name: "Siemens"
       responses:
         '200':
-          description: id uzi аппарата
+          description: id mri аппарата
           content:
             application/json:
               schema:
@@ -1349,7 +1426,7 @@ paths:
                 properties:
                   id:
                     type: integer
-                    description: id uzi аппарата
+                    description: id mri аппарата
               example:
                 id: 1
         '500':
@@ -1357,15 +1434,15 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/devices:              
+  /mri/devices:              
     get:
-      summary: получит список uzi апппапапратов
+      summary: получит список mri апппапапратов
       tags:
-        - uzi
+        - mri
       
       responses:
         '200':
-          description: uzi аппараты
+          description: mri аппараты
           content:
             application/json:
               schema:
@@ -1377,11 +1454,11 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/{id}/images:
+  /mri/{id}/images:
     get:
-      summary: получает списк изображений uzi
+      summary: получает списк изображений mri
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1405,11 +1482,11 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/image/{id}/nodes-segments:
+  /mri/image/{id}/nodes-segments:
     get:
       summary: получит узлы и сегменты на указанном изображении
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1440,11 +1517,11 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/{id}/nodes-segments:
+  /mri/{id}/nodes-segments:
     post:
       summary: добавить узел с сегментами
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1538,17 +1615,17 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/{id}/nodes:
+  /mri/{id}/nodes:
     get:
       summary: получить все узлы узи
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
           in: path
           required: true
-          description: uzi_id
+          description: mri_id
           schema:
             type: string
             format: uuid
@@ -1566,11 +1643,11 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/nodes/{id}:
+  /mri/nodes/{id}:
     patch:
       summary: обновить узел
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1627,7 +1704,7 @@ paths:
       summary: удалить узел
       description: сегменты узла будут также удалены
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1644,11 +1721,11 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/nodes/{id}/segments:
+  /mri/nodes/{id}/segments:
     get:
       summary: получить сегменты узла
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1672,11 +1749,11 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/segment:
+  /mri/segment:
     post:
       summary: добавить новый сегмент
       tags:
-        - uzi
+        - mri
       
       requestBody:
         required: true
@@ -1724,11 +1801,11 @@ paths:
         default:
           $ref: "#/components/responses/error"
 
-  /uzi/segment/{id}:
+  /mri/segment/{id}:
     patch:
       summary: обновить сегмент
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1784,7 +1861,7 @@ paths:
       summary: удалить сегмент
       description: если у узла не останется сегментов, он будет **удален**
       tags:
-        - uzi
+        - mri
       
       parameters:
         - name: id
@@ -1801,14 +1878,14 @@ paths:
         default:
           $ref: "#/components/responses/error"
   
-  /download/{uzi_id}/{image_id}:
+  /download/{mri_id}/{image_id}:
     get:
       summary: получить кадр узи
       tags:
         - download
       
       parameters:
-        - name: uzi_id
+        - name: mri_id
           in: path
           required: true
           description: id узи

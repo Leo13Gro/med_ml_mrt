@@ -14,20 +14,20 @@ type Patient struct{}
 // TODO: обрабатывать ошибки
 func (m Patient) Domain(pb *pb.Patient) domain.Patient {
 	birthDate, _ := time.Parse(time.RFC3339, pb.BirthDate)
-	var lastUziDate *time.Time
-	if pb.LastUziDate != nil {
-		lastUziDateParsed, _ := time.Parse(time.RFC3339, *pb.LastUziDate)
-		lastUziDate = &lastUziDateParsed
+	var lastExamDate *time.Time
+	if pb.LastExamDate != nil {
+		lastMriDateParsed, _ := time.Parse(time.RFC3339, *pb.LastExamDate)
+		lastExamDate = &lastMriDateParsed
 	}
 	return domain.Patient{
-		Id:          uuid.MustParse(pb.Id),
-		FullName:    pb.Fullname,
-		Email:       pb.Email,
-		Policy:      pb.Policy,
-		Active:      pb.Active,
-		Malignancy:  pb.Malignancy,
-		BirthDate:   birthDate,
-		LastUziDate: lastUziDate,
+		Id:           uuid.MustParse(pb.Id),
+		FullName:     pb.Fullname,
+		Email:        pb.Email,
+		Policy:       pb.Policy,
+		Active:       pb.Active,
+		Malignancy:   pb.Malignancy,
+		BirthDate:    birthDate,
+		LastExamDate: lastExamDate,
 	}
 }
 

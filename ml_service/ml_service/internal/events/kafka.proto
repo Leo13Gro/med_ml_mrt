@@ -38,3 +38,8 @@ message UziProcessed {
   repeated NodeWithSegments nodes_with_segments = 200;
 
 }
+
+message KtProcessed {
+  string kt_id = 100;
+  map<string, double> class_probabilities = 200;
+}

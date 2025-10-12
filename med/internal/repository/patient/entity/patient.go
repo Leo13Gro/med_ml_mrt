@@ -19,7 +19,7 @@ type Patient struct {
 	Active      bool         `db:"active"`
 	Malignancy  bool         `db:"malignancy"`
 	BirthDate   time.Time    `db:"birth_date"`
-	LastUziDate sql.NullTime `db:"last_uzi_date"`
+	LastUziDate sql.NullTime `db:"last_exam_date"`
 }
 
 func (Patient) FromDomain(p domain.Patient) Patient {

@@ -1,7 +1,7 @@
 package node
 
 import (
-	domain "composition-api/internal/domain/uzi"
+	domain "composition-api/internal/domain/exam"
 
 	"github.com/google/uuid"
 )

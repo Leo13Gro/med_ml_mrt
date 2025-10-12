@@ -10,7 +10,7 @@ import (
 )
 
 type Service interface {
-	GetImage(ctx context.Context, uziID uuid.UUID, imageID uuid.UUID) (io.ReadCloser, error)
+	GetImage(ctx context.Context, mriID uuid.UUID, imageID uuid.UUID) (io.ReadCloser, error)
 }
 
 type service struct {

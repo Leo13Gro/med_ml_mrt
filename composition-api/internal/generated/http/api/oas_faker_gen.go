@@ -3,6 +3,7 @@
 package api
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -222,7 +223,7 @@ func (s *Image) SetFake() {
 	}
 	{
 		{
-			s.UziID = uuid.New()
+			s.MriID = uuid.New()
 		}
 	}
 	{
@@ -243,6 +244,31 @@ func (s *Kt) SetFake() {
 		{
 			s.CreateAt = time.Now()
 		}
+	}
+}
+
+// SetFake set fake values.
+func (s *KtIDPatchReq) SetFake() {
+	{
+		{
+			s.Checked.SetFake()
+		}
+	}
+	{
+		{
+			s.ClassProbabilities.SetFake()
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *KtIDPatchReqClassProbabilities) SetFake() {
+	var (
+		elem float64
+		m    map[string]float64 = s.init()
+	)
+	for i := 0; i < 0; i++ {
+		m[fmt.Sprintf("fake%d", i)] = elem
 	}
 }
 
@@ -348,6 +374,403 @@ func (s *MedPatientPostReq) SetFake() {
 }
 
 // SetFake set fake values.
+func (s *Mri) SetFake() {
+	{
+		{
+			s.ID = uuid.New()
+		}
+	}
+	{
+		{
+			s.Projection.SetFake()
+		}
+	}
+	{
+		{
+			s.Checked = true
+		}
+	}
+	{
+		{
+			s.ExternalID = uuid.New()
+		}
+	}
+	{
+		{
+			s.AuthorID = uuid.New()
+		}
+	}
+	{
+		{
+			s.DeviceID = int(0)
+		}
+	}
+	{
+		{
+			s.Status.SetFake()
+		}
+	}
+	{
+		{
+			s.CreateAt = time.Now()
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriDevicePostOK) SetFake() {
+	{
+		{
+			s.ID = int(0)
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriDevicePostReq) SetFake() {
+	{
+		{
+			s.Name = "string"
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriDevicesGetOKApplicationJSON) SetFake() {
+	var unwrapped []Device
+	{
+		unwrapped = nil
+		for i := 0; i < 0; i++ {
+			var elem Device
+			{
+				elem.SetFake()
+			}
+			unwrapped = append(unwrapped, elem)
+		}
+	}
+	*s = MriDevicesGetOKApplicationJSON(unwrapped)
+}
+
+// SetFake set fake values.
+func (s *MriIDImagesGetOKApplicationJSON) SetFake() {
+	var unwrapped []Image
+	{
+		unwrapped = nil
+		for i := 0; i < 0; i++ {
+			var elem Image
+			{
+				elem.SetFake()
+			}
+			unwrapped = append(unwrapped, elem)
+		}
+	}
+	*s = MriIDImagesGetOKApplicationJSON(unwrapped)
+}
+
+// SetFake set fake values.
+func (s *MriIDNodesGetOKApplicationJSON) SetFake() {
+	var unwrapped []Node
+	{
+		unwrapped = nil
+		for i := 0; i < 0; i++ {
+			var elem Node
+			{
+				elem.SetFake()
+			}
+			unwrapped = append(unwrapped, elem)
+		}
+	}
+	*s = MriIDNodesGetOKApplicationJSON(unwrapped)
+}
+
+// SetFake set fake values.
+func (s *MriIDNodesSegmentsPostOK) SetFake() {
+	{
+		{
+			s.NodeID = uuid.New()
+		}
+	}
+	{
+		{
+			s.SegmentIds = nil
+			for i := 0; i < 0; i++ {
+				var elem uuid.UUID
+				{
+					elem = uuid.New()
+				}
+				s.SegmentIds = append(s.SegmentIds, elem)
+			}
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriIDNodesSegmentsPostReq) SetFake() {
+	{
+		{
+			s.Node.SetFake()
+		}
+	}
+	{
+		{
+			s.Segments = nil
+			for i := 0; i < 0; i++ {
+				var elem MriIDNodesSegmentsPostReqSegmentsItem
+				{
+					elem.SetFake()
+				}
+				s.Segments = append(s.Segments, elem)
+			}
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriIDNodesSegmentsPostReqNode) SetFake() {
+	{
+		{
+			s.Tirads23 = float64(0)
+		}
+	}
+	{
+		{
+			s.Tirads4 = float64(0)
+		}
+	}
+	{
+		{
+			s.Tirads5 = float64(0)
+		}
+	}
+	{
+		{
+			s.Description.SetFake()
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriIDNodesSegmentsPostReqSegmentsItem) SetFake() {
+	{
+		{
+			s.ImageID = uuid.New()
+		}
+	}
+	{
+		{
+			s.Contor.SetFake()
+		}
+	}
+	{
+		{
+			s.Tirads23 = float64(0)
+		}
+	}
+	{
+		{
+			s.Tirads4 = float64(0)
+		}
+	}
+	{
+		{
+			s.Tirads5 = float64(0)
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriIDPatchReq) SetFake() {
+	{
+		{
+			s.Projection.SetFake()
+		}
+	}
+	{
+		{
+			s.Checked.SetFake()
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriIDPatchReqProjection) SetFake() {
+	*s = MriIDPatchReqProjectionCross
+}
+
+// SetFake set fake values.
+func (s *MriImageIDNodesSegmentsGetOK) SetFake() {
+	{
+		{
+			s.Nodes = nil
+			for i := 0; i < 0; i++ {
+				var elem Node
+				{
+					elem.SetFake()
+				}
+				s.Nodes = append(s.Nodes, elem)
+			}
+		}
+	}
+	{
+		{
+			s.Segments = nil
+			for i := 0; i < 0; i++ {
+				var elem Segment
+				{
+					elem.SetFake()
+				}
+				s.Segments = append(s.Segments, elem)
+			}
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriNodesIDPatchReq) SetFake() {
+	{
+		{
+			s.Validation.SetFake()
+		}
+	}
+	{
+		{
+			s.Tirads23.SetFake()
+		}
+	}
+	{
+		{
+			s.Tirads4.SetFake()
+		}
+	}
+	{
+		{
+			s.Tirads5.SetFake()
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriNodesIDPatchReqValidation) SetFake() {
+	*s = MriNodesIDPatchReqValidationInvalid
+}
+
+// SetFake set fake values.
+func (s *MriNodesIDSegmentsGetOKApplicationJSON) SetFake() {
+	var unwrapped []Segment
+	{
+		unwrapped = nil
+		for i := 0; i < 0; i++ {
+			var elem Segment
+			{
+				elem.SetFake()
+			}
+			unwrapped = append(unwrapped, elem)
+		}
+	}
+	*s = MriNodesIDSegmentsGetOKApplicationJSON(unwrapped)
+}
+
+// SetFake set fake values.
+func (s *MriProjection) SetFake() {
+	*s = MriProjectionCross
+}
+
+// SetFake set fake values.
+func (s *MriSegmentIDPatchReq) SetFake() {
+	{
+		{
+			s.Contor.SetFake()
+		}
+	}
+	{
+		{
+			s.Tirads23.SetFake()
+		}
+	}
+	{
+		{
+			s.Tirads4.SetFake()
+		}
+	}
+	{
+		{
+			s.Tirads5.SetFake()
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriSegmentPostReq) SetFake() {
+	{
+		{
+			s.ImageID = uuid.New()
+		}
+	}
+	{
+		{
+			s.NodeID = uuid.New()
+		}
+	}
+	{
+		{
+			s.Contor.SetFake()
+		}
+	}
+	{
+		{
+			s.Tirads23 = float64(0)
+		}
+	}
+	{
+		{
+			s.Tirads4 = float64(0)
+		}
+	}
+	{
+		{
+			s.Tirads5 = float64(0)
+		}
+	}
+}
+
+// SetFake set fake values.
+func (s *MriStatus) SetFake() {
+	*s = MriStatusNew
+}
+
+// SetFake set fake values.
+func (s *MrisAuthorIDGetOKApplicationJSON) SetFake() {
+	var unwrapped []Mri
+	{
+		unwrapped = nil
+		for i := 0; i < 0; i++ {
+			var elem Mri
+			{
+				elem.SetFake()
+			}
+			unwrapped = append(unwrapped, elem)
+		}
+	}
+	*s = MrisAuthorIDGetOKApplicationJSON(unwrapped)
+}
+
+// SetFake set fake values.
+func (s *MrisExternalIDGetOKApplicationJSON) SetFake() {
+	var unwrapped []Mri
+	{
+		unwrapped = nil
+		for i := 0; i < 0; i++ {
+			var elem Mri
+			{
+				elem.SetFake()
+			}
+			unwrapped = append(unwrapped, elem)
+		}
+	}
+	*s = MrisExternalIDGetOKApplicationJSON(unwrapped)
+}
+
+// SetFake set fake values.
 func (s *Node) SetFake() {
 	{
 		{
@@ -361,7 +784,7 @@ func (s *Node) SetFake() {
 	}
 	{
 		{
-			s.UziID = uuid.New()
+			s.MriID = uuid.New()
 		}
 	}
 	{
@@ -424,13 +847,31 @@ func (s *OptFloat64) SetFake() {
 }
 
 // SetFake set fake values.
-func (s *OptNilNodeValidation) SetFake() {
+func (s *OptKtIDPatchReqClassProbabilities) SetFake() {
+	var elem KtIDPatchReqClassProbabilities
+	{
+		elem.SetFake()
+	}
+	s.SetTo(elem)
+}
+
+// SetFake set fake values.
+func (s *OptMriIDPatchReqProjection) SetFake() {
+	var elem MriIDPatchReqProjection
+	{
+		elem.SetFake()
+	}
+	s.SetTo(elem)
+}
+
+// SetFake set fake values.
+func (s *OptNilMriNodesIDPatchReqValidation) SetFake() {
 	s.Null = true
 	s.Set = true
 }
 
 // SetFake set fake values.
-func (s *OptNilUziNodesIDPatchReqValidation) SetFake() {
+func (s *OptNilNodeValidation) SetFake() {
 	s.Null = true
 	s.Set = true
 }
@@ -440,15 +881,6 @@ func (s *OptString) SetFake() {
 	var elem string
 	{
 		elem = "string"
-	}
-	s.SetTo(elem)
-}
-
-// SetFake set fake values.
-func (s *OptUziIDPatchReqProjection) SetFake() {
-	var elem UziIDPatchReqProjection
-	{
-		elem.SetFake()
 	}
 	s.SetTo(elem)
 }
@@ -492,7 +924,7 @@ func (s *Patient) SetFake() {
 	}
 	{
 		{
-			s.LastUziDate.SetFake()
+			s.LastExamDate.SetFake()
 		}
 	}
 }
@@ -634,401 +1066,4 @@ func (s *SimpleUuid) SetFake() {
 			s.ID = uuid.New()
 		}
 	}
-}
-
-// SetFake set fake values.
-func (s *Uzi) SetFake() {
-	{
-		{
-			s.ID = uuid.New()
-		}
-	}
-	{
-		{
-			s.Projection.SetFake()
-		}
-	}
-	{
-		{
-			s.Checked = true
-		}
-	}
-	{
-		{
-			s.ExternalID = uuid.New()
-		}
-	}
-	{
-		{
-			s.AuthorID = uuid.New()
-		}
-	}
-	{
-		{
-			s.DeviceID = int(0)
-		}
-	}
-	{
-		{
-			s.Status.SetFake()
-		}
-	}
-	{
-		{
-			s.CreateAt = time.Now()
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziDevicePostOK) SetFake() {
-	{
-		{
-			s.ID = int(0)
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziDevicePostReq) SetFake() {
-	{
-		{
-			s.Name = "string"
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziDevicesGetOKApplicationJSON) SetFake() {
-	var unwrapped []Device
-	{
-		unwrapped = nil
-		for i := 0; i < 0; i++ {
-			var elem Device
-			{
-				elem.SetFake()
-			}
-			unwrapped = append(unwrapped, elem)
-		}
-	}
-	*s = UziDevicesGetOKApplicationJSON(unwrapped)
-}
-
-// SetFake set fake values.
-func (s *UziIDImagesGetOKApplicationJSON) SetFake() {
-	var unwrapped []Image
-	{
-		unwrapped = nil
-		for i := 0; i < 0; i++ {
-			var elem Image
-			{
-				elem.SetFake()
-			}
-			unwrapped = append(unwrapped, elem)
-		}
-	}
-	*s = UziIDImagesGetOKApplicationJSON(unwrapped)
-}
-
-// SetFake set fake values.
-func (s *UziIDNodesGetOKApplicationJSON) SetFake() {
-	var unwrapped []Node
-	{
-		unwrapped = nil
-		for i := 0; i < 0; i++ {
-			var elem Node
-			{
-				elem.SetFake()
-			}
-			unwrapped = append(unwrapped, elem)
-		}
-	}
-	*s = UziIDNodesGetOKApplicationJSON(unwrapped)
-}
-
-// SetFake set fake values.
-func (s *UziIDNodesSegmentsPostOK) SetFake() {
-	{
-		{
-			s.NodeID = uuid.New()
-		}
-	}
-	{
-		{
-			s.SegmentIds = nil
-			for i := 0; i < 0; i++ {
-				var elem uuid.UUID
-				{
-					elem = uuid.New()
-				}
-				s.SegmentIds = append(s.SegmentIds, elem)
-			}
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziIDNodesSegmentsPostReq) SetFake() {
-	{
-		{
-			s.Node.SetFake()
-		}
-	}
-	{
-		{
-			s.Segments = nil
-			for i := 0; i < 0; i++ {
-				var elem UziIDNodesSegmentsPostReqSegmentsItem
-				{
-					elem.SetFake()
-				}
-				s.Segments = append(s.Segments, elem)
-			}
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziIDNodesSegmentsPostReqNode) SetFake() {
-	{
-		{
-			s.Tirads23 = float64(0)
-		}
-	}
-	{
-		{
-			s.Tirads4 = float64(0)
-		}
-	}
-	{
-		{
-			s.Tirads5 = float64(0)
-		}
-	}
-	{
-		{
-			s.Description.SetFake()
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziIDNodesSegmentsPostReqSegmentsItem) SetFake() {
-	{
-		{
-			s.ImageID = uuid.New()
-		}
-	}
-	{
-		{
-			s.Contor.SetFake()
-		}
-	}
-	{
-		{
-			s.Tirads23 = float64(0)
-		}
-	}
-	{
-		{
-			s.Tirads4 = float64(0)
-		}
-	}
-	{
-		{
-			s.Tirads5 = float64(0)
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziIDPatchReq) SetFake() {
-	{
-		{
-			s.Projection.SetFake()
-		}
-	}
-	{
-		{
-			s.Checked.SetFake()
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziIDPatchReqProjection) SetFake() {
-	*s = UziIDPatchReqProjectionCross
-}
-
-// SetFake set fake values.
-func (s *UziImageIDNodesSegmentsGetOK) SetFake() {
-	{
-		{
-			s.Nodes = nil
-			for i := 0; i < 0; i++ {
-				var elem Node
-				{
-					elem.SetFake()
-				}
-				s.Nodes = append(s.Nodes, elem)
-			}
-		}
-	}
-	{
-		{
-			s.Segments = nil
-			for i := 0; i < 0; i++ {
-				var elem Segment
-				{
-					elem.SetFake()
-				}
-				s.Segments = append(s.Segments, elem)
-			}
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziNodesIDPatchReq) SetFake() {
-	{
-		{
-			s.Validation.SetFake()
-		}
-	}
-	{
-		{
-			s.Tirads23.SetFake()
-		}
-	}
-	{
-		{
-			s.Tirads4.SetFake()
-		}
-	}
-	{
-		{
-			s.Tirads5.SetFake()
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziNodesIDPatchReqValidation) SetFake() {
-	*s = UziNodesIDPatchReqValidationInvalid
-}
-
-// SetFake set fake values.
-func (s *UziNodesIDSegmentsGetOKApplicationJSON) SetFake() {
-	var unwrapped []Segment
-	{
-		unwrapped = nil
-		for i := 0; i < 0; i++ {
-			var elem Segment
-			{
-				elem.SetFake()
-			}
-			unwrapped = append(unwrapped, elem)
-		}
-	}
-	*s = UziNodesIDSegmentsGetOKApplicationJSON(unwrapped)
-}
-
-// SetFake set fake values.
-func (s *UziProjection) SetFake() {
-	*s = UziProjectionCross
-}
-
-// SetFake set fake values.
-func (s *UziSegmentIDPatchReq) SetFake() {
-	{
-		{
-			s.Contor.SetFake()
-		}
-	}
-	{
-		{
-			s.Tirads23.SetFake()
-		}
-	}
-	{
-		{
-			s.Tirads4.SetFake()
-		}
-	}
-	{
-		{
-			s.Tirads5.SetFake()
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziSegmentPostReq) SetFake() {
-	{
-		{
-			s.ImageID = uuid.New()
-		}
-	}
-	{
-		{
-			s.NodeID = uuid.New()
-		}
-	}
-	{
-		{
-			s.Contor.SetFake()
-		}
-	}
-	{
-		{
-			s.Tirads23 = float64(0)
-		}
-	}
-	{
-		{
-			s.Tirads4 = float64(0)
-		}
-	}
-	{
-		{
-			s.Tirads5 = float64(0)
-		}
-	}
-}
-
-// SetFake set fake values.
-func (s *UziStatus) SetFake() {
-	*s = UziStatusNew
-}
-
-// SetFake set fake values.
-func (s *UzisAuthorIDGetOKApplicationJSON) SetFake() {
-	var unwrapped []Uzi
-	{
-		unwrapped = nil
-		for i := 0; i < 0; i++ {
-			var elem Uzi
-			{
-				elem.SetFake()
-			}
-			unwrapped = append(unwrapped, elem)
-		}
-	}
-	*s = UzisAuthorIDGetOKApplicationJSON(unwrapped)
-}
-
-// SetFake set fake values.
-func (s *UzisExternalIDGetOKApplicationJSON) SetFake() {
-	var unwrapped []Uzi
-	{
-		unwrapped = nil
-		for i := 0; i < 0; i++ {
-			var elem Uzi
-			{
-				elem.SetFake()
-			}
-			unwrapped = append(unwrapped, elem)
-		}
-	}
-	*s = UzisExternalIDGetOKApplicationJSON(unwrapped)
 }

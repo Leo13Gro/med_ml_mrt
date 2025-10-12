@@ -10,18 +10,18 @@ import (
 	"composition-api/internal/services/download"
 	"composition-api/internal/services/image"
 	"composition-api/internal/services/kt"
+	"composition-api/internal/services/mri"
 	"composition-api/internal/services/node"
 	"composition-api/internal/services/node_segment"
 	"composition-api/internal/services/patient"
 	"composition-api/internal/services/register"
 	"composition-api/internal/services/segment"
 	"composition-api/internal/services/tokens"
-	"composition-api/internal/services/uzi"
 )
 
 type Services struct {
 	DeviceService      device.Service
-	UziService         uzi.Service
+	MriService         mri.Service
 	KTService          kt.Service
 	ImageService       image.Service
 	NodeService        node.Service
@@ -41,7 +41,7 @@ func New(
 	dao repository.DAO,
 ) *Services {
 	deviceService := device.New(adapters)
-	uziService := uzi.New(adapters, dao, producers)
+	mriService := mri.New(adapters, dao, producers)
 	ktService := kt.New(adapters, dao, producers)
 	imageService := image.New(adapters)
 	nodeService := node.New(adapters)
@@ -56,7 +56,7 @@ func New(
 
 	return &Services{
 		DeviceService:      deviceService,
-		UziService:         uziService,
+		MriService:         mriService,
 		KTService:          ktService,
 		ImageService:       imageService,
 		NodeService:        nodeService,

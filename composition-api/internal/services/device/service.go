@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"composition-api/internal/adapters"
-	domain "composition-api/internal/domain/uzi"
+	domain "composition-api/internal/domain/exam"
 )
 
 type Service interface {

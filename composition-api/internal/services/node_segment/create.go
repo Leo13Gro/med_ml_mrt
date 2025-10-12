@@ -5,7 +5,7 @@ import (
 
 	"github.com/google/uuid"
 
-	adapter "composition-api/internal/adapters/uzi"
+	adapter "composition-api/internal/adapters/exam"
 )
 
 func (s *service) CreateNodeWithSegment(ctx context.Context, arg CreateNodeWithSegmentArg) (uuid.UUID, []uuid.UUID, error) {
@@ -20,8 +20,8 @@ func (s *service) CreateNodeWithSegment(ctx context.Context, arg CreateNodeWithS
 		})
 	}
 
-	nodeID, segmentIDs, err := s.adapters.Uzi.CreateNodeWithSegments(ctx, adapter.CreateNodeWithSegmentsIn{
-		UziID:    arg.UziID,
+	nodeID, segmentIDs, err := s.adapters.Exam.CreateNodeWithSegments(ctx, adapter.CreateNodeWithSegmentsIn{
+		MriID:    arg.MriID,
 		Node:     adapter.CreateNodeWithSegmentsIn_Node(arg.Node),
 		Segments: segments,
 	})

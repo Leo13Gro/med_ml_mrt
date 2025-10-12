@@ -3,12 +3,12 @@ package node
 import (
 	"context"
 
-	adapter "composition-api/internal/adapters/uzi"
-	domain "composition-api/internal/domain/uzi"
+	adapter "composition-api/internal/adapters/exam"
+	domain "composition-api/internal/domain/exam"
 )
 
 func (s *service) UpdateNode(ctx context.Context, arg UpdateNodeArg) (domain.Node, error) {
-	node, err := s.adapters.Uzi.UpdateNode(ctx, adapter.UpdateNodeIn{
+	node, err := s.adapters.Exam.UpdateNode(ctx, adapter.UpdateNodeIn{
 		Id:         arg.Id,
 		Validation: arg.Validation,
 		Tirads_23:  arg.Tirads_23,
