@@ -9,7 +9,7 @@ import (
 type UpdateNodeArg struct {
 	Id         uuid.UUID
 	Validation *domain.NodeValidation
-	Tirads_23  *float64
-	Tirads_4   *float64
-	Tirads_5   *float64
+	Knosp_012  *float64
+	Knosp_3    *float64
+	Knosp_4    *float64
 }

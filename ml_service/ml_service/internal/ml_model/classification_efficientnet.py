@@ -33,7 +33,7 @@ class EfficientNetModel(ModelABC):
     def load(self, path: str) -> None:
         self._model = efficientnet_b6()
         self._model.features[0][0] = nn.Conv2d(1, 56, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
-        self._model.classifier[1] = nn.Linear(2304, 3) # Текущее количество классов равно 3: 0 - tirads 2-3, 1 - tirads 4, 2 - tirads 5
+        self._model.classifier[1] = nn.Linear(2304, 3) # Текущее количество классов равно 3: 0 - knosp 0-1-2, 1 - knosp 3, 2 - knosp 4
         self._model.to(self.device)
         self._model.load_state_dict(torch.load(path, map_location=self.device))
         self._model.eval()
@@ -61,9 +61,9 @@ class EfficientNetModel(ModelABC):
         # получаем [scaled_pic_of_roi, roi_uniq_idx, segment_binary_masks]
 
         return:
-            individual_probs - лист в вероятностями tirads по сегментам (структура такая же как rois tiff->изображение->узел)
-            tracked_nodules_probs - мапа с вероятностями tirads по узлам (uniq tirads для физического узла, id как в rois) (none для одного изображения)
-                tirads передаются как numpy массив с итоговыми вероятностями
+            individual_probs - лист в вероятностями knosp по сегментам (структура такая же как rois tiff->изображение->узел)
+            tracked_nodules_probs - мапа с вероятностями knosp по узлам (uniq knosp для физического узла, id как в rois) (none для одного изображения)
+                knosp передаются как numpy массив с итоговыми вероятностями
 
         original:
             Аргумент rois - [[[roi[0], 1], ..., [roi[n], m]], [...], ..., [...]] - список списков с rois и соответствующих им индексов узлов (для всего tif),

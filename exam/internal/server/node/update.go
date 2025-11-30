@@ -22,9 +22,9 @@ func (h *handler) UpdateNode(ctx context.Context, in *pb.UpdateNodeIn) (*pb.Upda
 		node.UpdateNodeArg{
 			Id:         uuid.MustParse(in.Id),
 			Validation: mappers.NodeValidationToDomain(in.Validation),
-			Tirads23:   in.Tirads_23,
-			Tirads4:    in.Tirads_4,
-			Tirads5:    in.Tirads_5,
+			Knosp012:   in.Knosp_012,
+			Knosp3:     in.Knosp_3,
+			Knosp4:     in.Knosp_4,
 		},
 	)
 	if err != nil {

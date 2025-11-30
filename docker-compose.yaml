@@ -25,7 +25,7 @@ services:
       interval: 5s
       retries: 5
     environment:
-      POSTGRES_MULTIPLE_DATABASES: authdb,meddb,uzidb
+      POSTGRES_MULTIPLE_DATABASES: authdb,meddb,examdb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
 
@@ -159,13 +159,13 @@ services:
     profiles:
       - app
 
-  uzi_service:
-    container_name: uzi_service
+  exam_service:
+    container_name: exam_service
     build:
-      context: ./uzi/
+      context: ./exam/
       dockerfile: Dockerfile
     env_file:
-      - ./uzi/.env-docker
+      - ./exam/.env-docker
     ports:
       - 50060:50055
     depends_on:
@@ -187,7 +187,7 @@ services:
       - 8080:50055
     depends_on:
       - redpanda-0
-      - uzi_service
+      - exam_service
       - med_service
       - auth_service
     profiles:

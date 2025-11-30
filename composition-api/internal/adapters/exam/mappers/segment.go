@@ -16,9 +16,9 @@ func (m Segment) Domain(pb *pb.Segment) domain.Segment {
 		NodeID:   uuid.MustParse(pb.NodeId),
 		Contor:   pb.Contor,
 		Ai:       pb.Ai,
-		Tirads23: pb.Tirads_23,
-		Tirads4:  pb.Tirads_4,
-		Tirads5:  pb.Tirads_5,
+		Knosp012: pb.Knosp_012,
+		Knosp3:   pb.Knosp_3,
+		Knosp4:   pb.Knosp_4,
 	}
 }
 

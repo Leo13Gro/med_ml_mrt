@@ -32,16 +32,16 @@ func (h *handler) CreateNodeWithSegments(ctx context.Context, in *pb.CreateNodeW
 		segments = append(segments, node_segment.CreateNodesWithSegmentsArgSegment{
 			ImageID:  uuid.MustParse(v.ImageId),
 			Contor:   v.Contor,
-			Tirads23: v.Tirads_23,
-			Tirads4:  v.Tirads_4,
-			Tirads5:  v.Tirads_5,
+			Knosp012: v.Knosp_012,
+			Knosp3:   v.Knosp_3,
+			Knosp4:   v.Knosp_4,
 		})
 	}
 
 	node := node_segment.CreateNodesWithSegmentsArgNode{
-		Tirads23:    in.Node.Tirads_23,
-		Tirads4:     in.Node.Tirads_4,
-		Tirads5:     in.Node.Tirads_5,
+		Knosp012:    in.Node.Knosp_012,
+		Knosp3:      in.Node.Knosp_3,
+		Knosp4:      in.Node.Knosp_4,
 		Description: in.Node.Description,
 	}
 

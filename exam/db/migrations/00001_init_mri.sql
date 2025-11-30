@@ -6,7 +6,7 @@ CREATE TABLE device
     name varchar(255) NOT NULL
 );
 
-COMMENT ON TABLE device IS 'Хранилище узи аппаратов на которых делались снимки';
+COMMENT ON TABLE device IS 'Хранилище аппаратов на которых делались снимки';
 COMMENT ON COLUMN device.name IS 'Название аппарата';
 
 CREATE TABLE mri
@@ -22,13 +22,13 @@ CREATE TABLE mri
     create_at       date            NOT NULL
 );
 
-COMMENT ON TABLE mri IS 'Хранилище описаний и характеристик узи';
-COMMENT ON COLUMN mri.projection IS 'Проекция в которой было сделано узи';
-COMMENT ON COLUMN mri.external_id IS 'Внешний идентификатор узи';
-COMMENT ON COLUMN mri.author IS 'ID автора узи';
-COMMENT ON COLUMN mri.device_id IS 'Идентификатор узи аппарата на котором снято узи';
-COMMENT ON COLUMN mri.description IS 'Описание узи от автора';
-COMMENT ON COLUMN mri."status" IS 'Статус узи';
+COMMENT ON TABLE mri IS 'Хранилище описаний и характеристик мрт';
+COMMENT ON COLUMN mri.projection IS 'Проекция в которой было сделано мрт';
+COMMENT ON COLUMN mri.external_id IS 'Внешний идентификатор мрт';
+COMMENT ON COLUMN mri.author IS 'ID автора мрт';
+COMMENT ON COLUMN mri.device_id IS 'Идентификатор мрт аппарата на котором снято мрт';
+COMMENT ON COLUMN mri.description IS 'Описание мрт от автора';
+COMMENT ON COLUMN mri."status" IS 'Статус мрт';
 
 CREATE TABLE image
 (
@@ -37,7 +37,7 @@ CREATE TABLE image
     page   integer NOT NULL
 );
 
-COMMENT ON TABLE image IS 'Хранилище кадров в узи';
+COMMENT ON TABLE image IS 'Хранилище кадров в мрт';
 
 CREATE TABLE node
 (
@@ -45,19 +45,19 @@ CREATE TABLE node
     mri_id          uuid        NOT NULL REFERENCES mri (id) ON DELETE CASCADE,
     ai              boolean     NOT NULL,
     "validation"    varchar(255),
-    tirads_23       real        NOT NULL,
-    tirads_4        real        NOT NULL,
-    tirads_5        real        NOT NULL,
+    knosp_012       real        NOT NULL,
+    knosp_3        real        NOT NULL,
+    knosp_4        real        NOT NULL,
     "description"   text
 );
 
-COMMENT ON TABLE node IS 'Хранилище узлов в узи';
+COMMENT ON TABLE node IS 'Хранилище узлов в мрт';
 COMMENT ON COLUMN node.ai IS 'Автор узла(нейронка ли)';
-COMMENT ON COLUMN node.mri_id IS 'Идентификатор узи';
+COMMENT ON COLUMN node.mri_id IS 'Идентификатор мрт';
 COMMENT ON COLUMN node."validation" IS 'валидация узла специалистом (null, invalid, valid). Доступно только для нейроночных узлов';
-COMMENT ON COLUMN node.tirads_23 IS 'процент отношения к классу tirads_23';
-COMMENT ON COLUMN node.tirads_4 IS 'процент отношения к классу tirads_4';
-COMMENT ON COLUMN node.tirads_5 IS 'процент отношения к классу tirads_5';
+COMMENT ON COLUMN node.knosp_012 IS 'процент отношения к классу knosp_012';
+COMMENT ON COLUMN node.knosp_3 IS 'процент отношения к классу knosp_3';
+COMMENT ON COLUMN node.knosp_4 IS 'процент отношения к классу knosp_4';
 
 CREATE TABLE segment
 (
@@ -66,16 +66,16 @@ CREATE TABLE segment
     image_id  uuid      NOT NULL REFERENCES image (id) ON DELETE CASCADE,
     contor    jsonb     NOT NULL,
     ai        boolean   NOT NULL,
-    tirads_23 real      NOT NULL,
-    tirads_4  real      NOT NULL,
-    tirads_5  real      NOT NULL
+    knosp_012 real      NOT NULL,
+    knosp_3  real      NOT NULL,
+    knosp_4  real      NOT NULL
 );
 
-COMMENT ON TABLE segment IS 'Хранилище сегментов в узи';
+COMMENT ON TABLE segment IS 'Хранилище сегментов в мрт';
 COMMENT ON COLUMN segment.contor IS 'контур узла (JSON)';
-COMMENT ON COLUMN segment.tirads_23 IS 'процент отношения к классу tirads_23';
-COMMENT ON COLUMN segment.tirads_4 IS 'процент отношения к классу tirads_4';
-COMMENT ON COLUMN segment.tirads_5 IS 'процент отношения к классу tirads_5';
+COMMENT ON COLUMN segment.knosp_012 IS 'процент отношения к классу knosp_012';
+COMMENT ON COLUMN segment.knosp_3 IS 'процент отношения к классу knosp_3';
+COMMENT ON COLUMN segment.knosp_4 IS 'процент отношения к классу knosp_4';
 -- +goose StatementEnd
 
 -- +goose Down

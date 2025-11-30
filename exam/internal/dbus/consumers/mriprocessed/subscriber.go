@@ -44,9 +44,9 @@ func (h *subscriber) Consume(ctx context.Context, message *pb.MriProcessed) erro
 	arg := make([]node_segment.CreateNodesWithSegmentsArg, 0, len(message.NodesWithSegments))
 	for _, v := range message.NodesWithSegments {
 		node := node_segment.CreateNodesWithSegmentsArgNode{
-			Tirads23: v.Node.Tirads_23,
-			Tirads4:  v.Node.Tirads_4,
-			Tirads5:  v.Node.Tirads_5,
+			Knosp012: v.Node.Knosp_012,
+			Knosp3:   v.Node.Knosp_3,
+			Knosp4:   v.Node.Knosp_4,
 		}
 
 		segments := make([]node_segment.CreateNodesWithSegmentsArgSegment, 0, len(v.Segments))
@@ -59,9 +59,9 @@ func (h *subscriber) Consume(ctx context.Context, message *pb.MriProcessed) erro
 			segments = append(segments, node_segment.CreateNodesWithSegmentsArgSegment{
 				ImageID:  uuid.MustParse(segment.ImageId),
 				Contor:   json.RawMessage(segment.Contor),
-				Tirads23: segment.Tirads_23,
-				Tirads4:  segment.Tirads_4,
-				Tirads5:  segment.Tirads_5,
+				Knosp012: segment.Knosp_012,
+				Knosp3:   segment.Knosp_3,
+				Knosp4:   segment.Knosp_4,
 			})
 		}
 

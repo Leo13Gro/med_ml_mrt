@@ -16,9 +16,9 @@ func (a *adapter) CreateNodeWithSegments(ctx context.Context, in CreateNodeWithS
 	req.MriId = in.MriID.String()
 
 	req.Node = &pb.CreateNodeWithSegmentsIn_Node{
-		Tirads_23:   in.Node.Tirads_23,
-		Tirads_4:    in.Node.Tirads_4,
-		Tirads_5:    in.Node.Tirads_5,
+		Knosp_012:   in.Node.Knosp_012,
+		Knosp_3:     in.Node.Knosp_3,
+		Knosp_4:     in.Node.Knosp_4,
 		Description: in.Node.Description,
 	}
 
@@ -26,9 +26,9 @@ func (a *adapter) CreateNodeWithSegments(ctx context.Context, in CreateNodeWithS
 		req.Segments = append(req.Segments, &pb.CreateNodeWithSegmentsIn_Segment{
 			ImageId:   segment.ImageID.String(),
 			Contor:    segment.Contor,
-			Tirads_23: segment.Tirads_23,
-			Tirads_4:  segment.Tirads_4,
-			Tirads_5:  segment.Tirads_5,
+			Knosp_012: segment.Knosp_012,
+			Knosp_3:   segment.Knosp_3,
+			Knosp_4:   segment.Knosp_4,
 		})
 	}
 

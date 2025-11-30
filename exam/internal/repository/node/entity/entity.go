@@ -14,9 +14,9 @@ type Node struct {
 	Ai          bool           `db:"ai"`
 	MriID       uuid.UUID      `db:"mri_id"`
 	Validation  sql.NullString `db:"validation"`
-	Tirads23    float64        `db:"tirads_23"`
-	Tirads4     float64        `db:"tirads_4"`
-	Tirads5     float64        `db:"tirads_5"`
+	Knosp012    float64        `db:"knosp_012"`
+	Knosp3      float64        `db:"knosp_3"`
+	Knosp4      float64        `db:"knosp_4"`
 	Description sql.NullString `db:"description"`
 }
 
@@ -26,9 +26,9 @@ func (Node) FromDomain(d domain.Node) Node {
 		Ai:          d.Ai,
 		MriID:       d.MriID,
 		Validation:  gtc.String.PointerToSql((*string)(d.Validation)),
-		Tirads23:    d.Tirads23,
-		Tirads4:     d.Tirads4,
-		Tirads5:     d.Tirads5,
+		Knosp012:    d.Knosp012,
+		Knosp3:      d.Knosp3,
+		Knosp4:      d.Knosp4,
 		Description: gtc.String.PointerToSql(d.Description),
 	}
 }
@@ -46,9 +46,9 @@ func (d Node) ToDomain() domain.Node {
 		Id:          d.Id,
 		Ai:          d.Ai,
 		MriID:       d.MriID,
-		Tirads23:    d.Tirads23,
-		Tirads4:     d.Tirads4,
-		Tirads5:     d.Tirads5,
+		Knosp012:    d.Knosp012,
+		Knosp3:      d.Knosp3,
+		Knosp4:      d.Knosp4,
 		Description: gtc.String.SqlToPointer(d.Description),
 	}
 

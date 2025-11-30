@@ -21,4 +21,4 @@ _лучше подгружать через `.env`_
 ![exam_db](docs/assets/exam_db.png)
 
 //TODO: переделать название топиков на человеское, типа mri.upload
-//TODO: сделать tirads NULLABLE
+//TODO: сделать knosp NULLABLE

@@ -28,9 +28,9 @@ func (Node) Domain(node domain.Node) api.Node {
 		Ai:          node.Ai,
 		MriID:       node.MriID,
 		Validation:  validation,
-		Tirads23:    node.Tirads23,
-		Tirads4:     node.Tirads4,
-		Tirads5:     node.Tirads5,
+		Knosp012:    node.Knosp012,
+		Knosp3:      node.Knosp3,
+		Knosp4:      node.Knosp4,
 		Description: apimappers.ToOptString(node.Description),
 	}
 }

@@ -11,9 +11,9 @@ func (q *repo) UpdateNode(node entity.Node) error {
 		Update(table).
 		SetMap(sq.Eq{
 			columnValidation: node.Validation,
-			columnTirads23:   node.Tirads23,
-			columnTirads4:    node.Tirads4,
-			columnTirads5:    node.Tirads5,
+			columnKnosp012:   node.Knosp012,
+			columnKnosp3:     node.Knosp3,
+			columnKnosp4:     node.Knosp4,
 		}).
 		Where(sq.Eq{
 			columnID: node.Id,

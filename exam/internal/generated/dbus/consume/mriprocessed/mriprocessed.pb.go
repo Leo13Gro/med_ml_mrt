@@ -7,11 +7,12 @@
 package mriprocessed
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -77,9 +78,9 @@ func (x *MriProcessed) GetNodesWithSegments() []*MriProcessed_NodeWithSegments {
 type MriProcessed_Node struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Ai            bool                   `protobuf:"varint,100,opt,name=ai,proto3" json:"ai,omitempty"`
-	Tirads_23     float64                `protobuf:"fixed64,400,opt,name=tirads_23,json=tirads23,proto3" json:"tirads_23,omitempty"`
-	Tirads_4      float64                `protobuf:"fixed64,500,opt,name=tirads_4,json=tirads4,proto3" json:"tirads_4,omitempty"`
-	Tirads_5      float64                `protobuf:"fixed64,600,opt,name=tirads_5,json=tirads5,proto3" json:"tirads_5,omitempty"`
+	Knosp_012     float64                `protobuf:"fixed64,400,opt,name=knosp_012,json=knosp012,proto3" json:"knosp_012,omitempty"`
+	Knosp_3       float64                `protobuf:"fixed64,500,opt,name=knosp_3,json=knosp3,proto3" json:"knosp_3,omitempty"`
+	Knosp_4       float64                `protobuf:"fixed64,600,opt,name=knosp_4,json=knosp4,proto3" json:"knosp_4,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -121,23 +122,23 @@ func (x *MriProcessed_Node) GetAi() bool {
 	return false
 }
 
-func (x *MriProcessed_Node) GetTirads_23() float64 {
+func (x *MriProcessed_Node) GetKnosp_012() float64 {
 	if x != nil {
-		return x.Tirads_23
+		return x.Knosp_012
 	}
 	return 0
 }
 
-func (x *MriProcessed_Node) GetTirads_4() float64 {
+func (x *MriProcessed_Node) GetKnosp_3() float64 {
 	if x != nil {
-		return x.Tirads_4
+		return x.Knosp_3
 	}
 	return 0
 }
 
-func (x *MriProcessed_Node) GetTirads_5() float64 {
+func (x *MriProcessed_Node) GetKnosp_4() float64 {
 	if x != nil {
-		return x.Tirads_5
+		return x.Knosp_4
 	}
 	return 0
 }
@@ -146,9 +147,9 @@ type MriProcessed_Segment struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ImageId       string                 `protobuf:"bytes,100,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"`
 	Contor        []byte                 `protobuf:"bytes,200,opt,name=contor,proto3" json:"contor,omitempty"`
-	Tirads_23     float64                `protobuf:"fixed64,300,opt,name=tirads_23,json=tirads23,proto3" json:"tirads_23,omitempty"`
-	Tirads_4      float64                `protobuf:"fixed64,400,opt,name=tirads_4,json=tirads4,proto3" json:"tirads_4,omitempty"`
-	Tirads_5      float64                `protobuf:"fixed64,500,opt,name=tirads_5,json=tirads5,proto3" json:"tirads_5,omitempty"`
+	Knosp_012     float64                `protobuf:"fixed64,300,opt,name=knosp_012,json=knosp012,proto3" json:"knosp_012,omitempty"`
+	Knosp_3       float64                `protobuf:"fixed64,400,opt,name=knosp_3,json=knosp3,proto3" json:"knosp_3,omitempty"`
+	Knosp_4       float64                `protobuf:"fixed64,500,opt,name=knosp_4,json=knosp4,proto3" json:"knosp_4,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -197,23 +198,23 @@ func (x *MriProcessed_Segment) GetContor() []byte {
 	return nil
 }
 
-func (x *MriProcessed_Segment) GetTirads_23() float64 {
+func (x *MriProcessed_Segment) GetKnosp_012() float64 {
 	if x != nil {
-		return x.Tirads_23
+		return x.Knosp_012
 	}
 	return 0
 }
 
-func (x *MriProcessed_Segment) GetTirads_4() float64 {
+func (x *MriProcessed_Segment) GetKnosp_3() float64 {
 	if x != nil {
-		return x.Tirads_4
+		return x.Knosp_3
 	}
 	return 0
 }
 
-func (x *MriProcessed_Segment) GetTirads_5() float64 {
+func (x *MriProcessed_Segment) GetKnosp_4() float64 {
 	if x != nil {
-		return x.Tirads_5
+		return x.Knosp_4
 	}
 	return 0
 }
@@ -274,21 +275,21 @@ var File_proto_dbus_consume_mriprocessed_proto protoreflect.FileDescriptor
 
 const file_proto_dbus_consume_mriprocessed_proto_rawDesc = "" +
 	"\n" +
-	"%proto/dbus/consume/mriprocessed.proto\"\xea\x03\n" +
+	"%proto/dbus/consume/mriprocessed.proto\"\xe2\x03\n" +
 	"\fMriProcessed\x12\x15\n" +
 	"\x06mri_id\x18d \x01(\tR\x05mriId\x12O\n" +
-	"\x13nodes_with_segments\x18\xc8\x01 \x03(\v2\x1e.MriProcessed.NodeWithSegmentsR\x11nodesWithSegments\x1al\n" +
+	"\x13nodes_with_segments\x18\xc8\x01 \x03(\v2\x1e.MriProcessed.NodeWithSegmentsR\x11nodesWithSegments\x1ah\n" +
 	"\x04Node\x12\x0e\n" +
 	"\x02ai\x18d \x01(\bR\x02ai\x12\x1c\n" +
-	"\ttirads_23\x18\x90\x03 \x01(\x01R\btirads23\x12\x1a\n" +
-	"\btirads_4\x18\xf4\x03 \x01(\x01R\atirads4\x12\x1a\n" +
-	"\btirads_5\x18\xd8\x04 \x01(\x01R\atirads5\x1a\x93\x01\n" +
+	"\tknosp_012\x18\x90\x03 \x01(\x01R\bknosp012\x12\x18\n" +
+	"\aknosp_3\x18\xf4\x03 \x01(\x01R\x06knosp3\x12\x18\n" +
+	"\aknosp_4\x18\xd8\x04 \x01(\x01R\x06knosp4\x1a\x8f\x01\n" +
 	"\aSegment\x12\x19\n" +
 	"\bimage_id\x18d \x01(\tR\aimageId\x12\x17\n" +
 	"\x06contor\x18\xc8\x01 \x01(\fR\x06contor\x12\x1c\n" +
-	"\ttirads_23\x18\xac\x02 \x01(\x01R\btirads23\x12\x1a\n" +
-	"\btirads_4\x18\x90\x03 \x01(\x01R\atirads4\x12\x1a\n" +
-	"\btirads_5\x18\xf4\x03 \x01(\x01R\atirads5\x1an\n" +
+	"\tknosp_012\x18\xac\x02 \x01(\x01R\bknosp012\x12\x18\n" +
+	"\aknosp_3\x18\x90\x03 \x01(\x01R\x06knosp3\x12\x18\n" +
+	"\aknosp_4\x18\xf4\x03 \x01(\x01R\x06knosp4\x1an\n" +
 	"\x10NodeWithSegments\x12&\n" +
 	"\x04node\x18d \x01(\v2\x12.MriProcessed.NodeR\x04node\x122\n" +
 	"\bsegments\x18\xc8\x01 \x03(\v2\x15.MriProcessed.SegmentR\bsegmentsB.Z,internal/generated/dbus/consume/mriprocessedb\x06proto3"

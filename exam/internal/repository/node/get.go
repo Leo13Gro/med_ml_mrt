@@ -19,9 +19,9 @@ func (q *repo) GetNodeByID(id uuid.UUID) (entity.Node, error) {
 			columnAI,
 			columnMriID,
 			columnValidation,
-			columnTirads23,
-			columnTirads4,
-			columnTirads5,
+			columnKnosp012,
+			columnKnosp3,
+			columnKnosp4,
 			columnDescription,
 		).
 		From(table).
@@ -47,9 +47,9 @@ func (q *repo) GetNodesByImageID(id uuid.UUID) ([]entity.Node, error) {
 			fmt.Sprintf("%s.%s", table, columnAI),
 			fmt.Sprintf("%s.%s", table, columnMriID),
 			fmt.Sprintf("%s.%s", table, columnValidation),
-			fmt.Sprintf("%s.%s", table, columnTirads23),
-			fmt.Sprintf("%s.%s", table, columnTirads4),
-			fmt.Sprintf("%s.%s", table, columnTirads5),
+			fmt.Sprintf("%s.%s", table, columnKnosp012),
+			fmt.Sprintf("%s.%s", table, columnKnosp3),
+			fmt.Sprintf("%s.%s", table, columnKnosp4),
 			fmt.Sprintf("%s.%s", table, columnDescription),
 		).
 		From(table). // TODO: вынести константы таблиц в отдельный пакет, тут пересечение с segment
@@ -78,9 +78,9 @@ func (q *repo) GetNodesByMriID(id uuid.UUID) ([]entity.Node, error) {
 			columnAI,
 			columnMriID,
 			columnValidation,
-			columnTirads23,
-			columnTirads4,
-			columnTirads5,
+			columnKnosp012,
+			columnKnosp3,
+			columnKnosp4,
 			columnDescription,
 		).
 		From(table).

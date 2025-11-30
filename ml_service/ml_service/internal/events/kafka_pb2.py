@@ -24,30 +24,30 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bkafka.proto\"0\n\x0bUziSplitted\x12\x0e\n\x06uzi_id\x18\x64 \x01(\t\x12\x11\n\x08pages_id\x18\xc8\x01 \x03(\t\"\x1b\n\nKtPrepared\x12\r\n\x05kt_id\x18\x64 \x01(\t\"\xf2\x02\n\x0cUziProcessed\x12\x0e\n\x06uzi_id\x18\x64 \x01(\t\x12<\n\x13nodes_with_segments\x18\xc8\x01 \x03(\x0b\x32\x1e.UziProcessed.NodeWithSegments\x1aL\n\x04Node\x12\n\n\x02\x61i\x18\x64 \x01(\x08\x12\x12\n\ttirads_23\x18\x90\x03 \x01(\x01\x12\x11\n\x08tirads_4\x18\xf4\x03 \x01(\x01\x12\x11\n\x08tirads_5\x18\xd8\x04 \x01(\x01\x1a\x66\n\x07Segment\x12\x10\n\x08image_id\x18\x64 \x01(\t\x12\x0f\n\x06\x63ontor\x18\xc8\x01 \x01(\x0c\x12\x12\n\ttirads_23\x18\xac\x02 \x01(\x01\x12\x11\n\x08tirads_4\x18\x90\x03 \x01(\x01\x12\x11\n\x08tirads_5\x18\xf4\x03 \x01(\x01\x1a^\n\x10NodeWithSegments\x12 \n\x04node\x18\x64 \x01(\x0b\x32\x12.UziProcessed.Node\x12(\n\x08segments\x18\xc8\x01 \x03(\x0b\x32\x15.UziProcessed.Segment\"\x9b\x01\n\x0bKtProcessed\x12\r\n\x05kt_id\x18\x64 \x01(\t\x12\x42\n\x13\x63lass_probabilities\x18\xc8\x01 \x03(\x0b\x32$.KtProcessed.ClassProbabilitiesEntry\x1a\x39\n\x17\x43lassProbabilitiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\x42.Z,internal/generated/dbus/consume/uziprocessedb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bkafka.proto\"0\n\x0bMriSplitted\x12\x0e\n\x06mri_id\x18\x64 \x01(\t\x12\x11\n\x08pages_id\x18\xc8\x01 \x03(\t\"\x1b\n\nKtPrepared\x12\r\n\x05kt_id\x18\x64 \x01(\t\"\xee\x02\n\x0cMriProcessed\x12\x0e\n\x06mri_id\x18\x64 \x01(\t\x12<\n\x13nodes_with_segments\x18\xc8\x01 \x03(\x0b\x32\x1e.MriProcessed.NodeWithSegments\x1aJ\n\x04Node\x12\n\n\x02\x61i\x18\x64 \x01(\x08\x12\x12\n\tknosp_012\x18\x90\x03 \x01(\x01\x12\x10\n\x07knosp_3\x18\xf4\x03 \x01(\x01\x12\x10\n\x07knosp_4\x18\xd8\x04 \x01(\x01\x1a\x64\n\x07Segment\x12\x10\n\x08image_id\x18\x64 \x01(\t\x12\x0f\n\x06\x63ontor\x18\xc8\x01 \x01(\x0c\x12\x12\n\tknosp_012\x18\xac\x02 \x01(\x01\x12\x10\n\x07knosp_3\x18\x90\x03 \x01(\x01\x12\x10\n\x07knosp_4\x18\xf4\x03 \x01(\x01\x1a^\n\x10NodeWithSegments\x12 \n\x04node\x18\x64 \x01(\x0b\x32\x12.MriProcessed.Node\x12(\n\x08segments\x18\xc8\x01 \x03(\x0b\x32\x15.MriProcessed.Segment\"\x9a\x01\n\x0bKtProcessed\x12\r\n\x05kt_id\x18\x01 \x01(\t\x12\x41\n\x13\x63lass_probabilities\x18\x02 \x03(\x0b\x32$.KtProcessed.ClassProbabilitiesEntry\x1a\x39\n\x17\x43lassProbabilitiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\x42.Z,internal/generated/dbus/consume/mriprocessedb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'kafka_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'Z,internal/generated/dbus/consume/uziprocessed'
+  _globals['DESCRIPTOR']._serialized_options = b'Z,internal/generated/dbus/consume/mriprocessed'
   _globals['_KTPROCESSED_CLASSPROBABILITIESENTRY']._loaded_options = None
   _globals['_KTPROCESSED_CLASSPROBABILITIESENTRY']._serialized_options = b'8\001'
-  _globals['_UZISPLITTED']._serialized_start=15
-  _globals['_UZISPLITTED']._serialized_end=63
+  _globals['_MRISPLITTED']._serialized_start=15
+  _globals['_MRISPLITTED']._serialized_end=63
   _globals['_KTPREPARED']._serialized_start=65
   _globals['_KTPREPARED']._serialized_end=92
-  _globals['_UZIPROCESSED']._serialized_start=95
-  _globals['_UZIPROCESSED']._serialized_end=465
-  _globals['_UZIPROCESSED_NODE']._serialized_start=189
-  _globals['_UZIPROCESSED_NODE']._serialized_end=265
-  _globals['_UZIPROCESSED_SEGMENT']._serialized_start=267
-  _globals['_UZIPROCESSED_SEGMENT']._serialized_end=369
-  _globals['_UZIPROCESSED_NODEWITHSEGMENTS']._serialized_start=371
-  _globals['_UZIPROCESSED_NODEWITHSEGMENTS']._serialized_end=465
-  _globals['_KTPROCESSED']._serialized_start=468
-  _globals['_KTPROCESSED']._serialized_end=623
-  _globals['_KTPROCESSED_CLASSPROBABILITIESENTRY']._serialized_start=566
-  _globals['_KTPROCESSED_CLASSPROBABILITIESENTRY']._serialized_end=623
+  _globals['_MRIPROCESSED']._serialized_start=95
+  _globals['_MRIPROCESSED']._serialized_end=461
+  _globals['_MRIPROCESSED_NODE']._serialized_start=189
+  _globals['_MRIPROCESSED_NODE']._serialized_end=263
+  _globals['_MRIPROCESSED_SEGMENT']._serialized_start=265
+  _globals['_MRIPROCESSED_SEGMENT']._serialized_end=365
+  _globals['_MRIPROCESSED_NODEWITHSEGMENTS']._serialized_start=367
+  _globals['_MRIPROCESSED_NODEWITHSEGMENTS']._serialized_end=461
+  _globals['_KTPROCESSED']._serialized_start=464
+  _globals['_KTPROCESSED']._serialized_end=618
+  _globals['_KTPROCESSED_CLASSPROBABILITIESENTRY']._serialized_start=561
+  _globals['_KTPROCESSED_CLASSPROBABILITIESENTRY']._serialized_end=618
 # @@protoc_insertion_point(module_scope)

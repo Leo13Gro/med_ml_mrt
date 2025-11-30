@@ -42,17 +42,30 @@ class SegmentationModel:
         model_path = "./ml_service/internal/ml_model/models/kt/yolo_seg_small_040325.pt"
         self.model = YOLO(model_path)
     
+    
     def predict(self, video_bytes,  target_frames=54, target_size=(224, 224), 
                 conf_threshold=0.5, mask_threshold=0.5, detection_color=(0, 255, 0)):
+        """
+        Метод конвертирует видео в numpy array, обрабатывает его с YOLO моделью и возвращает массивы с кадрами и массив с ROI.
+        ROI - List[List[List[List[x1, y1], List[x2, y1], List[x1, y2], List[x2, y2]]]]
+        [ - Список изображений
+            [ - Список узлов на изображении (в КТ один)
+                [ - Список вершин контура
+                    [x1, y1], [x2, y1], [x1, y2], [x2, y2] - Координаты вершин
+                ]
+            ]
+        ]
+        """
         # Конвертация видео в numpy array
         video_array = self._video_bytes_to_npy(video_bytes, target_frames, target_size)
 
         # Обработка с YOLO моделью
-        original_frames, mask_frames, detected_frames = self._process_with_yolo(video_array, conf_threshold, mask_threshold, detection_color)
+        original_frames, mask_frames, detected_frames, rois_in_frames = self._process_with_yolo(video_array, conf_threshold, mask_threshold, detection_color)
         
         return {"original": original_frames,
                 "mask": mask_frames,
-                "detection": detected_frames}
+                "detection": detected_frames,
+                "rois": rois_in_frames}
     
     def _video_bytes_to_npy(self, video_bytes, target_frames, target_size):
         frames = []
@@ -91,6 +104,12 @@ class SegmentationModel:
         original_frames = []
         mask_frames = []
         detected_frames = []
+
+        rois_in_frames = []             # List[List[List[List[x1, y1], List[x2, y1], List[x1, y2], List[x2, y2]]]]
+                                        # Для каждого кадра берем список всех его ROI
+                                        # Для каждого ROI берем списки X и Y координат
+                                        # координаты: [левый верхний угол, правый верхний угол, левый нижний угол, правый нижний угол]
+
         
         for frame in video_array:
             frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
@@ -110,12 +129,16 @@ class SegmentationModel:
             
             mask_frames.append(mask_output)
 
-            # видео с детекцией
+            # видео с детекцией и roi
+            frame_rois = []
             det_frame = frame_bgr.copy()
             for box in results.boxes.data.cpu().numpy():
                 x1, y1, x2, y2, conf, cls = box[:6]
                 if conf < conf_threshold:
                     continue
+
+                # Добавляем 1 кадр (координаты вершин прямоугольника)
+                frame_rois.append([[x1, y1], [x2, y1], [x1, y2], [x2, y2]])
                 
                 # Рисуем bounding box
                 pt1 = (int(x1), int(y1))
@@ -127,8 +150,12 @@ class SegmentationModel:
                 cv2.putText(det_frame, label, (pt1[0], pt1[1] - 5),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, detection_color, 2)
             
+            # Добавляем кадры roi
+            rois_in_frames.append(frame_rois)
+
             # Конвертируем обратно в RGB для согласованности
             det_frame_rgb = cv2.cvtColor(det_frame, cv2.COLOR_BGR2RGB)
             detected_frames.append(det_frame_rgb)
+
         
-        return np.array(original_frames), np.array(mask_frames), np.array(detected_frames)
+        return np.array(original_frames), np.array(mask_frames), np.array(detected_frames), rois_in_frames

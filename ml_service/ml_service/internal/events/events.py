@@ -6,8 +6,8 @@ settings = get_settings()
 
 
 class EventsYo:
-    def __init__(self, uzi, kt):
-        self.uzi = uzi
+    def __init__(self, mri, kt):
+        self.mri = mri
         self.kt = kt
 
     def run(self):
@@ -21,7 +21,7 @@ class EventsYo:
 
         consumer = Consumer(consumer_config)
         # Подписываемся на оба топика
-        consumer.subscribe(["uzisplitted", "ktprepared"])
+        consumer.subscribe(["mrisplitted", "ktprepared"])
         while True:
             msg = consumer.poll(timeout=1.0)
             # continue
@@ -30,22 +30,22 @@ class EventsYo:
 
             # Определяем обработчик в зависимости от топика
             print("topic:", msg.topic())
-            if msg.topic() == "uzisplitted":
-                self._process_uzi_message(msg)
+            if msg.topic() == "mrisplitted":
+                self._process_mri_message(msg)
             elif msg.topic() == "ktprepared":
                 self._process_kt_message(msg)
 
             consumer.commit(msg)
 
-    def _process_uzi_message(self, msg):
-        uzi_splitted_event = pb.UziSplitted()
+    def _process_mri_message(self, msg):
+        mri_splitted_event = pb.MriSplitted()
         print(msg.value())
-        uzi_splitted_event.ParseFromString(msg.value())
+        mri_splitted_event.ParseFromString(msg.value())
 
-        print("UZI ID: ", uzi_splitted_event.uzi_id)
+        print("MRI ID: ", mri_splitted_event.mri_id)
 
-        self.uzi.segmentClassificateSave(
-            uzi_splitted_event.uzi_id, uzi_splitted_event.pages_id
+        self.mri.segmentClassificateSave(
+            mri_splitted_event.mri_id, mri_splitted_event.pages_id
         )
 
     def _process_kt_message(self, msg):
@@ -59,4 +59,4 @@ class EventsYo:
         )
         
         # Вызов соответствующего метода обработки
-        # self.uzi.processKt(kt_prepared_event.kt_id, kt_prepared_event.data)
+        # self.mri.processKt(kt_prepared_event.kt_id, kt_prepared_event.data)

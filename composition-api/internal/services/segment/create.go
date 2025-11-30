@@ -13,9 +13,9 @@ func (s *service) Create(ctx context.Context, arg CreateSegmentArg) (uuid.UUID, 
 		ImageID:   arg.ImageID,
 		NodeID:    arg.NodeID,
 		Contor:    arg.Contor,
-		Tirads_23: arg.Tirads_23,
-		Tirads_4:  arg.Tirads_4,
-		Tirads_5:  arg.Tirads_5,
+		Knosp_012: arg.Knosp_012,
+		Knosp_3:   arg.Knosp_3,
+		Knosp_4:   arg.Knosp_4,
 	})
 	if err != nil {
 		return uuid.Nil, err

@@ -1,7 +1,7 @@
 version: "3"
 
 vars:
-  services: [gateway, auth, med, uzi]
+  services: [gateway, auth, med, mri]
 
 tasks:
   inherit-pkg:

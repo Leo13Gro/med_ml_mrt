@@ -39,9 +39,9 @@ func NodeFromDomain(domain domain.Node) *pb.Node {
 		Ai:          domain.Ai,
 		Validation:  NodeValidationFromDomain(domain.Validation),
 		MriId:       domain.MriID.String(),
-		Tirads_23:   domain.Tirads23,
-		Tirads_4:    domain.Tirads4,
-		Tirads_5:    domain.Tirads5,
+		Knosp_012:   domain.Knosp012,
+		Knosp_3:     domain.Knosp3,
+		Knosp_4:     domain.Knosp4,
 		Description: domain.Description,
 	}
 }

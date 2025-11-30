@@ -12,9 +12,9 @@ func (q *repo) InsertNodes(nodes ...entity.Node) error {
 			columnAI,
 			columnMriID,
 			columnValidation,
-			columnTirads23,
-			columnTirads4,
-			columnTirads5,
+			columnKnosp012,
+			columnKnosp3,
+			columnKnosp4,
 			columnDescription,
 		)
 
@@ -24,9 +24,9 @@ func (q *repo) InsertNodes(nodes ...entity.Node) error {
 			v.Ai,
 			v.MriID,
 			v.Validation,
-			v.Tirads23,
-			v.Tirads4,
-			v.Tirads5,
+			v.Knosp012,
+			v.Knosp3,
+			v.Knosp4,
 			v.Description,
 		)
 	}

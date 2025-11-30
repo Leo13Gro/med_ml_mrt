@@ -238,9 +238,9 @@ message Node {
   bool ai = 200;
   optional NodeValidation validation = 300;
   string mri_id = 400;
-  double tirads_23 = 500;
-  double tirads_4 = 600;
-  double tirads_5 = 700;
+  double knosp_012 = 500;
+  double knosp_3 = 600;
+  double knosp_4 = 700;
   optional string description = 800;
 }
 
@@ -253,9 +253,9 @@ message GetNodesByMriIdOut{
 message UpdateNodeIn {
   string id = 100;
   optional NodeValidation validation = 200;
-  optional double tirads_23 = 300;
-  optional double tirads_4 = 400;
-  optional double tirads_5 = 500;
+  optional double knosp_012 = 300;
+  optional double knosp_3 = 400;
+  optional double knosp_4 = 500;
 }
 
 message UpdateNodeOut { Node node = 100; }
@@ -268,18 +268,18 @@ message Segment {
   string node_id = 300;
   bytes contor = 400;
   bool ai = 500;
-  double tirads_23 = 600;
-  double tirads_4 = 700;
-  double tirads_5 = 800;
+  double knosp_012 = 600;
+  double knosp_3 = 700;
+  double knosp_4 = 800;
 }
 
 message CreateSegmentIn {
   string image_id = 100;
   string node_id = 200;
   bytes contor = 300;
-  double tirads_23 = 400;
-  double tirads_4 = 500;
-  double tirads_5 = 600;
+  double knosp_012 = 400;
+  double knosp_3 = 500;
+  double knosp_4 = 600;
 }
 
 message CreateSegmentOut { string id = 100; }
@@ -291,9 +291,9 @@ message GetSegmentsByNodeIdOut { repeated Segment segments = 100; }
 message UpdateSegmentIn {
   string id = 100;
   optional bytes contor = 200;
-  optional double tirads_23 = 300;
-  optional double tirads_4 = 400;
-  optional double tirads_5 = 500;
+  optional double knosp_012 = 300;
+  optional double knosp_3 = 400;
+  optional double knosp_4 = 500;
 }
 
 message UpdateSegmentOut { Segment segment = 100; }
@@ -302,17 +302,17 @@ message UpdateSegmentOut { Segment segment = 100; }
 
 message CreateNodeWithSegmentsIn {
   message Node {
-    double tirads_23 = 200;
-    double tirads_4 = 300;
-    double tirads_5 = 400;
+    double knosp_012 = 200;
+    double knosp_3 = 300;
+    double knosp_4 = 400;
     optional string description = 500;
   }
   message Segment {
     string image_id = 100;
     bytes contor = 200;
-    double tirads_23 = 300;
-    double tirads_4 = 400;
-    double tirads_5 = 500;
+    double knosp_012 = 300;
+    double knosp_3 = 400;
+    double knosp_4 = 500;
   }
 
   string mri_id = 100;

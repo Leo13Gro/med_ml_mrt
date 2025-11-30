@@ -7,7 +7,8 @@ class DefaultSettings(BaseSettings):
     s3_endpoint: str = "localhost:9000"
     s3_access_key: str = ""
     s3_secret_key: SecretStr
-    s3_bucket_name: str = "uzi"
+    s3_mri_bucket_name: str = "mri"
+    s3_kt_bucket_name: str = "kt-b"
 
     grpc_port: int = 50055
 

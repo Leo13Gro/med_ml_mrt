@@ -11,9 +11,9 @@ func (s *service) UpdateNode(ctx context.Context, arg UpdateNodeArg) (domain.Nod
 	node, err := s.adapters.Exam.UpdateNode(ctx, adapter.UpdateNodeIn{
 		Id:         arg.Id,
 		Validation: arg.Validation,
-		Tirads_23:  arg.Tirads_23,
-		Tirads_4:   arg.Tirads_4,
-		Tirads_5:   arg.Tirads_5,
+		Knosp_012:  arg.Knosp_012,
+		Knosp_3:    arg.Knosp_3,
+		Knosp_4:    arg.Knosp_4,
 	})
 	if err != nil {
 		return domain.Node{}, err

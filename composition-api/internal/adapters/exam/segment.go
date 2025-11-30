@@ -15,9 +15,9 @@ func (a *adapter) CreateSegment(ctx context.Context, in CreateSegmentIn) (uuid.U
 		ImageId:   in.ImageID.String(),
 		NodeId:    in.NodeID.String(),
 		Contor:    in.Contor,
-		Tirads_23: in.Tirads_23,
-		Tirads_4:  in.Tirads_4,
-		Tirads_5:  in.Tirads_5,
+		Knosp_012: in.Knosp_012,
+		Knosp_3:   in.Knosp_3,
+		Knosp_4:   in.Knosp_4,
 	})
 	if err != nil {
 		return uuid.Nil, err
@@ -39,9 +39,9 @@ func (a *adapter) UpdateSegment(ctx context.Context, in UpdateSegmentIn) (domain
 	res, err := a.client.UpdateSegment(ctx, &pb.UpdateSegmentIn{
 		Id:        in.Id.String(),
 		Contor:    in.Contor,
-		Tirads_23: in.Tirads_23,
-		Tirads_4:  in.Tirads_4,
-		Tirads_5:  in.Tirads_5,
+		Knosp_012: in.Knosp_012,
+		Knosp_3:   in.Knosp_3,
+		Knosp_4:   in.Knosp_4,
 	})
 	if err != nil {
 		return domain.Segment{}, err

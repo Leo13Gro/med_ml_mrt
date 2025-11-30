@@ -13,9 +13,9 @@ func (h *handler) MriIDNodesSegmentsPost(ctx context.Context, req *api.MriIDNode
 	arg := node_segment.CreateNodeWithSegmentArg{}
 	arg.MriID = params.ID
 	arg.Node = node_segment.CreateNodeWithSegmentArg_Node{
-		Tirads_23:   req.Node.Tirads23,
-		Tirads_4:    req.Node.Tirads4,
-		Tirads_5:    req.Node.Tirads5,
+		Knosp_012:   req.Node.Knosp012,
+		Knosp_3:     req.Node.Knosp3,
+		Knosp_4:     req.Node.Knosp4,
 		Description: mappers.FromOptString(req.Node.Description),
 	}
 
@@ -28,9 +28,9 @@ func (h *handler) MriIDNodesSegmentsPost(ctx context.Context, req *api.MriIDNode
 		arg.Segments = append(arg.Segments, node_segment.CreateNodeWithSegmentArg_Segment{
 			ImageID:   segment.ImageID,
 			Contor:    contor,
-			Tirads_23: segment.Tirads23,
-			Tirads_4:  segment.Tirads4,
-			Tirads_5:  segment.Tirads5,
+			Knosp_012: segment.Knosp012,
+			Knosp_3:   segment.Knosp3,
+			Knosp_4:   segment.Knosp4,
 		})
 	}
 

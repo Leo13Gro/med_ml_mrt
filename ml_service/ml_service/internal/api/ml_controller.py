@@ -1,5 +1,5 @@
 import ml_service.api.ml_api_pb2_grpc as pb_grpc
-import ml_service.internal.usecases.uzi.uzi as uziusecase
+import ml_service.ml_service.internal.usecases.mri.mri as uziusecase
 from google.protobuf.empty_pb2 import Empty
 
 

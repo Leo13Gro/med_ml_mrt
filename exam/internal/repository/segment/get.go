@@ -19,9 +19,9 @@ func (q *repo) GetSegmentByID(id uuid.UUID) (entity.Segment, error) {
 			columnImageID,
 			columnContor,
 			columnAi,
-			columnTirads23,
-			columnTirads4,
-			columnTirads5,
+			columnKnosp012,
+			columnKnosp3,
+			columnKnosp4,
 		).
 		From(table).
 		Where(sq.Eq{
@@ -47,9 +47,9 @@ func (q *repo) GetSegmentsByNodeID(id uuid.UUID) ([]entity.Segment, error) {
 			columnImageID,
 			columnContor,
 			columnAi,
-			columnTirads23,
-			columnTirads4,
-			columnTirads5,
+			columnKnosp012,
+			columnKnosp3,
+			columnKnosp4,
 		).
 		From(table).
 		Where(sq.Eq{
@@ -76,9 +76,9 @@ func (q *repo) GetSegmentsByImageID(id uuid.UUID) ([]entity.Segment, error) {
 			columnImageID,
 			columnContor,
 			columnAi,
-			columnTirads23,
-			columnTirads4,
-			columnTirads5,
+			columnKnosp012,
+			columnKnosp3,
+			columnKnosp4,
 		).
 		From(table).
 		Where(sq.Eq{

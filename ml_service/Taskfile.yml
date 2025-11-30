@@ -38,7 +38,7 @@ tasks:
     env:
       DB_PASS: 1234
     cmds:
-      - ./bin/uzi
+      - ./bin/exam
 
   default:
     cmds:

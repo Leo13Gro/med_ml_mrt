@@ -28,9 +28,9 @@ func (a *adapter) UpdateNode(ctx context.Context, in UpdateNodeIn) (domain.Node,
 	res, err := a.client.UpdateNode(ctx, &pb.UpdateNodeIn{
 		Id:         in.Id.String(),
 		Validation: mappers.PointerFromMap(nodeValidationMap, in.Validation),
-		Tirads_23:  in.Tirads_23,
-		Tirads_4:   in.Tirads_4,
-		Tirads_5:   in.Tirads_5,
+		Knosp_012:  in.Knosp_012,
+		Knosp_3:    in.Knosp_3,
+		Knosp_4:    in.Knosp_4,
 	})
 	if err != nil {
 		return domain.Node{}, err

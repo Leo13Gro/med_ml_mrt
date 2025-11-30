@@ -11,7 +11,7 @@ components:
   schemas:
     device:
       type: object
-      description: узи аппарат
+      description: мрт аппарат
       required:
         - id
         - name
@@ -52,7 +52,7 @@ components:
 
     mri:
       type: object
-      description: узи
+      description: мрт
       required:
         - id
         - projection
@@ -66,13 +66,13 @@ components:
         id:
           type: string
           format: uuid
-          description: id узи
+          description: id мрт
         projection:
           type: string
           enum:
             - cross
             - long
-          description: проекция узи
+          description: проекция мрт
           maxLength: 255
         checked:
           type: boolean
@@ -84,7 +84,7 @@ components:
         author_id:
           type: string
           format: uuid
-          description: id аккаунта, загрузившего узи
+          description: id аккаунта, загрузившего мрт
         device_id:
           type: integer
           description: id устройства
@@ -95,8 +95,8 @@ components:
             - pending
             - completed
           description: >
-            Статус узи
-            **new** - новое узи
+            Статус мрт
+            **new** - новое мрт
             **pending** - в обработке нейронкой
             **completed** - обработано
         create_at:
@@ -122,7 +122,7 @@ components:
         id:
           type: string
           format: uuid
-          description: id узи
+          description: id мрт
         contors:
           type: string
           description: контуры
@@ -213,9 +213,9 @@ components:
         - id
         - ai
         - mri_id
-        - tirads_23
-        - tirads_4
-        - tirads_5
+        - knosp_012
+        - knosp_3
+        - knosp_4
       properties:
         id:
           type: string
@@ -227,7 +227,7 @@ components:
         mri_id:
           type: string
           format: uuid
-          description: id узи, к которому относится узел
+          description: id мрт, к которому относится узел
         validation:
           type: string
           enum:
@@ -235,17 +235,17 @@ components:
             - invalid
             - valid
           description: валидация нейроночного узла врачем
-        tirads_23:
+        knosp_012:
           type: number
           maximum: 1.0
           minimum: 0.0
           description: вероятность наличия опухоли в 23-й группе
-        tirads_4:
+        knosp_3:
           type: number
           maximum: 1.0
           minimum: 0.0
           description: вероятность наличия опухоли в 4-й группе
-        tirads_5:
+        knosp_4:
           type: number
           maximum: 1.0
           minimum: 0.0
@@ -258,9 +258,9 @@ components:
         ai: true
         mri_id: "123e4567-e89b-12d3-a456-426614174000"
         validation: "invalid"
-        tirads_23: 0.67
-        tirads_4: 0.23
-        tirads_5: 0.89
+        knosp_012: 0.67
+        knosp_3: 0.23
+        knosp_4: 0.89
         description: "узел явно неправильный"
 
     contor:
@@ -295,9 +295,9 @@ components:
         - node_id
         - contor
         - ai
-        - tirads_23
-        - tirads_4
-        - tirads_5
+        - knosp_012
+        - knosp_3
+        - knosp_4
       properties:
         id:
           type: string
@@ -317,17 +317,17 @@ components:
         ai:
           type: boolean
           description: признак того, что сегмент был создан нейронкой
-        tirads_23:
+        knosp_012:
           type: number
           maximum: 1.0
           minimum: 0.0
           description: вероятность наличия опухоли в 23-й группе
-        tirads_4:
+        knosp_3:
           type: number
           maximum: 1.0
           minimum: 0.0
           description: вероятность наличия опухоли в 4-й группе
-        tirads_5:
+        knosp_4:
           type: number
           maximum: 1.0
           minimum: 0.0
@@ -342,9 +342,9 @@ components:
           - x: 200
             y: 200
         ai: false
-        tirads_23: 0.45
-        tirads_4: 0.78
-        tirads_5: 0.12
+        knosp_012: 0.45
+        knosp_3: 0.78
+        knosp_4: 0.12
     
     image:
       type: object
@@ -361,7 +361,7 @@ components:
         mri_id:
           type: string
           format: uuid
-          description: id узи, к которому относится изображение
+          description: id мрт, к которому относится изображение
         page:
           type: integer
           description: номер страницы
@@ -542,10 +542,10 @@ paths:
                   description: файл кт. **обязательно с .mp4**
                 device_id:
                   type: integer
-                  description: id узи аппарата
+                  description: id мрт аппарата
                 description:
                   type: string
-                  description: описание узи
+                  description: описание мрт
               required:
                 - file
                 - device_id
@@ -1141,7 +1141,7 @@ paths:
           $ref: "#/components/responses/error"
   /mri:
     post:
-      summary: загрузить узи на обработку
+      summary: загрузить мрт на обработку
       tags:
         - mri
       
@@ -1155,23 +1155,23 @@ paths:
                 file:
                   type: string
                   format: binary
-                  description: файл узи. **обязательно с .tiff/.png**
+                  description: файл мрт. **обязательно с .tiff/.png**
                 projection:
                   type: string
                   enum:
                     - cross
                     - long
-                  description: проекция узи
+                  description: проекция мрт
                 external_id:
                   type: string
                   format: uuid
                   description: внешний id пациента/организации etc.
                 device_id:
                   type: integer
-                  description: id узи аппарата
+                  description: id мрт аппарата
                 description:
                   type: string
-                  description: описание узи
+                  description: описание мрт
               required:
                 - file
                 - projection
@@ -1179,7 +1179,7 @@ paths:
                 - device_id
       responses:
         '200':
-          description: id узи
+          description: id мрт
           content:
             application/json:
               schema:
@@ -1191,7 +1191,7 @@ paths:
 
   /mri/{id}:
     get:
-      summary: получить узи
+      summary: получить мрт
       tags:
         - mri
       
@@ -1199,13 +1199,13 @@ paths:
         - name: id
           in: path
           required: true
-          description: id узи
+          description: id мрт
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: узи
+          description: мрт
           content:
             application/json:
               schema:
@@ -1216,7 +1216,7 @@ paths:
           $ref: "#/components/responses/error"
     
     patch:
-      summary: обновить узи
+      summary: обновить мрт
       tags:
         - mri
       
@@ -1224,7 +1224,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: id узи
+          description: id мрт
           schema:
             type: string
             format: uuid
@@ -1240,16 +1240,16 @@ paths:
                   enum:
                     - cross
                     - long
-                  description: проекция узи
+                  description: проекция мрт
                 checked:
                   type: boolean
-                  description: признак того, что узи проверено врачом
+                  description: признак того, что мрт проверено врачом
               example:
                 projection: "cross"
                 checked: true
       responses:
         '200':
-          description: узи
+          description: мрт
           content:
             application/json:
               schema:
@@ -1260,7 +1260,7 @@ paths:
           $ref: "#/components/responses/error"
 
     delete:
-      summary: удалить узи
+      summary: удалить мрт
       tags:
         - mri
       
@@ -1268,13 +1268,13 @@ paths:
         - name: id
           in: path
           required: true
-          description: id узи
+          description: id мрт
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: узи удалено
+          description: мрт удалено
         '500':
           $ref: "#/components/responses/error"
         default:
@@ -1282,7 +1282,7 @@ paths:
 
   /mris/external/{id}:
     get:
-      summary: получить узи по внешнему id
+      summary: получить мрт по внешнему id
       tags:
         - mri
       
@@ -1296,7 +1296,7 @@ paths:
             format: uuid
       responses:
         '200':
-          description: узи
+          description: мрт
           content:
             application/json:
               schema:
@@ -1310,7 +1310,7 @@ paths:
   
   /mris/author/{id}:
     get:
-      summary: получить узи по id автора
+      summary: получить мрт по id автора
       tags:
         - mri
       
@@ -1318,13 +1318,13 @@ paths:
         - name: id
           in: path
           required: true
-          description: id аккаунта, загрузившего узи
+          description: id аккаунта, загрузившего мрт
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: узи
+          description: мрт
           content:
             application/json:
               schema:
@@ -1346,7 +1346,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: id узи
+          description: id мрт
           schema:
             type: string
             format: uuid
@@ -1371,7 +1371,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: id узи
+          description: id мрт
           schema:
             type: string
             format: uuid
@@ -1411,7 +1411,7 @@ paths:
                 name:
                   type: string
                   maxLength: 255
-                  description: именование модели узи аппарата
+                  description: именование модели мрт аппарата
               example:
                 name: "Siemens"
       responses:
@@ -1464,7 +1464,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: id узи
+          description: id мрт
           schema:
             type: string
             format: uuid
@@ -1527,7 +1527,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: id узи
+          description: id мрт
           schema:
             type: string
             format: uuid
@@ -1544,19 +1544,19 @@ paths:
                 node:
                   type: object
                   required:
-                    - tirads_23
-                    - tirads_4
-                    - tirads_5
+                    - knosp_012
+                    - knosp_3
+                    - knosp_4
                   properties:
-                    tirads_23:
+                    knosp_012:
                       type: number
                       maximum: 1.0
                       minimum: 0.0
-                    tirads_4:
+                    knosp_3:
                       type: number
                       maximum: 1.0
                       minimum: 0.0
-                    tirads_5:
+                    knosp_4:
                       type: number
                       maximum: 1.0
                       minimum: 0.0
@@ -1570,24 +1570,24 @@ paths:
                     required:
                       - image_id
                       - contor
-                      - tirads_23
-                      - tirads_4
-                      - tirads_5
+                      - knosp_012
+                      - knosp_3
+                      - knosp_4
                     properties:
                       image_id:
                         type: string
                         format: uuid
                       contor:
                         $ref: '#/components/schemas/contor'
-                      tirads_23:
+                      knosp_012:
                         type: number
                         maximum: 1.0
                         minimum: 0.0
-                      tirads_4:
+                      knosp_3:
                         type: number
                         maximum: 1.0
                         minimum: 0.0
-                      tirads_5:
+                      knosp_4:
                         type: number
                         maximum: 1.0
                         minimum: 0.0
@@ -1617,7 +1617,7 @@ paths:
 
   /mri/{id}/nodes:
     get:
-      summary: получить все узлы узи
+      summary: получить все узлы мрт
       tags:
         - mri
       
@@ -1670,23 +1670,23 @@ paths:
                     - null
                     - invalid
                     - valid
-                tirads_23:
+                knosp_012:
                   type: number
                   maximum: 1.0
                   minimum: 0.0
-                tirads_4:
+                knosp_3:
                   type: number
                   maximum: 1.0
                   minimum: 0.0
-                tirads_5:
+                knosp_4:
                   type: number
                   maximum: 1.0
                   minimum: 0.0
               example:
                 validation: "invalid"
-                tirads_23: 0.67
-                tirads_4: 0.23
-                tirads_5: 0.89
+                knosp_012: 0.67
+                knosp_3: 0.23
+                knosp_4: 0.89
             
       responses:
         '200':
@@ -1765,9 +1765,9 @@ paths:
                 - image_id
                 - node_id
                 - contor
-                - tirads_23
-                - tirads_4
-                - tirads_5
+                - knosp_012
+                - knosp_3
+                - knosp_4
               properties:
                 image_id:
                   type: string
@@ -1777,15 +1777,15 @@ paths:
                   format: uuid
                 contor:
                   $ref: '#/components/schemas/contor'
-                tirads_23:
+                knosp_012:
                   type: number
                   maximum: 1.0
                   minimum: 0.0
-                tirads_4:
+                knosp_3:
                   type: number
                   maximum: 1.0
                   minimum: 0.0
-                tirads_5:
+                knosp_4:
                   type: number
                   maximum: 1.0
                   minimum: 0.0
@@ -1824,15 +1824,15 @@ paths:
               properties:
                 contor:
                   $ref: '#/components/schemas/contor'
-                tirads_23:
+                knosp_012:
                   type: number
                   maximum: 1.0
                   minimum: 0.0
-                tirads_4:
+                knosp_3:
                   type: number
                   maximum: 1.0
                   minimum: 0.0
-                tirads_5:
+                knosp_4:
                   type: number
                   maximum: 1.0
                   minimum: 0.0
@@ -1842,9 +1842,9 @@ paths:
                     y: 100
                   - x: 200
                     y: 200
-                tirads_23: 0.67
-                tirads_4: 0.23
-                tirads_5: 0.89
+                knosp_012: 0.67
+                knosp_3: 0.23
+                knosp_4: 0.89
       responses:
         '200':
           description: обновленный узел
@@ -1880,7 +1880,7 @@ paths:
   
   /download/{mri_id}/{image_id}:
     get:
-      summary: получить кадр узи
+      summary: получить кадр мрт
       tags:
         - download
       
@@ -1888,7 +1888,7 @@ paths:
         - name: mri_id
           in: path
           required: true
-          description: id узи
+          description: id мрт
           schema:
             type: string
             format: uuid
@@ -1901,7 +1901,7 @@ paths:
             format: uuid
       responses:
         '200':
-          description: кадр узи
+          description: кадр мрт
           content:
             image/png:
               schema:

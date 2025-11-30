@@ -26,9 +26,9 @@ func (s *service) CreateManualSegment(ctx context.Context, arg CreateSegmentArg)
 		NodeID:   arg.NodeID,
 		Contor:   arg.Contor,
 		Ai:       false,
-		Tirads23: arg.Tirads23,
-		Tirads4:  arg.Tirads4,
-		Tirads5:  arg.Tirads5,
+		Knosp012: arg.Knosp012,
+		Knosp3:   arg.Knosp3,
+		Knosp4:   arg.Knosp4,
 	}
 	if err := s.dao.NewSegmentQuery(ctx).InsertSegments(segmentEntity.Segment{}.FromDomain(segment)); err != nil {
 		return uuid.Nil, err

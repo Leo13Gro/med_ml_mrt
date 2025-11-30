@@ -744,7 +744,7 @@ func TestMriNodesIDPatchReq_Examples(t *testing.T) {
 	for i, tc := range []struct {
 		Input string
 	}{
-		{Input: "{\"tirads_23\":0.67,\"tirads_4\":0.23,\"tirads_5\":0.89,\"validation\":\"invalid\"}"},
+		{Input: "{\"knosp_012\":0.67,\"knosp_3\":0.23,\"knosp_4\":0.89,\"validation\":\"invalid\"}"},
 	} {
 		tc := tc
 		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
@@ -821,7 +821,7 @@ func TestMriSegmentIDPatchReq_Examples(t *testing.T) {
 	for i, tc := range []struct {
 		Input string
 	}{
-		{Input: "{\"contor\":[{\"true\":100,\"x\":100},{\"true\":200,\"x\":200}],\"tirads_23\":0.67,\"tirads_4\":0.23,\"tirads_5\":0.89}"},
+		{Input: "{\"contor\":[{\"true\":100,\"x\":100},{\"true\":200,\"x\":200}],\"knosp_012\":0.67,\"knosp_3\":0.23,\"knosp_4\":0.89}"},
 	} {
 		tc := tc
 		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
@@ -910,7 +910,7 @@ func TestNode_Examples(t *testing.T) {
 	for i, tc := range []struct {
 		Input string
 	}{
-		{Input: "{\"ai\":true,\"description\":\"узел явно неправильный\",\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"mri_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"tirads_23\":0.67,\"tirads_4\":0.23,\"tirads_5\":0.89,\"validation\":\"invalid\"}"},
+		{Input: "{\"ai\":true,\"description\":\"узел явно неправильный\",\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"knosp_012\":0.67,\"knosp_3\":0.23,\"knosp_4\":0.89,\"mri_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"validation\":\"invalid\"}"},
 	} {
 		tc := tc
 		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
@@ -1139,7 +1139,7 @@ func TestSegment_Examples(t *testing.T) {
 	for i, tc := range []struct {
 		Input string
 	}{
-		{Input: "{\"ai\":false,\"contor\":[{\"true\":100,\"x\":100},{\"true\":200,\"x\":200}],\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"image_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"node_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"tirads_23\":0.45,\"tirads_4\":0.78,\"tirads_5\":0.12}"},
+		{Input: "{\"ai\":false,\"contor\":[{\"true\":100,\"x\":100},{\"true\":200,\"x\":200}],\"id\":\"123e4567-e89b-12d3-a456-426614174000\",\"image_id\":\"123e4567-e89b-12d3-a456-426614174000\",\"knosp_012\":0.45,\"knosp_3\":0.78,\"knosp_4\":0.12,\"node_id\":\"123e4567-e89b-12d3-a456-426614174000\"}"},
 	} {
 		tc := tc
 		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {

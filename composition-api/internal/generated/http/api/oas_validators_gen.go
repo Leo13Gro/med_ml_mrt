@@ -993,13 +993,13 @@ func (s *MriIDNodesSegmentsPostReqNode) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads23)); err != nil {
+		}).Validate(float64(s.Knosp012)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_23",
+			Name:  "knosp_012",
 			Error: err,
 		})
 	}
@@ -1013,13 +1013,13 @@ func (s *MriIDNodesSegmentsPostReqNode) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads4)); err != nil {
+		}).Validate(float64(s.Knosp3)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_4",
+			Name:  "knosp_3",
 			Error: err,
 		})
 	}
@@ -1033,13 +1033,13 @@ func (s *MriIDNodesSegmentsPostReqNode) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads5)); err != nil {
+		}).Validate(float64(s.Knosp4)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_5",
+			Name:  "knosp_4",
 			Error: err,
 		})
 	}
@@ -1076,13 +1076,13 @@ func (s *MriIDNodesSegmentsPostReqSegmentsItem) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads23)); err != nil {
+		}).Validate(float64(s.Knosp012)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_23",
+			Name:  "knosp_012",
 			Error: err,
 		})
 	}
@@ -1096,13 +1096,13 @@ func (s *MriIDNodesSegmentsPostReqSegmentsItem) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads4)); err != nil {
+		}).Validate(float64(s.Knosp3)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_4",
+			Name:  "knosp_3",
 			Error: err,
 		})
 	}
@@ -1116,13 +1116,13 @@ func (s *MriIDNodesSegmentsPostReqSegmentsItem) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads5)); err != nil {
+		}).Validate(float64(s.Knosp4)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_5",
+			Name:  "knosp_4",
 			Error: err,
 		})
 	}
@@ -1260,7 +1260,7 @@ func (s *MriNodesIDPatchReq) Validate() error {
 		})
 	}
 	if err := func() error {
-		if value, ok := s.Tirads23.Get(); ok {
+		if value, ok := s.Knosp012.Get(); ok {
 			if err := func() error {
 				if err := (validate.Float{
 					MinSet:        true,
@@ -1282,12 +1282,12 @@ func (s *MriNodesIDPatchReq) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_23",
+			Name:  "knosp_012",
 			Error: err,
 		})
 	}
 	if err := func() error {
-		if value, ok := s.Tirads4.Get(); ok {
+		if value, ok := s.Knosp3.Get(); ok {
 			if err := func() error {
 				if err := (validate.Float{
 					MinSet:        true,
@@ -1309,12 +1309,12 @@ func (s *MriNodesIDPatchReq) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_4",
+			Name:  "knosp_3",
 			Error: err,
 		})
 	}
 	if err := func() error {
-		if value, ok := s.Tirads5.Get(); ok {
+		if value, ok := s.Knosp4.Get(); ok {
 			if err := func() error {
 				if err := (validate.Float{
 					MinSet:        true,
@@ -1336,7 +1336,7 @@ func (s *MriNodesIDPatchReq) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_5",
+			Name:  "knosp_4",
 			Error: err,
 		})
 	}
@@ -1445,7 +1445,7 @@ func (s *MriSegmentIDPatchReq) Validate() error {
 		})
 	}
 	if err := func() error {
-		if value, ok := s.Tirads23.Get(); ok {
+		if value, ok := s.Knosp012.Get(); ok {
 			if err := func() error {
 				if err := (validate.Float{
 					MinSet:        true,
@@ -1467,12 +1467,12 @@ func (s *MriSegmentIDPatchReq) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_23",
+			Name:  "knosp_012",
 			Error: err,
 		})
 	}
 	if err := func() error {
-		if value, ok := s.Tirads4.Get(); ok {
+		if value, ok := s.Knosp3.Get(); ok {
 			if err := func() error {
 				if err := (validate.Float{
 					MinSet:        true,
@@ -1494,12 +1494,12 @@ func (s *MriSegmentIDPatchReq) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_4",
+			Name:  "knosp_3",
 			Error: err,
 		})
 	}
 	if err := func() error {
-		if value, ok := s.Tirads5.Get(); ok {
+		if value, ok := s.Knosp4.Get(); ok {
 			if err := func() error {
 				if err := (validate.Float{
 					MinSet:        true,
@@ -1521,7 +1521,7 @@ func (s *MriSegmentIDPatchReq) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_5",
+			Name:  "knosp_4",
 			Error: err,
 		})
 	}
@@ -1558,13 +1558,13 @@ func (s *MriSegmentPostReq) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads23)); err != nil {
+		}).Validate(float64(s.Knosp012)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_23",
+			Name:  "knosp_012",
 			Error: err,
 		})
 	}
@@ -1578,13 +1578,13 @@ func (s *MriSegmentPostReq) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads4)); err != nil {
+		}).Validate(float64(s.Knosp3)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_4",
+			Name:  "knosp_3",
 			Error: err,
 		})
 	}
@@ -1598,13 +1598,13 @@ func (s *MriSegmentPostReq) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads5)); err != nil {
+		}).Validate(float64(s.Knosp4)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_5",
+			Name:  "knosp_4",
 			Error: err,
 		})
 	}
@@ -1711,13 +1711,13 @@ func (s *Node) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads23)); err != nil {
+		}).Validate(float64(s.Knosp012)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_23",
+			Name:  "knosp_012",
 			Error: err,
 		})
 	}
@@ -1731,13 +1731,13 @@ func (s *Node) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads4)); err != nil {
+		}).Validate(float64(s.Knosp3)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_4",
+			Name:  "knosp_3",
 			Error: err,
 		})
 	}
@@ -1751,13 +1751,13 @@ func (s *Node) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads5)); err != nil {
+		}).Validate(float64(s.Knosp4)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_5",
+			Name:  "knosp_4",
 			Error: err,
 		})
 	}
@@ -2069,13 +2069,13 @@ func (s *Segment) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads23)); err != nil {
+		}).Validate(float64(s.Knosp012)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_23",
+			Name:  "knosp_012",
 			Error: err,
 		})
 	}
@@ -2089,13 +2089,13 @@ func (s *Segment) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads4)); err != nil {
+		}).Validate(float64(s.Knosp3)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_4",
+			Name:  "knosp_3",
 			Error: err,
 		})
 	}
@@ -2109,13 +2109,13 @@ func (s *Segment) Validate() error {
 			MaxExclusive:  false,
 			MultipleOfSet: false,
 			MultipleOf:    nil,
-		}).Validate(float64(s.Tirads5)); err != nil {
+		}).Validate(float64(s.Knosp4)); err != nil {
 			return errors.Wrap(err, "float")
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "tirads_5",
+			Name:  "knosp_4",
 			Error: err,
 		})
 	}

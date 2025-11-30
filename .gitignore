@@ -16,6 +16,7 @@ bin
 # ml
 *.pkl
 *.pth
+*.pt
 
 # private
 *.key

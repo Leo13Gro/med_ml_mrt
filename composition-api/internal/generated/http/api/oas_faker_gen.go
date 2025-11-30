@@ -529,17 +529,17 @@ func (s *MriIDNodesSegmentsPostReq) SetFake() {
 func (s *MriIDNodesSegmentsPostReqNode) SetFake() {
 	{
 		{
-			s.Tirads23 = float64(0)
+			s.Knosp012 = float64(0)
 		}
 	}
 	{
 		{
-			s.Tirads4 = float64(0)
+			s.Knosp3 = float64(0)
 		}
 	}
 	{
 		{
-			s.Tirads5 = float64(0)
+			s.Knosp4 = float64(0)
 		}
 	}
 	{
@@ -563,17 +563,17 @@ func (s *MriIDNodesSegmentsPostReqSegmentsItem) SetFake() {
 	}
 	{
 		{
-			s.Tirads23 = float64(0)
+			s.Knosp012 = float64(0)
 		}
 	}
 	{
 		{
-			s.Tirads4 = float64(0)
+			s.Knosp3 = float64(0)
 		}
 	}
 	{
 		{
-			s.Tirads5 = float64(0)
+			s.Knosp4 = float64(0)
 		}
 	}
 }
@@ -634,17 +634,17 @@ func (s *MriNodesIDPatchReq) SetFake() {
 	}
 	{
 		{
-			s.Tirads23.SetFake()
+			s.Knosp012.SetFake()
 		}
 	}
 	{
 		{
-			s.Tirads4.SetFake()
+			s.Knosp3.SetFake()
 		}
 	}
 	{
 		{
-			s.Tirads5.SetFake()
+			s.Knosp4.SetFake()
 		}
 	}
 }
@@ -684,17 +684,17 @@ func (s *MriSegmentIDPatchReq) SetFake() {
 	}
 	{
 		{
-			s.Tirads23.SetFake()
+			s.Knosp012.SetFake()
 		}
 	}
 	{
 		{
-			s.Tirads4.SetFake()
+			s.Knosp3.SetFake()
 		}
 	}
 	{
 		{
-			s.Tirads5.SetFake()
+			s.Knosp4.SetFake()
 		}
 	}
 }
@@ -718,17 +718,17 @@ func (s *MriSegmentPostReq) SetFake() {
 	}
 	{
 		{
-			s.Tirads23 = float64(0)
+			s.Knosp012 = float64(0)
 		}
 	}
 	{
 		{
-			s.Tirads4 = float64(0)
+			s.Knosp3 = float64(0)
 		}
 	}
 	{
 		{
-			s.Tirads5 = float64(0)
+			s.Knosp4 = float64(0)
 		}
 	}
 }
@@ -794,17 +794,17 @@ func (s *Node) SetFake() {
 	}
 	{
 		{
-			s.Tirads23 = float64(0)
+			s.Knosp012 = float64(0)
 		}
 	}
 	{
 		{
-			s.Tirads4 = float64(0)
+			s.Knosp3 = float64(0)
 		}
 	}
 	{
 		{
-			s.Tirads5 = float64(0)
+			s.Knosp4 = float64(0)
 		}
 	}
 	{
@@ -1044,17 +1044,17 @@ func (s *Segment) SetFake() {
 	}
 	{
 		{
-			s.Tirads23 = float64(0)
+			s.Knosp012 = float64(0)
 		}
 	}
 	{
 		{
-			s.Tirads4 = float64(0)
+			s.Knosp3 = float64(0)
 		}
 	}
 	{
 		{
-			s.Tirads5 = float64(0)
+			s.Knosp4 = float64(0)
 		}
 	}
 }

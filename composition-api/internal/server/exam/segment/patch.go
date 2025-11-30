@@ -24,9 +24,9 @@ func (h *handler) MriSegmentIDPatch(ctx context.Context, req *api.MriSegmentIDPa
 	segment, err := h.services.SegmentService.Update(ctx, segmentSrv.UpdateSegmentArg{
 		Id:        params.ID,
 		Contor:    contor,
-		Tirads_23: apimappers.FromOptFloat64(req.Tirads23),
-		Tirads_4:  apimappers.FromOptFloat64(req.Tirads4),
-		Tirads_5:  apimappers.FromOptFloat64(req.Tirads5),
+		Knosp_012: apimappers.FromOptFloat64(req.Knosp012),
+		Knosp_3:   apimappers.FromOptFloat64(req.Knosp3),
+		Knosp_4:   apimappers.FromOptFloat64(req.Knosp4),
 	})
 	if err != nil {
 		return nil, err

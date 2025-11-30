@@ -24,6 +24,7 @@ class ktUseCase:
 
         # segment
         segment_data = self.segment_model.predict(data)
+        # Временно убираем сохранение видео - в ответе будем возвращать прямоугольник с областью сегментации
         self._store_video_to_s3(segment_data.get('mask'), kt_id, 'mask', True)
         self._store_video_to_s3(segment_data.get('detection'), kt_id, 'detected_video')
         video_mask = self._video_mask_mult(segment_data.get('original'), segment_data.get('mask'))

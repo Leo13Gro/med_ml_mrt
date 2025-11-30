@@ -19,9 +19,9 @@ func (Segment) Domain(segment domain.Segment) (api.Segment, error) {
 		NodeID:   segment.NodeID,
 		Contor:   contor,
 		Ai:       segment.Ai,
-		Tirads23: segment.Tirads23,
-		Tirads4:  segment.Tirads4,
-		Tirads5:  segment.Tirads5,
+		Knosp012: segment.Knosp012,
+		Knosp3:   segment.Knosp3,
+		Knosp4:   segment.Knosp4,
 	}, nil
 }
 

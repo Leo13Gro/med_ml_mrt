@@ -15,9 +15,9 @@ const (
 	columnImageID  = "image_id"
 	columnContor   = "contor"
 	columnAi       = "ai"
-	columnTirads23 = "tirads_23"
-	columnTirads4  = "tirads_4"
-	columnTirads5  = "tirads_5"
+	columnKnosp012 = "knosp_012"
+	columnKnosp3   = "knosp_3"
+	columnKnosp4   = "knosp_4"
 )
 
 type Repository interface {

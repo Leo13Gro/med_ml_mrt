@@ -1092,26 +1092,26 @@ func (s *MriIDNodesSegmentsPostReq) SetSegments(val []MriIDNodesSegmentsPostReqS
 }
 
 type MriIDNodesSegmentsPostReqNode struct {
-	Tirads23 float64 `json:"tirads_23"`
-	Tirads4  float64 `json:"tirads_4"`
-	Tirads5  float64 `json:"tirads_5"`
+	Knosp012 float64 `json:"knosp_012"`
+	Knosp3   float64 `json:"knosp_3"`
+	Knosp4   float64 `json:"knosp_4"`
 	// Описание узла.
 	Description OptString `json:"description"`
 }
 
-// GetTirads23 returns the value of Tirads23.
-func (s *MriIDNodesSegmentsPostReqNode) GetTirads23() float64 {
-	return s.Tirads23
+// GetKnosp012 returns the value of Knosp012.
+func (s *MriIDNodesSegmentsPostReqNode) GetKnosp012() float64 {
+	return s.Knosp012
 }
 
-// GetTirads4 returns the value of Tirads4.
-func (s *MriIDNodesSegmentsPostReqNode) GetTirads4() float64 {
-	return s.Tirads4
+// GetKnosp3 returns the value of Knosp3.
+func (s *MriIDNodesSegmentsPostReqNode) GetKnosp3() float64 {
+	return s.Knosp3
 }
 
-// GetTirads5 returns the value of Tirads5.
-func (s *MriIDNodesSegmentsPostReqNode) GetTirads5() float64 {
-	return s.Tirads5
+// GetKnosp4 returns the value of Knosp4.
+func (s *MriIDNodesSegmentsPostReqNode) GetKnosp4() float64 {
+	return s.Knosp4
 }
 
 // GetDescription returns the value of Description.
@@ -1119,19 +1119,19 @@ func (s *MriIDNodesSegmentsPostReqNode) GetDescription() OptString {
 	return s.Description
 }
 
-// SetTirads23 sets the value of Tirads23.
-func (s *MriIDNodesSegmentsPostReqNode) SetTirads23(val float64) {
-	s.Tirads23 = val
+// SetKnosp012 sets the value of Knosp012.
+func (s *MriIDNodesSegmentsPostReqNode) SetKnosp012(val float64) {
+	s.Knosp012 = val
 }
 
-// SetTirads4 sets the value of Tirads4.
-func (s *MriIDNodesSegmentsPostReqNode) SetTirads4(val float64) {
-	s.Tirads4 = val
+// SetKnosp3 sets the value of Knosp3.
+func (s *MriIDNodesSegmentsPostReqNode) SetKnosp3(val float64) {
+	s.Knosp3 = val
 }
 
-// SetTirads5 sets the value of Tirads5.
-func (s *MriIDNodesSegmentsPostReqNode) SetTirads5(val float64) {
-	s.Tirads5 = val
+// SetKnosp4 sets the value of Knosp4.
+func (s *MriIDNodesSegmentsPostReqNode) SetKnosp4(val float64) {
+	s.Knosp4 = val
 }
 
 // SetDescription sets the value of Description.
@@ -1142,9 +1142,9 @@ func (s *MriIDNodesSegmentsPostReqNode) SetDescription(val OptString) {
 type MriIDNodesSegmentsPostReqSegmentsItem struct {
 	ImageID  uuid.UUID `json:"image_id"`
 	Contor   Contor    `json:"contor"`
-	Tirads23 float64   `json:"tirads_23"`
-	Tirads4  float64   `json:"tirads_4"`
-	Tirads5  float64   `json:"tirads_5"`
+	Knosp012 float64   `json:"knosp_012"`
+	Knosp3   float64   `json:"knosp_3"`
+	Knosp4   float64   `json:"knosp_4"`
 }
 
 // GetImageID returns the value of ImageID.
@@ -1157,19 +1157,19 @@ func (s *MriIDNodesSegmentsPostReqSegmentsItem) GetContor() Contor {
 	return s.Contor
 }
 
-// GetTirads23 returns the value of Tirads23.
-func (s *MriIDNodesSegmentsPostReqSegmentsItem) GetTirads23() float64 {
-	return s.Tirads23
+// GetKnosp012 returns the value of Knosp012.
+func (s *MriIDNodesSegmentsPostReqSegmentsItem) GetKnosp012() float64 {
+	return s.Knosp012
 }
 
-// GetTirads4 returns the value of Tirads4.
-func (s *MriIDNodesSegmentsPostReqSegmentsItem) GetTirads4() float64 {
-	return s.Tirads4
+// GetKnosp3 returns the value of Knosp3.
+func (s *MriIDNodesSegmentsPostReqSegmentsItem) GetKnosp3() float64 {
+	return s.Knosp3
 }
 
-// GetTirads5 returns the value of Tirads5.
-func (s *MriIDNodesSegmentsPostReqSegmentsItem) GetTirads5() float64 {
-	return s.Tirads5
+// GetKnosp4 returns the value of Knosp4.
+func (s *MriIDNodesSegmentsPostReqSegmentsItem) GetKnosp4() float64 {
+	return s.Knosp4
 }
 
 // SetImageID sets the value of ImageID.
@@ -1182,19 +1182,19 @@ func (s *MriIDNodesSegmentsPostReqSegmentsItem) SetContor(val Contor) {
 	s.Contor = val
 }
 
-// SetTirads23 sets the value of Tirads23.
-func (s *MriIDNodesSegmentsPostReqSegmentsItem) SetTirads23(val float64) {
-	s.Tirads23 = val
+// SetKnosp012 sets the value of Knosp012.
+func (s *MriIDNodesSegmentsPostReqSegmentsItem) SetKnosp012(val float64) {
+	s.Knosp012 = val
 }
 
-// SetTirads4 sets the value of Tirads4.
-func (s *MriIDNodesSegmentsPostReqSegmentsItem) SetTirads4(val float64) {
-	s.Tirads4 = val
+// SetKnosp3 sets the value of Knosp3.
+func (s *MriIDNodesSegmentsPostReqSegmentsItem) SetKnosp3(val float64) {
+	s.Knosp3 = val
 }
 
-// SetTirads5 sets the value of Tirads5.
-func (s *MriIDNodesSegmentsPostReqSegmentsItem) SetTirads5(val float64) {
-	s.Tirads5 = val
+// SetKnosp4 sets the value of Knosp4.
+func (s *MriIDNodesSegmentsPostReqSegmentsItem) SetKnosp4(val float64) {
+	s.Knosp4 = val
 }
 
 type MriIDPatchReq struct {
@@ -1300,9 +1300,9 @@ func (*MriNodesIDDeleteOK) mriNodesIDDeleteRes() {}
 
 type MriNodesIDPatchReq struct {
 	Validation OptNilMriNodesIDPatchReqValidation `json:"validation"`
-	Tirads23   OptFloat64                         `json:"tirads_23"`
-	Tirads4    OptFloat64                         `json:"tirads_4"`
-	Tirads5    OptFloat64                         `json:"tirads_5"`
+	Knosp012   OptFloat64                         `json:"knosp_012"`
+	Knosp3     OptFloat64                         `json:"knosp_3"`
+	Knosp4     OptFloat64                         `json:"knosp_4"`
 }
 
 // GetValidation returns the value of Validation.
@@ -1310,19 +1310,19 @@ func (s *MriNodesIDPatchReq) GetValidation() OptNilMriNodesIDPatchReqValidation 
 	return s.Validation
 }
 
-// GetTirads23 returns the value of Tirads23.
-func (s *MriNodesIDPatchReq) GetTirads23() OptFloat64 {
-	return s.Tirads23
+// GetKnosp012 returns the value of Knosp012.
+func (s *MriNodesIDPatchReq) GetKnosp012() OptFloat64 {
+	return s.Knosp012
 }
 
-// GetTirads4 returns the value of Tirads4.
-func (s *MriNodesIDPatchReq) GetTirads4() OptFloat64 {
-	return s.Tirads4
+// GetKnosp3 returns the value of Knosp3.
+func (s *MriNodesIDPatchReq) GetKnosp3() OptFloat64 {
+	return s.Knosp3
 }
 
-// GetTirads5 returns the value of Tirads5.
-func (s *MriNodesIDPatchReq) GetTirads5() OptFloat64 {
-	return s.Tirads5
+// GetKnosp4 returns the value of Knosp4.
+func (s *MriNodesIDPatchReq) GetKnosp4() OptFloat64 {
+	return s.Knosp4
 }
 
 // SetValidation sets the value of Validation.
@@ -1330,19 +1330,19 @@ func (s *MriNodesIDPatchReq) SetValidation(val OptNilMriNodesIDPatchReqValidatio
 	s.Validation = val
 }
 
-// SetTirads23 sets the value of Tirads23.
-func (s *MriNodesIDPatchReq) SetTirads23(val OptFloat64) {
-	s.Tirads23 = val
+// SetKnosp012 sets the value of Knosp012.
+func (s *MriNodesIDPatchReq) SetKnosp012(val OptFloat64) {
+	s.Knosp012 = val
 }
 
-// SetTirads4 sets the value of Tirads4.
-func (s *MriNodesIDPatchReq) SetTirads4(val OptFloat64) {
-	s.Tirads4 = val
+// SetKnosp3 sets the value of Knosp3.
+func (s *MriNodesIDPatchReq) SetKnosp3(val OptFloat64) {
+	s.Knosp3 = val
 }
 
-// SetTirads5 sets the value of Tirads5.
-func (s *MriNodesIDPatchReq) SetTirads5(val OptFloat64) {
-	s.Tirads5 = val
+// SetKnosp4 sets the value of Knosp4.
+func (s *MriNodesIDPatchReq) SetKnosp4(val OptFloat64) {
+	s.Knosp4 = val
 }
 
 type MriNodesIDPatchReqValidation string
@@ -1544,9 +1544,9 @@ func (*MriSegmentIDDeleteOK) mriSegmentIDDeleteRes() {}
 
 type MriSegmentIDPatchReq struct {
 	Contor   Contor     `json:"contor"`
-	Tirads23 OptFloat64 `json:"tirads_23"`
-	Tirads4  OptFloat64 `json:"tirads_4"`
-	Tirads5  OptFloat64 `json:"tirads_5"`
+	Knosp012 OptFloat64 `json:"knosp_012"`
+	Knosp3   OptFloat64 `json:"knosp_3"`
+	Knosp4   OptFloat64 `json:"knosp_4"`
 }
 
 // GetContor returns the value of Contor.
@@ -1554,19 +1554,19 @@ func (s *MriSegmentIDPatchReq) GetContor() Contor {
 	return s.Contor
 }
 
-// GetTirads23 returns the value of Tirads23.
-func (s *MriSegmentIDPatchReq) GetTirads23() OptFloat64 {
-	return s.Tirads23
+// GetKnosp012 returns the value of Knosp012.
+func (s *MriSegmentIDPatchReq) GetKnosp012() OptFloat64 {
+	return s.Knosp012
 }
 
-// GetTirads4 returns the value of Tirads4.
-func (s *MriSegmentIDPatchReq) GetTirads4() OptFloat64 {
-	return s.Tirads4
+// GetKnosp3 returns the value of Knosp3.
+func (s *MriSegmentIDPatchReq) GetKnosp3() OptFloat64 {
+	return s.Knosp3
 }
 
-// GetTirads5 returns the value of Tirads5.
-func (s *MriSegmentIDPatchReq) GetTirads5() OptFloat64 {
-	return s.Tirads5
+// GetKnosp4 returns the value of Knosp4.
+func (s *MriSegmentIDPatchReq) GetKnosp4() OptFloat64 {
+	return s.Knosp4
 }
 
 // SetContor sets the value of Contor.
@@ -1574,28 +1574,28 @@ func (s *MriSegmentIDPatchReq) SetContor(val Contor) {
 	s.Contor = val
 }
 
-// SetTirads23 sets the value of Tirads23.
-func (s *MriSegmentIDPatchReq) SetTirads23(val OptFloat64) {
-	s.Tirads23 = val
+// SetKnosp012 sets the value of Knosp012.
+func (s *MriSegmentIDPatchReq) SetKnosp012(val OptFloat64) {
+	s.Knosp012 = val
 }
 
-// SetTirads4 sets the value of Tirads4.
-func (s *MriSegmentIDPatchReq) SetTirads4(val OptFloat64) {
-	s.Tirads4 = val
+// SetKnosp3 sets the value of Knosp3.
+func (s *MriSegmentIDPatchReq) SetKnosp3(val OptFloat64) {
+	s.Knosp3 = val
 }
 
-// SetTirads5 sets the value of Tirads5.
-func (s *MriSegmentIDPatchReq) SetTirads5(val OptFloat64) {
-	s.Tirads5 = val
+// SetKnosp4 sets the value of Knosp4.
+func (s *MriSegmentIDPatchReq) SetKnosp4(val OptFloat64) {
+	s.Knosp4 = val
 }
 
 type MriSegmentPostReq struct {
 	ImageID  uuid.UUID `json:"image_id"`
 	NodeID   uuid.UUID `json:"node_id"`
 	Contor   Contor    `json:"contor"`
-	Tirads23 float64   `json:"tirads_23"`
-	Tirads4  float64   `json:"tirads_4"`
-	Tirads5  float64   `json:"tirads_5"`
+	Knosp012 float64   `json:"knosp_012"`
+	Knosp3   float64   `json:"knosp_3"`
+	Knosp4   float64   `json:"knosp_4"`
 }
 
 // GetImageID returns the value of ImageID.
@@ -1613,19 +1613,19 @@ func (s *MriSegmentPostReq) GetContor() Contor {
 	return s.Contor
 }
 
-// GetTirads23 returns the value of Tirads23.
-func (s *MriSegmentPostReq) GetTirads23() float64 {
-	return s.Tirads23
+// GetKnosp012 returns the value of Knosp012.
+func (s *MriSegmentPostReq) GetKnosp012() float64 {
+	return s.Knosp012
 }
 
-// GetTirads4 returns the value of Tirads4.
-func (s *MriSegmentPostReq) GetTirads4() float64 {
-	return s.Tirads4
+// GetKnosp3 returns the value of Knosp3.
+func (s *MriSegmentPostReq) GetKnosp3() float64 {
+	return s.Knosp3
 }
 
-// GetTirads5 returns the value of Tirads5.
-func (s *MriSegmentPostReq) GetTirads5() float64 {
-	return s.Tirads5
+// GetKnosp4 returns the value of Knosp4.
+func (s *MriSegmentPostReq) GetKnosp4() float64 {
+	return s.Knosp4
 }
 
 // SetImageID sets the value of ImageID.
@@ -1643,19 +1643,19 @@ func (s *MriSegmentPostReq) SetContor(val Contor) {
 	s.Contor = val
 }
 
-// SetTirads23 sets the value of Tirads23.
-func (s *MriSegmentPostReq) SetTirads23(val float64) {
-	s.Tirads23 = val
+// SetKnosp012 sets the value of Knosp012.
+func (s *MriSegmentPostReq) SetKnosp012(val float64) {
+	s.Knosp012 = val
 }
 
-// SetTirads4 sets the value of Tirads4.
-func (s *MriSegmentPostReq) SetTirads4(val float64) {
-	s.Tirads4 = val
+// SetKnosp3 sets the value of Knosp3.
+func (s *MriSegmentPostReq) SetKnosp3(val float64) {
+	s.Knosp3 = val
 }
 
-// SetTirads5 sets the value of Tirads5.
-func (s *MriSegmentPostReq) SetTirads5(val float64) {
-	s.Tirads5 = val
+// SetKnosp4 sets the value of Knosp4.
+func (s *MriSegmentPostReq) SetKnosp4(val float64) {
+	s.Knosp4 = val
 }
 
 // Статус узи **new** - новое узи **pending** - в обработке
@@ -1728,11 +1728,11 @@ type Node struct {
 	// Валидация нейроночного узла врачем.
 	Validation OptNilNodeValidation `json:"validation"`
 	// Вероятность наличия опухоли в 23-й группе.
-	Tirads23 float64 `json:"tirads_23"`
+	Knosp012 float64 `json:"knosp_012"`
 	// Вероятность наличия опухоли в 4-й группе.
-	Tirads4 float64 `json:"tirads_4"`
+	Knosp3 float64 `json:"knosp_3"`
 	// Вероятность наличия опухоли в 5-й группе.
-	Tirads5 float64 `json:"tirads_5"`
+	Knosp4 float64 `json:"knosp_4"`
 	// Описание узла.
 	Description OptString `json:"description"`
 }
@@ -1757,19 +1757,19 @@ func (s *Node) GetValidation() OptNilNodeValidation {
 	return s.Validation
 }
 
-// GetTirads23 returns the value of Tirads23.
-func (s *Node) GetTirads23() float64 {
-	return s.Tirads23
+// GetKnosp012 returns the value of Knosp012.
+func (s *Node) GetKnosp012() float64 {
+	return s.Knosp012
 }
 
-// GetTirads4 returns the value of Tirads4.
-func (s *Node) GetTirads4() float64 {
-	return s.Tirads4
+// GetKnosp3 returns the value of Knosp3.
+func (s *Node) GetKnosp3() float64 {
+	return s.Knosp3
 }
 
-// GetTirads5 returns the value of Tirads5.
-func (s *Node) GetTirads5() float64 {
-	return s.Tirads5
+// GetKnosp4 returns the value of Knosp4.
+func (s *Node) GetKnosp4() float64 {
+	return s.Knosp4
 }
 
 // GetDescription returns the value of Description.
@@ -1797,19 +1797,19 @@ func (s *Node) SetValidation(val OptNilNodeValidation) {
 	s.Validation = val
 }
 
-// SetTirads23 sets the value of Tirads23.
-func (s *Node) SetTirads23(val float64) {
-	s.Tirads23 = val
+// SetKnosp012 sets the value of Knosp012.
+func (s *Node) SetKnosp012(val float64) {
+	s.Knosp012 = val
 }
 
-// SetTirads4 sets the value of Tirads4.
-func (s *Node) SetTirads4(val float64) {
-	s.Tirads4 = val
+// SetKnosp3 sets the value of Knosp3.
+func (s *Node) SetKnosp3(val float64) {
+	s.Knosp3 = val
 }
 
-// SetTirads5 sets the value of Tirads5.
-func (s *Node) SetTirads5(val float64) {
-	s.Tirads5 = val
+// SetKnosp4 sets the value of Knosp4.
+func (s *Node) SetKnosp4(val float64) {
+	s.Knosp4 = val
 }
 
 // SetDescription sets the value of Description.
@@ -2564,11 +2564,11 @@ type Segment struct {
 	// Признак того, что сегмент был создан нейронкой.
 	Ai bool `json:"ai"`
 	// Вероятность наличия опухоли в 23-й группе.
-	Tirads23 float64 `json:"tirads_23"`
+	Knosp012 float64 `json:"knosp_012"`
 	// Вероятность наличия опухоли в 4-й группе.
-	Tirads4 float64 `json:"tirads_4"`
+	Knosp3 float64 `json:"knosp_3"`
 	// Вероятность наличия опухоли в 5-й группе.
-	Tirads5 float64 `json:"tirads_5"`
+	Knosp4 float64 `json:"knosp_4"`
 }
 
 // GetID returns the value of ID.
@@ -2596,19 +2596,19 @@ func (s *Segment) GetAi() bool {
 	return s.Ai
 }
 
-// GetTirads23 returns the value of Tirads23.
-func (s *Segment) GetTirads23() float64 {
-	return s.Tirads23
+// GetKnosp012 returns the value of Knosp012.
+func (s *Segment) GetKnosp012() float64 {
+	return s.Knosp012
 }
 
-// GetTirads4 returns the value of Tirads4.
-func (s *Segment) GetTirads4() float64 {
-	return s.Tirads4
+// GetKnosp3 returns the value of Knosp3.
+func (s *Segment) GetKnosp3() float64 {
+	return s.Knosp3
 }
 
-// GetTirads5 returns the value of Tirads5.
-func (s *Segment) GetTirads5() float64 {
-	return s.Tirads5
+// GetKnosp4 returns the value of Knosp4.
+func (s *Segment) GetKnosp4() float64 {
+	return s.Knosp4
 }
 
 // SetID sets the value of ID.
@@ -2636,19 +2636,19 @@ func (s *Segment) SetAi(val bool) {
 	s.Ai = val
 }
 
-// SetTirads23 sets the value of Tirads23.
-func (s *Segment) SetTirads23(val float64) {
-	s.Tirads23 = val
+// SetKnosp012 sets the value of Knosp012.
+func (s *Segment) SetKnosp012(val float64) {
+	s.Knosp012 = val
 }
 
-// SetTirads4 sets the value of Tirads4.
-func (s *Segment) SetTirads4(val float64) {
-	s.Tirads4 = val
+// SetKnosp3 sets the value of Knosp3.
+func (s *Segment) SetKnosp3(val float64) {
+	s.Knosp3 = val
 }
 
-// SetTirads5 sets the value of Tirads5.
-func (s *Segment) SetTirads5(val float64) {
-	s.Tirads5 = val
+// SetKnosp4 sets the value of Knosp4.
+func (s *Segment) SetKnosp4(val float64) {
+	s.Knosp4 = val
 }
 
 func (*Segment) mriSegmentIDPatchRes() {}

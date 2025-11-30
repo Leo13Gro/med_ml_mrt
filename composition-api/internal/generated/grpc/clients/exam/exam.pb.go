@@ -7,12 +7,13 @@
 package exam
 
 import (
-	empty "github.com/golang/protobuf/ptypes/empty"
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
+
+	empty "github.com/golang/protobuf/ptypes/empty"
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -2081,9 +2082,9 @@ type Node struct {
 	Ai            bool                   `protobuf:"varint,200,opt,name=ai,proto3" json:"ai,omitempty"`
 	Validation    *NodeValidation        `protobuf:"varint,300,opt,name=validation,proto3,enum=NodeValidation,oneof" json:"validation,omitempty"`
 	MriId         string                 `protobuf:"bytes,400,opt,name=mri_id,json=mriId,proto3" json:"mri_id,omitempty"`
-	Tirads_23     float64                `protobuf:"fixed64,500,opt,name=tirads_23,json=tirads23,proto3" json:"tirads_23,omitempty"`
-	Tirads_4      float64                `protobuf:"fixed64,600,opt,name=tirads_4,json=tirads4,proto3" json:"tirads_4,omitempty"`
-	Tirads_5      float64                `protobuf:"fixed64,700,opt,name=tirads_5,json=tirads5,proto3" json:"tirads_5,omitempty"`
+	Knosp_012     float64                `protobuf:"fixed64,500,opt,name=knosp_012,json=knosp012,proto3" json:"knosp_012,omitempty"`
+	Knosp_3       float64                `protobuf:"fixed64,600,opt,name=knosp_3,json=knosp3,proto3" json:"knosp_3,omitempty"`
+	Knosp_4       float64                `protobuf:"fixed64,700,opt,name=knosp_4,json=knosp4,proto3" json:"knosp_4,omitempty"`
 	Description   *string                `protobuf:"bytes,800,opt,name=description,proto3,oneof" json:"description,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -2147,23 +2148,23 @@ func (x *Node) GetMriId() string {
 	return ""
 }
 
-func (x *Node) GetTirads_23() float64 {
+func (x *Node) GetKnosp_012() float64 {
 	if x != nil {
-		return x.Tirads_23
+		return x.Knosp_012
 	}
 	return 0
 }
 
-func (x *Node) GetTirads_4() float64 {
+func (x *Node) GetKnosp_3() float64 {
 	if x != nil {
-		return x.Tirads_4
+		return x.Knosp_3
 	}
 	return 0
 }
 
-func (x *Node) GetTirads_5() float64 {
+func (x *Node) GetKnosp_4() float64 {
 	if x != nil {
-		return x.Tirads_5
+		return x.Knosp_4
 	}
 	return 0
 }
@@ -2267,9 +2268,9 @@ type UpdateNodeIn struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,100,opt,name=id,proto3" json:"id,omitempty"`
 	Validation    *NodeValidation        `protobuf:"varint,200,opt,name=validation,proto3,enum=NodeValidation,oneof" json:"validation,omitempty"`
-	Tirads_23     *float64               `protobuf:"fixed64,300,opt,name=tirads_23,json=tirads23,proto3,oneof" json:"tirads_23,omitempty"`
-	Tirads_4      *float64               `protobuf:"fixed64,400,opt,name=tirads_4,json=tirads4,proto3,oneof" json:"tirads_4,omitempty"`
-	Tirads_5      *float64               `protobuf:"fixed64,500,opt,name=tirads_5,json=tirads5,proto3,oneof" json:"tirads_5,omitempty"`
+	Knosp_012     *float64               `protobuf:"fixed64,300,opt,name=knosp_012,json=knosp012,proto3,oneof" json:"knosp_012,omitempty"`
+	Knosp_3       *float64               `protobuf:"fixed64,400,opt,name=knosp_3,json=knosp3,proto3,oneof" json:"knosp_3,omitempty"`
+	Knosp_4       *float64               `protobuf:"fixed64,500,opt,name=knosp_4,json=knosp4,proto3,oneof" json:"knosp_4,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2318,23 +2319,23 @@ func (x *UpdateNodeIn) GetValidation() NodeValidation {
 	return NodeValidation_NODE_VALIDATION_NULL
 }
 
-func (x *UpdateNodeIn) GetTirads_23() float64 {
-	if x != nil && x.Tirads_23 != nil {
-		return *x.Tirads_23
+func (x *UpdateNodeIn) GetKnosp_012() float64 {
+	if x != nil && x.Knosp_012 != nil {
+		return *x.Knosp_012
 	}
 	return 0
 }
 
-func (x *UpdateNodeIn) GetTirads_4() float64 {
-	if x != nil && x.Tirads_4 != nil {
-		return *x.Tirads_4
+func (x *UpdateNodeIn) GetKnosp_3() float64 {
+	if x != nil && x.Knosp_3 != nil {
+		return *x.Knosp_3
 	}
 	return 0
 }
 
-func (x *UpdateNodeIn) GetTirads_5() float64 {
-	if x != nil && x.Tirads_5 != nil {
-		return *x.Tirads_5
+func (x *UpdateNodeIn) GetKnosp_4() float64 {
+	if x != nil && x.Knosp_4 != nil {
+		return *x.Knosp_4
 	}
 	return 0
 }
@@ -2390,9 +2391,9 @@ type Segment struct {
 	NodeId        string                 `protobuf:"bytes,300,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`
 	Contor        []byte                 `protobuf:"bytes,400,opt,name=contor,proto3" json:"contor,omitempty"`
 	Ai            bool                   `protobuf:"varint,500,opt,name=ai,proto3" json:"ai,omitempty"`
-	Tirads_23     float64                `protobuf:"fixed64,600,opt,name=tirads_23,json=tirads23,proto3" json:"tirads_23,omitempty"`
-	Tirads_4      float64                `protobuf:"fixed64,700,opt,name=tirads_4,json=tirads4,proto3" json:"tirads_4,omitempty"`
-	Tirads_5      float64                `protobuf:"fixed64,800,opt,name=tirads_5,json=tirads5,proto3" json:"tirads_5,omitempty"`
+	Knosp_012     float64                `protobuf:"fixed64,600,opt,name=knosp_012,json=knosp012,proto3" json:"knosp_012,omitempty"`
+	Knosp_3       float64                `protobuf:"fixed64,700,opt,name=knosp_3,json=knosp3,proto3" json:"knosp_3,omitempty"`
+	Knosp_4       float64                `protobuf:"fixed64,800,opt,name=knosp_4,json=knosp4,proto3" json:"knosp_4,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2462,23 +2463,23 @@ func (x *Segment) GetAi() bool {
 	return false
 }
 
-func (x *Segment) GetTirads_23() float64 {
+func (x *Segment) GetKnosp_012() float64 {
 	if x != nil {
-		return x.Tirads_23
+		return x.Knosp_012
 	}
 	return 0
 }
 
-func (x *Segment) GetTirads_4() float64 {
+func (x *Segment) GetKnosp_3() float64 {
 	if x != nil {
-		return x.Tirads_4
+		return x.Knosp_3
 	}
 	return 0
 }
 
-func (x *Segment) GetTirads_5() float64 {
+func (x *Segment) GetKnosp_4() float64 {
 	if x != nil {
-		return x.Tirads_5
+		return x.Knosp_4
 	}
 	return 0
 }
@@ -2488,9 +2489,9 @@ type CreateSegmentIn struct {
 	ImageId       string                 `protobuf:"bytes,100,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"`
 	NodeId        string                 `protobuf:"bytes,200,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`
 	Contor        []byte                 `protobuf:"bytes,300,opt,name=contor,proto3" json:"contor,omitempty"`
-	Tirads_23     float64                `protobuf:"fixed64,400,opt,name=tirads_23,json=tirads23,proto3" json:"tirads_23,omitempty"`
-	Tirads_4      float64                `protobuf:"fixed64,500,opt,name=tirads_4,json=tirads4,proto3" json:"tirads_4,omitempty"`
-	Tirads_5      float64                `protobuf:"fixed64,600,opt,name=tirads_5,json=tirads5,proto3" json:"tirads_5,omitempty"`
+	Knosp_012     float64                `protobuf:"fixed64,400,opt,name=knosp_012,json=knosp012,proto3" json:"knosp_012,omitempty"`
+	Knosp_3       float64                `protobuf:"fixed64,500,opt,name=knosp_3,json=knosp3,proto3" json:"knosp_3,omitempty"`
+	Knosp_4       float64                `protobuf:"fixed64,600,opt,name=knosp_4,json=knosp4,proto3" json:"knosp_4,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2546,23 +2547,23 @@ func (x *CreateSegmentIn) GetContor() []byte {
 	return nil
 }
 
-func (x *CreateSegmentIn) GetTirads_23() float64 {
+func (x *CreateSegmentIn) GetKnosp_012() float64 {
 	if x != nil {
-		return x.Tirads_23
+		return x.Knosp_012
 	}
 	return 0
 }
 
-func (x *CreateSegmentIn) GetTirads_4() float64 {
+func (x *CreateSegmentIn) GetKnosp_3() float64 {
 	if x != nil {
-		return x.Tirads_4
+		return x.Knosp_3
 	}
 	return 0
 }
 
-func (x *CreateSegmentIn) GetTirads_5() float64 {
+func (x *CreateSegmentIn) GetKnosp_4() float64 {
 	if x != nil {
-		return x.Tirads_5
+		return x.Knosp_4
 	}
 	return 0
 }
@@ -2703,9 +2704,9 @@ type UpdateSegmentIn struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,100,opt,name=id,proto3" json:"id,omitempty"`
 	Contor        []byte                 `protobuf:"bytes,200,opt,name=contor,proto3,oneof" json:"contor,omitempty"`
-	Tirads_23     *float64               `protobuf:"fixed64,300,opt,name=tirads_23,json=tirads23,proto3,oneof" json:"tirads_23,omitempty"`
-	Tirads_4      *float64               `protobuf:"fixed64,400,opt,name=tirads_4,json=tirads4,proto3,oneof" json:"tirads_4,omitempty"`
-	Tirads_5      *float64               `protobuf:"fixed64,500,opt,name=tirads_5,json=tirads5,proto3,oneof" json:"tirads_5,omitempty"`
+	Knosp_012     *float64               `protobuf:"fixed64,300,opt,name=knosp_012,json=knosp012,proto3,oneof" json:"knosp_012,omitempty"`
+	Knosp_3       *float64               `protobuf:"fixed64,400,opt,name=knosp_3,json=knosp3,proto3,oneof" json:"knosp_3,omitempty"`
+	Knosp_4       *float64               `protobuf:"fixed64,500,opt,name=knosp_4,json=knosp4,proto3,oneof" json:"knosp_4,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2754,23 +2755,23 @@ func (x *UpdateSegmentIn) GetContor() []byte {
 	return nil
 }
 
-func (x *UpdateSegmentIn) GetTirads_23() float64 {
-	if x != nil && x.Tirads_23 != nil {
-		return *x.Tirads_23
+func (x *UpdateSegmentIn) GetKnosp_012() float64 {
+	if x != nil && x.Knosp_012 != nil {
+		return *x.Knosp_012
 	}
 	return 0
 }
 
-func (x *UpdateSegmentIn) GetTirads_4() float64 {
-	if x != nil && x.Tirads_4 != nil {
-		return *x.Tirads_4
+func (x *UpdateSegmentIn) GetKnosp_3() float64 {
+	if x != nil && x.Knosp_3 != nil {
+		return *x.Knosp_3
 	}
 	return 0
 }
 
-func (x *UpdateSegmentIn) GetTirads_5() float64 {
-	if x != nil && x.Tirads_5 != nil {
-		return *x.Tirads_5
+func (x *UpdateSegmentIn) GetKnosp_4() float64 {
+	if x != nil && x.Knosp_4 != nil {
+		return *x.Knosp_4
 	}
 	return 0
 }
@@ -3117,9 +3118,9 @@ func (x *DeleteSegmentIn) GetId() string {
 
 type CreateNodeWithSegmentsIn_Node struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Tirads_23     float64                `protobuf:"fixed64,200,opt,name=tirads_23,json=tirads23,proto3" json:"tirads_23,omitempty"`
-	Tirads_4      float64                `protobuf:"fixed64,300,opt,name=tirads_4,json=tirads4,proto3" json:"tirads_4,omitempty"`
-	Tirads_5      float64                `protobuf:"fixed64,400,opt,name=tirads_5,json=tirads5,proto3" json:"tirads_5,omitempty"`
+	Knosp_012     float64                `protobuf:"fixed64,200,opt,name=knosp_012,json=knosp012,proto3" json:"knosp_012,omitempty"`
+	Knosp_3       float64                `protobuf:"fixed64,300,opt,name=knosp_3,json=knosp3,proto3" json:"knosp_3,omitempty"`
+	Knosp_4       float64                `protobuf:"fixed64,400,opt,name=knosp_4,json=knosp4,proto3" json:"knosp_4,omitempty"`
 	Description   *string                `protobuf:"bytes,500,opt,name=description,proto3,oneof" json:"description,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -3155,23 +3156,23 @@ func (*CreateNodeWithSegmentsIn_Node) Descriptor() ([]byte, []int) {
 	return file_proto_grpc_clients_exam_proto_rawDescGZIP(), []int{47, 0}
 }
 
-func (x *CreateNodeWithSegmentsIn_Node) GetTirads_23() float64 {
+func (x *CreateNodeWithSegmentsIn_Node) GetKnosp_012() float64 {
 	if x != nil {
-		return x.Tirads_23
+		return x.Knosp_012
 	}
 	return 0
 }
 
-func (x *CreateNodeWithSegmentsIn_Node) GetTirads_4() float64 {
+func (x *CreateNodeWithSegmentsIn_Node) GetKnosp_3() float64 {
 	if x != nil {
-		return x.Tirads_4
+		return x.Knosp_3
 	}
 	return 0
 }
 
-func (x *CreateNodeWithSegmentsIn_Node) GetTirads_5() float64 {
+func (x *CreateNodeWithSegmentsIn_Node) GetKnosp_4() float64 {
 	if x != nil {
-		return x.Tirads_5
+		return x.Knosp_4
 	}
 	return 0
 }
@@ -3187,9 +3188,9 @@ type CreateNodeWithSegmentsIn_Segment struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ImageId       string                 `protobuf:"bytes,100,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"`
 	Contor        []byte                 `protobuf:"bytes,200,opt,name=contor,proto3" json:"contor,omitempty"`
-	Tirads_23     float64                `protobuf:"fixed64,300,opt,name=tirads_23,json=tirads23,proto3" json:"tirads_23,omitempty"`
-	Tirads_4      float64                `protobuf:"fixed64,400,opt,name=tirads_4,json=tirads4,proto3" json:"tirads_4,omitempty"`
-	Tirads_5      float64                `protobuf:"fixed64,500,opt,name=tirads_5,json=tirads5,proto3" json:"tirads_5,omitempty"`
+	Knosp_012     float64                `protobuf:"fixed64,300,opt,name=knosp_012,json=knosp012,proto3" json:"knosp_012,omitempty"`
+	Knosp_3       float64                `protobuf:"fixed64,400,opt,name=knosp_3,json=knosp3,proto3" json:"knosp_3,omitempty"`
+	Knosp_4       float64                `protobuf:"fixed64,500,opt,name=knosp_4,json=knosp4,proto3" json:"knosp_4,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3238,23 +3239,23 @@ func (x *CreateNodeWithSegmentsIn_Segment) GetContor() []byte {
 	return nil
 }
 
-func (x *CreateNodeWithSegmentsIn_Segment) GetTirads_23() float64 {
+func (x *CreateNodeWithSegmentsIn_Segment) GetKnosp_012() float64 {
 	if x != nil {
-		return x.Tirads_23
+		return x.Knosp_012
 	}
 	return 0
 }
 
-func (x *CreateNodeWithSegmentsIn_Segment) GetTirads_4() float64 {
+func (x *CreateNodeWithSegmentsIn_Segment) GetKnosp_3() float64 {
 	if x != nil {
-		return x.Tirads_4
+		return x.Knosp_3
 	}
 	return 0
 }
 
-func (x *CreateNodeWithSegmentsIn_Segment) GetTirads_5() float64 {
+func (x *CreateNodeWithSegmentsIn_Segment) GetKnosp_4() float64 {
 	if x != nil {
-		return x.Tirads_5
+		return x.Knosp_4
 	}
 	return 0
 }
@@ -3433,7 +3434,7 @@ const file_proto_grpc_clients_exam_proto_rawDesc = "" +
 	"\x12GetImagesByMriIdIn\x12\x15\n" +
 	"\x06mri_id\x18d \x01(\tR\x05mriId\"5\n" +
 	"\x13GetImagesByMriIdOut\x12\x1e\n" +
-	"\x06images\x18d \x03(\v2\x06.ImageR\x06images\"\x93\x02\n" +
+	"\x06images\x18d \x03(\v2\x06.ImageR\x06images\"\x8f\x02\n" +
 	"\x04Node\x12\x0e\n" +
 	"\x02id\x18d \x01(\tR\x02id\x12\x0f\n" +
 	"\x02ai\x18\xc8\x01 \x01(\bR\x02ai\x125\n" +
@@ -3441,82 +3442,86 @@ const file_proto_grpc_clients_exam_proto_rawDesc = "" +
 	"validation\x18\xac\x02 \x01(\x0e2\x0f.NodeValidationH\x00R\n" +
 	"validation\x88\x01\x01\x12\x16\n" +
 	"\x06mri_id\x18\x90\x03 \x01(\tR\x05mriId\x12\x1c\n" +
-	"\ttirads_23\x18\xf4\x03 \x01(\x01R\btirads23\x12\x1a\n" +
-	"\btirads_4\x18\xd8\x04 \x01(\x01R\atirads4\x12\x1a\n" +
-	"\btirads_5\x18\xbc\x05 \x01(\x01R\atirads5\x12&\n" +
+	"\tknosp_012\x18\xf4\x03 \x01(\x01R\bknosp012\x12\x18\n" +
+	"\aknosp_3\x18\xd8\x04 \x01(\x01R\x06knosp3\x12\x18\n" +
+	"\aknosp_4\x18\xbc\x05 \x01(\x01R\x06knosp4\x12&\n" +
 	"\vdescription\x18\xa0\x06 \x01(\tH\x01R\vdescription\x88\x01\x01B\r\n" +
 	"\v_validationB\x0e\n" +
 	"\f_description\"*\n" +
 	"\x11GetNodesByMriIdIn\x12\x15\n" +
 	"\x06mri_id\x18d \x01(\tR\x05mriId\"1\n" +
 	"\x12GetNodesByMriIdOut\x12\x1b\n" +
-	"\x05nodes\x18d \x03(\v2\x05.NodeR\x05nodes\"\xf1\x01\n" +
+	"\x05nodes\x18d \x03(\v2\x05.NodeR\x05nodes\"\xeb\x01\n" +
 	"\fUpdateNodeIn\x12\x0e\n" +
 	"\x02id\x18d \x01(\tR\x02id\x125\n" +
 	"\n" +
 	"validation\x18\xc8\x01 \x01(\x0e2\x0f.NodeValidationH\x00R\n" +
 	"validation\x88\x01\x01\x12!\n" +
-	"\ttirads_23\x18\xac\x02 \x01(\x01H\x01R\btirads23\x88\x01\x01\x12\x1f\n" +
-	"\btirads_4\x18\x90\x03 \x01(\x01H\x02R\atirads4\x88\x01\x01\x12\x1f\n" +
-	"\btirads_5\x18\xf4\x03 \x01(\x01H\x03R\atirads5\x88\x01\x01B\r\n" +
+	"\tknosp_012\x18\xac\x02 \x01(\x01H\x01R\bknosp012\x88\x01\x01\x12\x1d\n" +
+	"\aknosp_3\x18\x90\x03 \x01(\x01H\x02R\x06knosp3\x88\x01\x01\x12\x1d\n" +
+	"\aknosp_4\x18\xf4\x03 \x01(\x01H\x03R\x06knosp4\x88\x01\x01B\r\n" +
 	"\v_validationB\f\n" +
 	"\n" +
-	"_tirads_23B\v\n" +
-	"\t_tirads_4B\v\n" +
-	"\t_tirads_5\"*\n" +
+	"_knosp_012B\n" +
+	"\n" +
+	"\b_knosp_3B\n" +
+	"\n" +
+	"\b_knosp_4\"*\n" +
 	"\rUpdateNodeOut\x12\x19\n" +
-	"\x04node\x18d \x01(\v2\x05.NodeR\x04node\"\xcf\x01\n" +
+	"\x04node\x18d \x01(\v2\x05.NodeR\x04node\"\xcb\x01\n" +
 	"\aSegment\x12\x0e\n" +
 	"\x02id\x18d \x01(\tR\x02id\x12\x1a\n" +
 	"\bimage_id\x18\xc8\x01 \x01(\tR\aimageId\x12\x18\n" +
 	"\anode_id\x18\xac\x02 \x01(\tR\x06nodeId\x12\x17\n" +
 	"\x06contor\x18\x90\x03 \x01(\fR\x06contor\x12\x0f\n" +
 	"\x02ai\x18\xf4\x03 \x01(\bR\x02ai\x12\x1c\n" +
-	"\ttirads_23\x18\xd8\x04 \x01(\x01R\btirads23\x12\x1a\n" +
-	"\btirads_4\x18\xbc\x05 \x01(\x01R\atirads4\x12\x1a\n" +
-	"\btirads_5\x18\xa0\x06 \x01(\x01R\atirads5\"\xb5\x01\n" +
+	"\tknosp_012\x18\xd8\x04 \x01(\x01R\bknosp012\x12\x18\n" +
+	"\aknosp_3\x18\xbc\x05 \x01(\x01R\x06knosp3\x12\x18\n" +
+	"\aknosp_4\x18\xa0\x06 \x01(\x01R\x06knosp4\"\xb1\x01\n" +
 	"\x0fCreateSegmentIn\x12\x19\n" +
 	"\bimage_id\x18d \x01(\tR\aimageId\x12\x18\n" +
 	"\anode_id\x18\xc8\x01 \x01(\tR\x06nodeId\x12\x17\n" +
 	"\x06contor\x18\xac\x02 \x01(\fR\x06contor\x12\x1c\n" +
-	"\ttirads_23\x18\x90\x03 \x01(\x01R\btirads23\x12\x1a\n" +
-	"\btirads_4\x18\xf4\x03 \x01(\x01R\atirads4\x12\x1a\n" +
-	"\btirads_5\x18\xd8\x04 \x01(\x01R\atirads5\"\"\n" +
+	"\tknosp_012\x18\x90\x03 \x01(\x01R\bknosp012\x12\x18\n" +
+	"\aknosp_3\x18\xf4\x03 \x01(\x01R\x06knosp3\x12\x18\n" +
+	"\aknosp_4\x18\xd8\x04 \x01(\x01R\x06knosp4\"\"\n" +
 	"\x10CreateSegmentOut\x12\x0e\n" +
 	"\x02id\x18d \x01(\tR\x02id\"0\n" +
 	"\x15GetSegmentsByNodeIdIn\x12\x17\n" +
 	"\anode_id\x18d \x01(\tR\x06nodeId\">\n" +
 	"\x16GetSegmentsByNodeIdOut\x12$\n" +
-	"\bsegments\x18d \x03(\v2\b.SegmentR\bsegments\"\xd7\x01\n" +
+	"\bsegments\x18d \x03(\v2\b.SegmentR\bsegments\"\xd1\x01\n" +
 	"\x0fUpdateSegmentIn\x12\x0e\n" +
 	"\x02id\x18d \x01(\tR\x02id\x12\x1c\n" +
 	"\x06contor\x18\xc8\x01 \x01(\fH\x00R\x06contor\x88\x01\x01\x12!\n" +
-	"\ttirads_23\x18\xac\x02 \x01(\x01H\x01R\btirads23\x88\x01\x01\x12\x1f\n" +
-	"\btirads_4\x18\x90\x03 \x01(\x01H\x02R\atirads4\x88\x01\x01\x12\x1f\n" +
-	"\btirads_5\x18\xf4\x03 \x01(\x01H\x03R\atirads5\x88\x01\x01B\t\n" +
+	"\tknosp_012\x18\xac\x02 \x01(\x01H\x01R\bknosp012\x88\x01\x01\x12\x1d\n" +
+	"\aknosp_3\x18\x90\x03 \x01(\x01H\x02R\x06knosp3\x88\x01\x01\x12\x1d\n" +
+	"\aknosp_4\x18\xf4\x03 \x01(\x01H\x03R\x06knosp4\x88\x01\x01B\t\n" +
 	"\a_contorB\f\n" +
 	"\n" +
-	"_tirads_23B\v\n" +
-	"\t_tirads_4B\v\n" +
-	"\t_tirads_5\"6\n" +
+	"_knosp_012B\n" +
+	"\n" +
+	"\b_knosp_3B\n" +
+	"\n" +
+	"\b_knosp_4\"6\n" +
 	"\x10UpdateSegmentOut\x12\"\n" +
-	"\asegment\x18d \x01(\v2\b.SegmentR\asegment\"\xd3\x03\n" +
+	"\asegment\x18d \x01(\v2\b.SegmentR\asegment\"\xcb\x03\n" +
 	"\x18CreateNodeWithSegmentsIn\x12\x15\n" +
 	"\x06mri_id\x18d \x01(\tR\x05mriId\x123\n" +
 	"\x04node\x18\xc8\x01 \x01(\v2\x1e.CreateNodeWithSegmentsIn.NodeR\x04node\x12>\n" +
-	"\bsegments\x18\xac\x02 \x03(\v2!.CreateNodeWithSegmentsIn.SegmentR\bsegments\x1a\x94\x01\n" +
+	"\bsegments\x18\xac\x02 \x03(\v2!.CreateNodeWithSegmentsIn.SegmentR\bsegments\x1a\x90\x01\n" +
 	"\x04Node\x12\x1c\n" +
-	"\ttirads_23\x18\xc8\x01 \x01(\x01R\btirads23\x12\x1a\n" +
-	"\btirads_4\x18\xac\x02 \x01(\x01R\atirads4\x12\x1a\n" +
-	"\btirads_5\x18\x90\x03 \x01(\x01R\atirads5\x12&\n" +
+	"\tknosp_012\x18\xc8\x01 \x01(\x01R\bknosp012\x12\x18\n" +
+	"\aknosp_3\x18\xac\x02 \x01(\x01R\x06knosp3\x12\x18\n" +
+	"\aknosp_4\x18\x90\x03 \x01(\x01R\x06knosp4\x12&\n" +
 	"\vdescription\x18\xf4\x03 \x01(\tH\x00R\vdescription\x88\x01\x01B\x0e\n" +
-	"\f_description\x1a\x93\x01\n" +
+	"\f_description\x1a\x8f\x01\n" +
 	"\aSegment\x12\x19\n" +
 	"\bimage_id\x18d \x01(\tR\aimageId\x12\x17\n" +
 	"\x06contor\x18\xc8\x01 \x01(\fR\x06contor\x12\x1c\n" +
-	"\ttirads_23\x18\xac\x02 \x01(\x01R\btirads23\x12\x1a\n" +
-	"\btirads_4\x18\x90\x03 \x01(\x01R\atirads4\x12\x1a\n" +
-	"\btirads_5\x18\xf4\x03 \x01(\x01R\atirads5\"V\n" +
+	"\tknosp_012\x18\xac\x02 \x01(\x01R\bknosp012\x12\x18\n" +
+	"\aknosp_3\x18\x90\x03 \x01(\x01R\x06knosp3\x12\x18\n" +
+	"\aknosp_4\x18\xf4\x03 \x01(\x01R\x06knosp4\"V\n" +
 	"\x19CreateNodeWithSegmentsOut\x12\x17\n" +
 	"\anode_id\x18d \x01(\tR\x06nodeId\x12 \n" +
 	"\vsegment_ids\x18\xc8\x01 \x03(\tR\n" +

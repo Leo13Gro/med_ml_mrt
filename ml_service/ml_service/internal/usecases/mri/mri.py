@@ -15,32 +15,32 @@ res_for_recursive = []
 settings = get_settings()
 
 
-class uziUseCase:
+class mriUseCase:
     def __init__(self, segmentModel: ModelABC, efficientModel: ModelABC, store: S3):
         self.segmentationModel = segmentModel
         self.efficientModel = efficientModel
         self.store = store
 
-    def segmentUzi(self, data):
+    def segmentMri(self, data):
         parsed = image_parser.read_image(data)
 
         return self.segmentationModel.predict(parsed)
 
-    def classificateUzi(self, rois):
+    def classificateMri(self, rois):
         indv, tracked = self.efficientModel.predict(rois)
         return indv, tracked
 
-    def segmentClassificateSave(self, uzi_id, pages_id):
+    def segmentClassificateSave(self, mri_id, pages_id):
         print("Going to S3...")
         print(pages_id)
-        data = self.store.load(uzi_id + "/" + uzi_id)
+        data = self.store.load(mri_id + "/" + mri_id)
 
-        masks, rois = self.segmentUzi(data)
-        indv, tracked = self.classificateUzi(rois)
+        masks, rois = self.segmentMri(data)
+        indv, tracked = self.classificateMri(rois)
         print(type(tracked))
         # indv - probs по segments
         # tracked - probs по formations
-        # tirads=probs
+        # knosp=probs
 
         nodes_with_segments = dict()
         # k - это formation_id из модели
@@ -51,14 +51,14 @@ class uziUseCase:
             formation_uuid = str(uuid.uuid4())
             formation_ids[k] = formation_uuid
 
-            node = pb_event.UziProcessed.Node(
+            node = pb_event.MriProcessed.Node(
                 ai=True,
-                tirads_23=tracked[k][0],
-                tirads_4=tracked[k][1],
-                tirads_5=tracked[k][2],
+                knosp_012=tracked[k][0],
+                knosp_3=tracked[k][1],
+                knosp_4=tracked[k][2],
             )
 
-            nodes_with_segments[k] = pb_event.UziProcessed.NodeWithSegments(
+            nodes_with_segments[k] = pb_event.MriProcessed.NodeWithSegments(
                 node=node,
                 segments=[],
             )
@@ -82,7 +82,7 @@ class uziUseCase:
                 contours, _ = cv2.findContours(
                     mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
                 )
-                print("КОЛИЧЕСТВО КОНТУТУРОВ: ", len(contours))
+                print("КОЛИЧЕСТВО КОНТУРОВ: ", len(contours))
                 contour = contours[0].squeeze()
 
                 contour_points = [
@@ -90,18 +90,18 @@ class uziUseCase:
                 ]
                 contour = json.dumps(contour_points).encode()
 
-                segment = pb_event.UziProcessed.Segment(
+                segment = pb_event.MriProcessed.Segment(
                     image_id=pages_id[i],
                     contor=contour,
-                    tirads_23=indv[i][j][0],
-                    tirads_4=indv[i][j][1],
-                    tirads_5=indv[i][j][2],
+                    knosp_012=indv[i][j][0],
+                    knosp_3=indv[i][j][1],
+                    knosp_4=indv[i][j][2],
                 )
 
                 nodes_with_segments[formation_id_from_model].segments.append(segment)
 
-        msg_event = pb_event.UziProcessed(
-            uzi_id=uzi_id, nodes_with_segments=list(nodes_with_segments.values())
+        msg_event = pb_event.MriProcessed(
+            mri_id=mri_id, nodes_with_segments=list(nodes_with_segments.values())
         )
 
         content = msg_event.SerializeToString()
@@ -111,7 +111,7 @@ class uziUseCase:
         }
         producer = Producer(producer_config)
 
-        producer.produce("uziprocessed", content)
+        producer.produce("mriprocessed", content)
         producer.flush()
 
 

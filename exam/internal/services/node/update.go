@@ -23,9 +23,9 @@ func (s *service) UpdateNode(ctx context.Context, arg UpdateNodeArg) (domain.Nod
 	// валидация по AI
 	switch node.Ai {
 	case true:
-		if arg.Tirads23 != nil ||
-			arg.Tirads4 != nil ||
-			arg.Tirads5 != nil {
+		if arg.Knosp012 != nil ||
+			arg.Knosp3 != nil ||
+			arg.Knosp4 != nil {
 			return domain.Node{}, ErrAiNodeEdit
 		}
 

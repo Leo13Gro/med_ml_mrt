@@ -14,9 +14,9 @@ func (s *service) CreateNodeWithSegment(ctx context.Context, arg CreateNodeWithS
 		segments = append(segments, adapter.CreateNodeWithSegmentsIn_Segment{
 			ImageID:   segment.ImageID,
 			Contor:    segment.Contor,
-			Tirads_23: segment.Tirads_23,
-			Tirads_4:  segment.Tirads_4,
-			Tirads_5:  segment.Tirads_5,
+			Knosp_012: segment.Knosp_012,
+			Knosp_3:   segment.Knosp_3,
+			Knosp_4:   segment.Knosp_4,
 		})
 	}
 

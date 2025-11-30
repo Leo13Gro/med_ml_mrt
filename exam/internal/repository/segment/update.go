@@ -11,9 +11,9 @@ func (q *repo) UpdateSegment(segment entity.Segment) error {
 		Update(table).
 		SetMap(sq.Eq{
 			columnContor:   segment.Contor,
-			columnTirads23: segment.Tirads23,
-			columnTirads4:  segment.Tirads4,
-			columnTirads5:  segment.Tirads5,
+			columnKnosp012: segment.Knosp012,
+			columnKnosp3:   segment.Knosp3,
+			columnKnosp4:   segment.Knosp4,
 		}).
 		Where(sq.Eq{
 			columnID: segment.Id,

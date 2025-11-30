@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-option go_package = "internal/generated/dbus/consume/uziprocessed";
+option go_package = "internal/generated/dbus/consume/mriprocessed";
 
-message UziSplitted {
-  string uzi_id = 100;
+message MriSplitted {
+  string mri_id = 100;
   repeated string pages_id = 200;
 }
 
@@ -11,21 +11,21 @@ message KtPrepared {
   string kt_id = 100;
 }
 
-message UziProcessed {
+message MriProcessed {
   // из-за коллизии имен с grpc, пришлось использовать вложенные сообщения
   message Node {
     bool ai = 100;
-    double tirads_23 = 400;
-    double tirads_4 = 500;
-    double tirads_5 = 600;
+    double knosp_012 = 400;
+    double knosp_3 = 500;
+    double knosp_4 = 600;
   }
 
   message Segment {
     string image_id = 100;
     bytes contor = 200;
-    double tirads_23 = 300;
-    double tirads_4 = 400;
-    double tirads_5 = 500;
+    double knosp_012 = 300;
+    double knosp_3 = 400;
+    double knosp_4 = 500;
   }
 
   message NodeWithSegments {
@@ -34,12 +34,12 @@ message UziProcessed {
   }
 
 
-  string uzi_id = 100;
+  string mri_id = 100;
   repeated NodeWithSegments nodes_with_segments = 200;
 
 }
 
 message KtProcessed {
-  string kt_id = 100;
-  map<string, double> class_probabilities = 200;
+  string kt_id = 1;
+  map<string, double> class_probabilities = 2;
 }

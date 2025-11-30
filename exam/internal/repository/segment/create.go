@@ -13,9 +13,9 @@ func (q *repo) InsertSegments(segments ...entity.Segment) error {
 			columnImageID,
 			columnContor,
 			columnAi,
-			columnTirads23,
-			columnTirads4,
-			columnTirads5,
+			columnKnosp012,
+			columnKnosp3,
+			columnKnosp4,
 		)
 
 	for _, v := range segments {
@@ -25,9 +25,9 @@ func (q *repo) InsertSegments(segments ...entity.Segment) error {
 			v.ImageID,
 			v.Contor,
 			v.Ai,
-			v.Tirads23,
-			v.Tirads4,
-			v.Tirads5,
+			v.Knosp012,
+			v.Knosp3,
+			v.Knosp4,
 		)
 	}
 	_, err := q.Runner().Execx(q.Context(), query)

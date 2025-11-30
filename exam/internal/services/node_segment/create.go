@@ -109,9 +109,9 @@ func (s *service) createDomainNodeSegmentsFromArgs(
 			Id:          nodeID,
 			Ai:          ai,
 			MriID:       mriID,
-			Tirads23:    NodeAndSeg.Node.Tirads23,
-			Tirads4:     NodeAndSeg.Node.Tirads4,
-			Tirads5:     NodeAndSeg.Node.Tirads5,
+			Knosp012:    NodeAndSeg.Node.Knosp012,
+			Knosp3:      NodeAndSeg.Node.Knosp3,
+			Knosp4:      NodeAndSeg.Node.Knosp4,
 			Description: NodeAndSeg.Node.Description,
 		})
 
@@ -125,9 +125,9 @@ func (s *service) createDomainNodeSegmentsFromArgs(
 				NodeID:   nodeID,
 				Contor:   segment.Contor,
 				Ai:       ai,
-				Tirads23: segment.Tirads23,
-				Tirads4:  segment.Tirads4,
-				Tirads5:  segment.Tirads5,
+				Knosp012: segment.Knosp012,
+				Knosp3:   segment.Knosp3,
+				Knosp4:   segment.Knosp4,
 			})
 
 			id.SegmentsID = append(id.SegmentsID, segmentID)

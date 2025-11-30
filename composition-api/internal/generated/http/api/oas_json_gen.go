@@ -2928,16 +2928,16 @@ func (s *MriIDNodesSegmentsPostReqNode) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *MriIDNodesSegmentsPostReqNode) encodeFields(e *jx.Encoder) {
 	{
-		e.FieldStart("tirads_23")
-		e.Float64(s.Tirads23)
+		e.FieldStart("knosp_012")
+		e.Float64(s.Knosp012)
 	}
 	{
-		e.FieldStart("tirads_4")
-		e.Float64(s.Tirads4)
+		e.FieldStart("knosp_3")
+		e.Float64(s.Knosp3)
 	}
 	{
-		e.FieldStart("tirads_5")
-		e.Float64(s.Tirads5)
+		e.FieldStart("knosp_4")
+		e.Float64(s.Knosp4)
 	}
 	{
 		if s.Description.Set {
@@ -2948,9 +2948,9 @@ func (s *MriIDNodesSegmentsPostReqNode) encodeFields(e *jx.Encoder) {
 }
 
 var jsonFieldsNameOfMriIDNodesSegmentsPostReqNode = [4]string{
-	0: "tirads_23",
-	1: "tirads_4",
-	2: "tirads_5",
+	0: "knosp_012",
+	1: "knosp_3",
+	2: "knosp_4",
 	3: "description",
 }
 
@@ -2963,41 +2963,41 @@ func (s *MriIDNodesSegmentsPostReqNode) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "tirads_23":
+		case "knosp_012":
 			requiredBitSet[0] |= 1 << 0
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads23 = float64(v)
+				s.Knosp012 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_23\"")
+				return errors.Wrap(err, "decode field \"knosp_012\"")
 			}
-		case "tirads_4":
+		case "knosp_3":
 			requiredBitSet[0] |= 1 << 1
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads4 = float64(v)
+				s.Knosp3 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_4\"")
+				return errors.Wrap(err, "decode field \"knosp_3\"")
 			}
-		case "tirads_5":
+		case "knosp_4":
 			requiredBitSet[0] |= 1 << 2
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads5 = float64(v)
+				s.Knosp4 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_5\"")
+				return errors.Wrap(err, "decode field \"knosp_4\"")
 			}
 		case "description":
 			if err := func() error {
@@ -3085,25 +3085,25 @@ func (s *MriIDNodesSegmentsPostReqSegmentsItem) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		e.FieldStart("tirads_23")
-		e.Float64(s.Tirads23)
+		e.FieldStart("knosp_012")
+		e.Float64(s.Knosp012)
 	}
 	{
-		e.FieldStart("tirads_4")
-		e.Float64(s.Tirads4)
+		e.FieldStart("knosp_3")
+		e.Float64(s.Knosp3)
 	}
 	{
-		e.FieldStart("tirads_5")
-		e.Float64(s.Tirads5)
+		e.FieldStart("knosp_4")
+		e.Float64(s.Knosp4)
 	}
 }
 
 var jsonFieldsNameOfMriIDNodesSegmentsPostReqSegmentsItem = [5]string{
 	0: "image_id",
 	1: "contor",
-	2: "tirads_23",
-	3: "tirads_4",
-	4: "tirads_5",
+	2: "knosp_012",
+	3: "knosp_3",
+	4: "knosp_4",
 }
 
 // Decode decodes MriIDNodesSegmentsPostReqSegmentsItem from json.
@@ -3137,41 +3137,41 @@ func (s *MriIDNodesSegmentsPostReqSegmentsItem) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"contor\"")
 			}
-		case "tirads_23":
+		case "knosp_012":
 			requiredBitSet[0] |= 1 << 2
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads23 = float64(v)
+				s.Knosp012 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_23\"")
+				return errors.Wrap(err, "decode field \"knosp_012\"")
 			}
-		case "tirads_4":
+		case "knosp_3":
 			requiredBitSet[0] |= 1 << 3
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads4 = float64(v)
+				s.Knosp3 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_4\"")
+				return errors.Wrap(err, "decode field \"knosp_3\"")
 			}
-		case "tirads_5":
+		case "knosp_4":
 			requiredBitSet[0] |= 1 << 4
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads5 = float64(v)
+				s.Knosp4 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_5\"")
+				return errors.Wrap(err, "decode field \"knosp_4\"")
 			}
 		default:
 			return d.Skip()
@@ -3467,30 +3467,30 @@ func (s *MriNodesIDPatchReq) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.Tirads23.Set {
-			e.FieldStart("tirads_23")
-			s.Tirads23.Encode(e)
+		if s.Knosp012.Set {
+			e.FieldStart("knosp_012")
+			s.Knosp012.Encode(e)
 		}
 	}
 	{
-		if s.Tirads4.Set {
-			e.FieldStart("tirads_4")
-			s.Tirads4.Encode(e)
+		if s.Knosp3.Set {
+			e.FieldStart("knosp_3")
+			s.Knosp3.Encode(e)
 		}
 	}
 	{
-		if s.Tirads5.Set {
-			e.FieldStart("tirads_5")
-			s.Tirads5.Encode(e)
+		if s.Knosp4.Set {
+			e.FieldStart("knosp_4")
+			s.Knosp4.Encode(e)
 		}
 	}
 }
 
 var jsonFieldsNameOfMriNodesIDPatchReq = [4]string{
 	0: "validation",
-	1: "tirads_23",
-	2: "tirads_4",
-	3: "tirads_5",
+	1: "knosp_012",
+	2: "knosp_3",
+	3: "knosp_4",
 }
 
 // Decode decodes MriNodesIDPatchReq from json.
@@ -3511,35 +3511,35 @@ func (s *MriNodesIDPatchReq) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"validation\"")
 			}
-		case "tirads_23":
+		case "knosp_012":
 			if err := func() error {
-				s.Tirads23.Reset()
-				if err := s.Tirads23.Decode(d); err != nil {
+				s.Knosp012.Reset()
+				if err := s.Knosp012.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_23\"")
+				return errors.Wrap(err, "decode field \"knosp_012\"")
 			}
-		case "tirads_4":
+		case "knosp_3":
 			if err := func() error {
-				s.Tirads4.Reset()
-				if err := s.Tirads4.Decode(d); err != nil {
+				s.Knosp3.Reset()
+				if err := s.Knosp3.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_4\"")
+				return errors.Wrap(err, "decode field \"knosp_3\"")
 			}
-		case "tirads_5":
+		case "knosp_4":
 			if err := func() error {
-				s.Tirads5.Reset()
-				if err := s.Tirads5.Decode(d); err != nil {
+				s.Knosp4.Reset()
+				if err := s.Knosp4.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_5\"")
+				return errors.Wrap(err, "decode field \"knosp_4\"")
 			}
 		default:
 			return d.Skip()
@@ -3711,30 +3711,30 @@ func (s *MriSegmentIDPatchReq) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.Tirads23.Set {
-			e.FieldStart("tirads_23")
-			s.Tirads23.Encode(e)
+		if s.Knosp012.Set {
+			e.FieldStart("knosp_012")
+			s.Knosp012.Encode(e)
 		}
 	}
 	{
-		if s.Tirads4.Set {
-			e.FieldStart("tirads_4")
-			s.Tirads4.Encode(e)
+		if s.Knosp3.Set {
+			e.FieldStart("knosp_3")
+			s.Knosp3.Encode(e)
 		}
 	}
 	{
-		if s.Tirads5.Set {
-			e.FieldStart("tirads_5")
-			s.Tirads5.Encode(e)
+		if s.Knosp4.Set {
+			e.FieldStart("knosp_4")
+			s.Knosp4.Encode(e)
 		}
 	}
 }
 
 var jsonFieldsNameOfMriSegmentIDPatchReq = [4]string{
 	0: "contor",
-	1: "tirads_23",
-	2: "tirads_4",
-	3: "tirads_5",
+	1: "knosp_012",
+	2: "knosp_3",
+	3: "knosp_4",
 }
 
 // Decode decodes MriSegmentIDPatchReq from json.
@@ -3754,35 +3754,35 @@ func (s *MriSegmentIDPatchReq) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"contor\"")
 			}
-		case "tirads_23":
+		case "knosp_012":
 			if err := func() error {
-				s.Tirads23.Reset()
-				if err := s.Tirads23.Decode(d); err != nil {
+				s.Knosp012.Reset()
+				if err := s.Knosp012.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_23\"")
+				return errors.Wrap(err, "decode field \"knosp_012\"")
 			}
-		case "tirads_4":
+		case "knosp_3":
 			if err := func() error {
-				s.Tirads4.Reset()
-				if err := s.Tirads4.Decode(d); err != nil {
+				s.Knosp3.Reset()
+				if err := s.Knosp3.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_4\"")
+				return errors.Wrap(err, "decode field \"knosp_3\"")
 			}
-		case "tirads_5":
+		case "knosp_4":
 			if err := func() error {
-				s.Tirads5.Reset()
-				if err := s.Tirads5.Decode(d); err != nil {
+				s.Knosp4.Reset()
+				if err := s.Knosp4.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_5\"")
+				return errors.Wrap(err, "decode field \"knosp_4\"")
 			}
 		default:
 			return d.Skip()
@@ -3832,16 +3832,16 @@ func (s *MriSegmentPostReq) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		e.FieldStart("tirads_23")
-		e.Float64(s.Tirads23)
+		e.FieldStart("knosp_012")
+		e.Float64(s.Knosp012)
 	}
 	{
-		e.FieldStart("tirads_4")
-		e.Float64(s.Tirads4)
+		e.FieldStart("knosp_3")
+		e.Float64(s.Knosp3)
 	}
 	{
-		e.FieldStart("tirads_5")
-		e.Float64(s.Tirads5)
+		e.FieldStart("knosp_4")
+		e.Float64(s.Knosp4)
 	}
 }
 
@@ -3849,9 +3849,9 @@ var jsonFieldsNameOfMriSegmentPostReq = [6]string{
 	0: "image_id",
 	1: "node_id",
 	2: "contor",
-	3: "tirads_23",
-	4: "tirads_4",
-	5: "tirads_5",
+	3: "knosp_012",
+	4: "knosp_3",
+	5: "knosp_4",
 }
 
 // Decode decodes MriSegmentPostReq from json.
@@ -3897,41 +3897,41 @@ func (s *MriSegmentPostReq) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"contor\"")
 			}
-		case "tirads_23":
+		case "knosp_012":
 			requiredBitSet[0] |= 1 << 3
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads23 = float64(v)
+				s.Knosp012 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_23\"")
+				return errors.Wrap(err, "decode field \"knosp_012\"")
 			}
-		case "tirads_4":
+		case "knosp_3":
 			requiredBitSet[0] |= 1 << 4
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads4 = float64(v)
+				s.Knosp3 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_4\"")
+				return errors.Wrap(err, "decode field \"knosp_3\"")
 			}
-		case "tirads_5":
+		case "knosp_4":
 			requiredBitSet[0] |= 1 << 5
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads5 = float64(v)
+				s.Knosp4 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_5\"")
+				return errors.Wrap(err, "decode field \"knosp_4\"")
 			}
 		default:
 			return d.Skip()
@@ -4159,16 +4159,16 @@ func (s *Node) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		e.FieldStart("tirads_23")
-		e.Float64(s.Tirads23)
+		e.FieldStart("knosp_012")
+		e.Float64(s.Knosp012)
 	}
 	{
-		e.FieldStart("tirads_4")
-		e.Float64(s.Tirads4)
+		e.FieldStart("knosp_3")
+		e.Float64(s.Knosp3)
 	}
 	{
-		e.FieldStart("tirads_5")
-		e.Float64(s.Tirads5)
+		e.FieldStart("knosp_4")
+		e.Float64(s.Knosp4)
 	}
 	{
 		if s.Description.Set {
@@ -4183,9 +4183,9 @@ var jsonFieldsNameOfNode = [8]string{
 	1: "ai",
 	2: "mri_id",
 	3: "validation",
-	4: "tirads_23",
-	5: "tirads_4",
-	6: "tirads_5",
+	4: "knosp_012",
+	5: "knosp_3",
+	6: "knosp_4",
 	7: "description",
 }
 
@@ -4244,41 +4244,41 @@ func (s *Node) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"validation\"")
 			}
-		case "tirads_23":
+		case "knosp_012":
 			requiredBitSet[0] |= 1 << 4
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads23 = float64(v)
+				s.Knosp012 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_23\"")
+				return errors.Wrap(err, "decode field \"knosp_012\"")
 			}
-		case "tirads_4":
+		case "knosp_3":
 			requiredBitSet[0] |= 1 << 5
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads4 = float64(v)
+				s.Knosp3 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_4\"")
+				return errors.Wrap(err, "decode field \"knosp_3\"")
 			}
-		case "tirads_5":
+		case "knosp_4":
 			requiredBitSet[0] |= 1 << 6
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads5 = float64(v)
+				s.Knosp4 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_5\"")
+				return errors.Wrap(err, "decode field \"knosp_4\"")
 			}
 		case "description":
 			if err := func() error {
@@ -5492,16 +5492,16 @@ func (s *Segment) encodeFields(e *jx.Encoder) {
 		e.Bool(s.Ai)
 	}
 	{
-		e.FieldStart("tirads_23")
-		e.Float64(s.Tirads23)
+		e.FieldStart("knosp_012")
+		e.Float64(s.Knosp012)
 	}
 	{
-		e.FieldStart("tirads_4")
-		e.Float64(s.Tirads4)
+		e.FieldStart("knosp_3")
+		e.Float64(s.Knosp3)
 	}
 	{
-		e.FieldStart("tirads_5")
-		e.Float64(s.Tirads5)
+		e.FieldStart("knosp_4")
+		e.Float64(s.Knosp4)
 	}
 }
 
@@ -5511,9 +5511,9 @@ var jsonFieldsNameOfSegment = [8]string{
 	2: "node_id",
 	3: "contor",
 	4: "ai",
-	5: "tirads_23",
-	6: "tirads_4",
-	7: "tirads_5",
+	5: "knosp_012",
+	6: "knosp_3",
+	7: "knosp_4",
 }
 
 // Decode decodes Segment from json.
@@ -5583,41 +5583,41 @@ func (s *Segment) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"ai\"")
 			}
-		case "tirads_23":
+		case "knosp_012":
 			requiredBitSet[0] |= 1 << 5
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads23 = float64(v)
+				s.Knosp012 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_23\"")
+				return errors.Wrap(err, "decode field \"knosp_012\"")
 			}
-		case "tirads_4":
+		case "knosp_3":
 			requiredBitSet[0] |= 1 << 6
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads4 = float64(v)
+				s.Knosp3 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_4\"")
+				return errors.Wrap(err, "decode field \"knosp_3\"")
 			}
-		case "tirads_5":
+		case "knosp_4":
 			requiredBitSet[0] |= 1 << 7
 			if err := func() error {
 				v, err := d.Float64()
-				s.Tirads5 = float64(v)
+				s.Knosp4 = float64(v)
 				if err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"tirads_5\"")
+				return errors.Wrap(err, "decode field \"knosp_4\"")
 			}
 		default:
 			return d.Skip()

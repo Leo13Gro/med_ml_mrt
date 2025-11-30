@@ -12,31 +12,31 @@ type CreateSegmentArg struct {
 	ImageID  uuid.UUID
 	NodeID   uuid.UUID
 	Contor   json.RawMessage
-	Tirads23 float64
-	Tirads4  float64
-	Tirads5  float64
+	Knosp012 float64
+	Knosp3   float64
+	Knosp4   float64
 }
 
 // TODO: починить баг при запросе со всеми полями nil
 type UpdateSegmentArg struct {
 	Id       uuid.UUID
 	Contor   *json.RawMessage
-	Tirads23 *float64
-	Tirads4  *float64
-	Tirads5  *float64
+	Knosp012 *float64
+	Knosp3   *float64
+	Knosp4   *float64
 }
 
 func (u UpdateSegmentArg) UpdateDomain(d *domain.Segment) {
 	if u.Contor != nil {
 		d.Contor = *u.Contor
 	}
-	if u.Tirads23 != nil {
-		d.Tirads23 = *u.Tirads23
+	if u.Knosp012 != nil {
+		d.Knosp012 = *u.Knosp012
 	}
-	if u.Tirads4 != nil {
-		d.Tirads4 = *u.Tirads4
+	if u.Knosp3 != nil {
+		d.Knosp3 = *u.Knosp3
 	}
-	if u.Tirads5 != nil {
-		d.Tirads5 = *u.Tirads5
+	if u.Knosp4 != nil {
+		d.Knosp4 = *u.Knosp4
 	}
 }

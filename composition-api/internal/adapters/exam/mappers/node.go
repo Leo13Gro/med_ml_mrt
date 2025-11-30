@@ -29,9 +29,9 @@ func (m Node) Domain(pb *pb.Node) domain.Node {
 		Ai:          pb.Ai,
 		MriID:       uuid.MustParse(pb.MriId),
 		Validation:  nodeValidation(pb.Validation),
-		Tirads23:    pb.Tirads_23,
-		Tirads4:     pb.Tirads_4,
-		Tirads5:     pb.Tirads_5,
+		Knosp012:    pb.Knosp_012,
+		Knosp3:      pb.Knosp_3,
+		Knosp4:      pb.Knosp_4,
 		Description: pb.Description,
 	}
 }

@@ -29,9 +29,9 @@ func (h *handler) CreateSegment(ctx context.Context, in *pb.CreateSegmentIn) (*p
 		ImageID:  uuid.MustParse(in.ImageId),
 		NodeID:   uuid.MustParse(in.NodeId),
 		Contor:   in.Contor,
-		Tirads23: in.Tirads_23,
-		Tirads4:  in.Tirads_4,
-		Tirads5:  in.Tirads_5,
+		Knosp012: in.Knosp_012,
+		Knosp3:   in.Knosp_3,
+		Knosp4:   in.Knosp_4,
 	})
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "Что то пошло не так: %s", err.Error())

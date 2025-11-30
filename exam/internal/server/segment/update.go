@@ -32,9 +32,9 @@ func (h *handler) UpdateSegment(ctx context.Context, in *pb.UpdateSegmentIn) (*p
 		segment.UpdateSegmentArg{
 			Id:       uuid.MustParse(in.Id),
 			Contor:   contor,
-			Tirads23: in.Tirads_23,
-			Tirads4:  in.Tirads_4,
-			Tirads5:  in.Tirads_5,
+			Knosp012: in.Knosp_012,
+			Knosp3:   in.Knosp_3,
+			Knosp4:   in.Knosp_4,
 		},
 	)
 	if err != nil {
