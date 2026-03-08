@@ -8,15 +8,15 @@ import (
 )
 
 const (
-	table             = "patient"
-	columnID          = "id"
-	columnFullName    = "fullname"
-	columnEmail       = "email"
-	columnPolicy      = "policy"
-	columnActive      = "active"
-	columnMalignancy  = "malignancy"
-	columnBirthDate   = "birth_date"
-	columnLastUziDate = "last_exam_date"
+	table              = "patient"
+	columnID           = "id"
+	columnFullName     = "fullname"
+	columnEmail        = "email"
+	columnPolicy       = "policy"
+	columnActive       = "active"
+	columnMalignancy   = "malignancy"
+	columnBirthDate    = "birth_date"
+	columnLastExamDate = "last_exam_date"
 )
 
 type Repository interface {

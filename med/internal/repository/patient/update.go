@@ -10,9 +10,9 @@ func (r *repo) UpdatePatient(patient entity.Patient) error {
 	query := r.QueryBuilder().
 		Update(table).
 		SetMap(sq.Eq{
-			columnActive:      patient.Active,
-			columnMalignancy:  patient.Malignancy,
-			columnLastUziDate: patient.LastUziDate,
+			columnActive:       patient.Active,
+			columnMalignancy:   patient.Malignancy,
+			columnLastExamDate: patient.LastExamDate,
 		}).
 		Where(sq.Eq{
 			columnID: patient.Id,

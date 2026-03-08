@@ -7,9 +7,9 @@ import (
 )
 
 type UpdatePatient struct {
-	Active      *bool
-	Malignancy  *bool
-	LastUziDate *time.Time
+	Active       *bool
+	Malignancy   *bool
+	LastExamDate *time.Time
 }
 
 func (u UpdatePatient) Update(d *domain.Patient) {
@@ -19,7 +19,7 @@ func (u UpdatePatient) Update(d *domain.Patient) {
 	if u.Malignancy != nil {
 		d.Malignancy = *u.Malignancy
 	}
-	if u.LastUziDate != nil {
-		d.LastUziDate = u.LastUziDate
+	if u.LastExamDate != nil {
+		d.LastExamDate = u.LastExamDate
 	}
 }

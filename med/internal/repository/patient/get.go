@@ -22,7 +22,7 @@ func (r *repo) GetPatientByID(id uuid.UUID) (pentity.Patient, error) {
 			columnActive,
 			columnMalignancy,
 			columnBirthDate,
-			columnLastUziDate,
+			columnLastExamDate,
 		).
 		From(table).
 		Where(sq.Eq{
@@ -50,7 +50,7 @@ func (r *repo) GetPatientsByDoctorID(id uuid.UUID) ([]pentity.Patient, error) {
 			fmt.Sprintf("%s.%s", table, columnActive),
 			fmt.Sprintf("%s.%s", table, columnMalignancy),
 			fmt.Sprintf("%s.%s", table, columnBirthDate),
-			fmt.Sprintf("%s.%s", table, columnLastUziDate),
+			fmt.Sprintf("%s.%s", table, columnLastExamDate),
 		).
 		From(table).
 		InnerJoin("card ON card.patient_id = patient.id").

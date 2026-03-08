@@ -19,22 +19,22 @@ func (h *handler) UpdatePatient(ctx context.Context, in *pb.UpdatePatientIn) (*p
 		return nil, status.Errorf(codes.InvalidArgument, "Неверный формат ID пациента: %s", err.Error())
 	}
 
-	var lastUziDate *time.Time
-	if in.LastUziDate != nil {
-		lastUziDateParsed, err := time.Parse(time.RFC3339, *in.LastUziDate)
+	var lastExamDate *time.Time
+	if in.LastExamDate != nil {
+		lastExamDateParsed, err := time.Parse(time.RFC3339, *in.LastExamDate)
 		if err != nil {
-			return nil, status.Errorf(codes.InvalidArgument, "Неверный формат даты последнего УЗИ: %s", err.Error())
+			return nil, status.Errorf(codes.InvalidArgument, "Неверный формат даты последнего обследования: %s", err.Error())
 		}
-		lastUziDate = &lastUziDateParsed
+		lastExamDate = &lastExamDateParsed
 	}
 
 	patient, err := h.patientSrv.UpdatePatient(
 		ctx,
 		patientID,
 		patient.UpdatePatient{
-			Active:      in.Active,
-			Malignancy:  in.Malignancy,
-			LastUziDate: lastUziDate,
+			Active:       in.Active,
+			Malignancy:   in.Malignancy,
+			LastExamDate: lastExamDate,
 		},
 	)
 	if err != nil {

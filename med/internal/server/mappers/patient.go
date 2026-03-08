@@ -10,20 +10,20 @@ import (
 )
 
 func PatientFromDomain(domain domain.Patient) *pb.Patient {
-	var lastUziDate *string
-	if domain.LastUziDate != nil {
-		lastUziDate = pointer.ToString(domain.LastUziDate.Format(time.RFC3339))
+	var lastExamDate *string
+	if domain.LastExamDate != nil {
+		lastExamDate = pointer.ToString(domain.LastExamDate.Format(time.RFC3339))
 	}
 
 	return &pb.Patient{
-		Id:          domain.Id.String(),
-		Fullname:    domain.FullName,
-		Email:       domain.Email,
-		Policy:      domain.Policy,
-		Active:      domain.Active,
-		Malignancy:  domain.Malignancy,
-		BirthDate:   domain.BirthDate.Format(time.RFC3339),
-		LastUziDate: lastUziDate,
+		Id:           domain.Id.String(),
+		Fullname:     domain.FullName,
+		Email:        domain.Email,
+		Policy:       domain.Policy,
+		Active:       domain.Active,
+		Malignancy:   domain.Malignancy,
+		BirthDate:    domain.BirthDate.Format(time.RFC3339),
+		LastExamDate: lastExamDate,
 	}
 }
 

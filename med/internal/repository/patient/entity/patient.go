@@ -12,39 +12,39 @@ import (
 )
 
 type Patient struct {
-	Id          uuid.UUID    `db:"id"`
-	FullName    string       `db:"fullname"`
-	Email       string       `db:"email"`
-	Policy      string       `db:"policy"`
-	Active      bool         `db:"active"`
-	Malignancy  bool         `db:"malignancy"`
-	BirthDate   time.Time    `db:"birth_date"`
-	LastUziDate sql.NullTime `db:"last_exam_date"`
+	Id           uuid.UUID    `db:"id"`
+	FullName     string       `db:"fullname"`
+	Email        string       `db:"email"`
+	Policy       string       `db:"policy"`
+	Active       bool         `db:"active"`
+	Malignancy   bool         `db:"malignancy"`
+	BirthDate    time.Time    `db:"birth_date"`
+	LastExamDate sql.NullTime `db:"last_exam_date"`
 }
 
 func (Patient) FromDomain(p domain.Patient) Patient {
 	return Patient{
-		Id:          p.Id,
-		FullName:    p.FullName,
-		Email:       p.Email,
-		Policy:      p.Policy,
-		Active:      p.Active,
-		Malignancy:  p.Malignancy,
-		BirthDate:   p.BirthDate,
-		LastUziDate: gtclib.Time.PointerToSql(p.LastUziDate),
+		Id:           p.Id,
+		FullName:     p.FullName,
+		Email:        p.Email,
+		Policy:       p.Policy,
+		Active:       p.Active,
+		Malignancy:   p.Malignancy,
+		BirthDate:    p.BirthDate,
+		LastExamDate: gtclib.Time.PointerToSql(p.LastExamDate),
 	}
 }
 
 func (p Patient) ToDomain() domain.Patient {
 	return domain.Patient{
-		Id:          p.Id,
-		FullName:    p.FullName,
-		Email:       p.Email,
-		Policy:      p.Policy,
-		Active:      p.Active,
-		Malignancy:  p.Malignancy,
-		BirthDate:   p.BirthDate,
-		LastUziDate: gtclib.Time.SqlToPointer(p.LastUziDate),
+		Id:           p.Id,
+		FullName:     p.FullName,
+		Email:        p.Email,
+		Policy:       p.Policy,
+		Active:       p.Active,
+		Malignancy:   p.Malignancy,
+		BirthDate:    p.BirthDate,
+		LastExamDate: gtclib.Time.SqlToPointer(p.LastExamDate),
 	}
 }
 

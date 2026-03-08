@@ -15,7 +15,7 @@ func (r *repo) InsertPatient(patient entity.Patient) error {
 			columnActive,
 			columnMalignancy,
 			columnBirthDate,
-			columnLastUziDate,
+			columnLastExamDate,
 		).
 		Values(
 			patient.Id,
@@ -25,7 +25,7 @@ func (r *repo) InsertPatient(patient entity.Patient) error {
 			patient.Active,
 			patient.Malignancy,
 			patient.BirthDate,
-			patient.LastUziDate,
+			patient.LastExamDate,
 		)
 
 	_, err := r.Runner().Execx(r.Context(), query)
