@@ -73,7 +73,11 @@ func run() (exitCode int) {
 		return failExitCode
 	}
 
-	adapters := adapters.NewAdapters(examConn, authConn, medConn)
+	billingConn, err := grpc.NewClient(
+		cfg.Adapters.BillingUrl,
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	)
+	adapters := adapters.NewAdapters(examConn, authConn, medConn, billingConn)
 
 	// infra
 	s3Client, err := minio.New(cfg.S3.Endpoint, &minio.Options{
